@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FC56127A-019B-45F8-9A37-7EF5DF34C894}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Liersch.Json</RootNamespace>
+    <AssemblyName>Liersch.Json_net35</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;NET20</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;CODE_ANALYSIS;NET20</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\JsonReflectionBased\ExtensionAttribute.cs" />
+    <Compile Include="Source\JsonReflectionBased\SLExtensions_net20.cs" />
+    <Compile Include="Source\JsonReflectionBased\SLJsonDeserializer.cs" />
+    <Compile Include="Source\JsonReflectionBased\SLJsonMemberAttribute.cs" />
+    <Compile Include="Source\JsonReflectionBased\SLJsonMemberType.cs" />
+    <Compile Include="Source\JsonReflectionBased\SLJsonSerializer.cs" />
+    <Compile Include="Source\Json\SLJsonConvert_net20.cs" />
+    <Compile Include="Source\Json\SLJsonException.cs" />
+    <Compile Include="Source\Json\SLJsonMonitor.cs" />
+    <Compile Include="Source\Json\SLJsonNode.cs" />
+    <Compile Include="Source\Json\SLJsonNodeType.cs" />
+    <Compile Include="Source\Json\SLJsonNode_ItemsTyped.cs" />
+    <Compile Include="Source\Json\SLJsonNode_Monitor.cs" />
+    <Compile Include="Source\Json\SLJsonNode_Operators.cs" />
+    <Compile Include="Source\Json\SLJsonNode_Serialization.cs" />
+    <Compile Include="Source\Json\SLJsonParser.cs" />
+    <Compile Include="Source\Json\SLJsonTokenizer.cs" />
+    <Compile Include="Source\Json\SLJsonWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Liersch.Json_License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

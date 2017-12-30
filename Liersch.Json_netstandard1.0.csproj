@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <AssemblyName>Liersch.Json_netstandard1.0</AssemblyName>
+    <RootNamespace>Liersch.Json</RootNamespace>
+    <Authors>Steffen Liersch</Authors>
+    <Company>Steffen Liersch</Company>
+    <Copyright>© 2013-2017 Dipl.-Ing. (BA) Steffen Liersch</Copyright>
+    <Product>Liersch.Json</Product>
+    <PackageId>Liersch.Json_netstandard10</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Demo\**" />
+    <Compile Remove="Tests\**" />
+    <EmbeddedResource Remove="Demo\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <None Remove="Demo\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="Source\JsonReflectionBased\ExtensionAttribute.cs" />
+    <Compile Remove="Source\JsonReflectionBased\SLExtensions_net20.cs" />
+    <Compile Remove="Source\Json\SLJsonConvert_netmf.cs" />
+    <Compile Remove="Source\Json\SLJsonNode_ItemsUntyped.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="App.config" />
+    <None Remove="Build.cmd" />
+    <None Remove="Clean.bat" />
+    <None Remove="Liersch.Json.suo" />
+    <None Remove="Liersch.Json.v12.suo" />
+    <None Remove="Liersch.Json_net35.v12.suo" />
+    <None Remove="Liersch.Json_net45.suo" />
+    <None Remove="Liersch.Json_net45.v12.suo" />
+    <None Remove="OnBoardFlash.dat" />
+    <None Remove="OnBoardFlash.dat.smd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Liersch.Json_License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,69 @@
+﻿Liersch.Json - JSON Support for .NET
+====================================
+
+Liersch.Json provides support for parsing and generating JSON expressions.
+
+Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch  
+http://www.steffen-liersch.de/
+
+
+The software is maintained and published here:
+https://github.com/steffen-liersch/liersch.json
+
+
+License Terms (English translation)
+-----------------------------------
+
+(TODO: Translation of the license conditions from German to English)
+
+
+Lizenzbestimmungen (deutsche Originalfassung)
+---------------------------------------------
+
+1.  Das im Folgenden als Software bezeichnete Material umfasst sowohl die im
+    Zusammenhang mit dem Projekt "Liersch.Json" veröffentlichten Dateien oder
+    Teilen davon, als auch z.B. durch Kompilierung daraus ableitbare Dateien.
+
+2.  Die Software wird kostenlos bereitgestellt und unterliegt daher folgenden
+    Haftungsbeschränkungen: Der Autor, seine Erfüllungsgehilfen oder seine
+    gesetzlichen Vertreter haften bei Vorliegen von Mängeln (Sach- und
+    Rechtsmängel) und für mangelbedingte Schäden sowie Folgeschäden nur für
+    Vorsatz und Arglist. Im Übrigen wird die Haftung, soweit sie nicht auf
+    Vorsatz oder grober Fahrlässigkeit beruht, ausgeschlossen. Die Haftung
+    für Personenschäden bleibt hiervon unberührt.
+
+3.  Die private, akademische oder evaluierende Nutzung der Software ist
+    erlaubt, wenn alle weiteren Bedingungen ebenfalls erfüllt sind.
+
+4.  Die kommerzielle Nutzung der Software bedarf einer expliziten
+    Genehmigung durch den Autor Steffen Liersch.
+
+5.  Eine Nutzung der Software, bei der durch Fehlfunktion Schäden
+    z.B. an Personen, Umwelt oder technischen Anlagen auftreten könnten,
+    ist nicht erlaubt.
+
+6.  Eine Nutzung der Software für nach deutschem Recht illegale Zwecke
+    ist nicht erlaubt.
+
+7.  Eine Nutzung der Software durch staatliche Institutionen
+    ist nicht erlaubt.
+
+8.  Eine militärische Nutzung der Software ist nicht erlaubt.
+
+9.  Wird die Software verändert, sind die betroffenen Passagen im
+    Quellcode durch Kennzeichnung hervorzuheben.
+
+10. Die Software muss nach Veränderungen unter derselben Lizenz
+    weitergegeben werden.
+
+11. Maßnahmen zur Obfuscation der Software sind nicht erlaubt, weder
+    auf Basis des Quellcodes noch auf Basis der kompilierten Software.
+
+12. Die Software darf ausschließlich durch Referenzierung des Assemblies
+    mit dem Originaldateinamen "Liersch.Json_*.dll" verwendet werden.
+
+13. Bei Verwendung der Software muss die Datei "Liersch.Json_License.txt"
+    immer dem Ordner beigefügt werden, in dem sich die Software befindet.
+
+14. Die Veröffentlichung der Software z.B. als Download bedarf
+    einer expliziten Genehmigung durch den Autor Steffen Liersch.
