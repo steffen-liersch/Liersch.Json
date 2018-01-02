@@ -57,7 +57,7 @@ public static void RunExample1()
 SLJsonNode
 ----------
 
-The parser result is an instance of SLJsonNode. It can be used to analyze the parsed JSON expression. SLJsonNode implements IEnumerable. For arrays and objects all sub nodes are enumerated. In addition there is a property Names. It can be used for objects to enumerate the sub property names.
+The parser result is an instance of SLJsonNode. It can be used to analyze the parsed JSON expression. SLJsonNode implements IEnumerable. For arrays and objects all sub nodes are enumerated. In addition there is a property Names. It can be used for objects to enumerate the property names.
 
 ```cs
 public static void RunExample2()
@@ -147,7 +147,7 @@ The function SLJsonNode.CreateMonitor can be used to create an instance of class
 
 Property SLJsonMonitor.IsModified is set to true on any change.
 
-Property SLJsonMonitor.IsReadOnly can be used disallow changing any node.
+Property SLJsonMonitor.IsReadOnly can be used to disallow changing any node.
 
 If passing root nodes to external code, CreateMonitor should always be used before. Otherwise the external code could cause unexpected side effects.
 
