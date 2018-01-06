@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -49,6 +49,7 @@ namespace Liersch.Json
 
       Console.WriteLine(string.Format(f, "StringValue", e1.StringValue, e2.StringValue));
       Console.WriteLine(string.Format(f, "NotSerializedString", e1.NotSerializedString, e2.NotSerializedString));
+      Console.WriteLine();
     }
 
     class Example
