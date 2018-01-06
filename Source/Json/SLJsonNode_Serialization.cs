@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -36,11 +36,17 @@ namespace Liersch.Json
 
     public void Serialize(SLJsonWriter writer)
     {
-      if(IsArray) SerializeArray(writer);
-      else if(IsObject) SerializeObject(writer);
-      else if(IsValue) SerializeValue(writer);
-      else if(IsNull) writer.WriteValueNull();
-      else throw new InvalidOperationException();
+      switch(NodeType)
+      {
+        case SLJsonNodeType.Missing:
+        case SLJsonNodeType.Null: writer.WriteValueNull(); break;
+        case SLJsonNodeType.Array: SerializeArray(writer); break;
+        case SLJsonNodeType.Object: SerializeObject(writer); break;
+        case SLJsonNodeType.Boolean: writer.WriteValue(AsBoolean); break;
+        case SLJsonNodeType.Number: writer.WriteValue(AsDouble); break;
+        case SLJsonNodeType.String: writer.WriteValue(AsString); break;
+        default: throw new NotImplementedException();
+      }
     }
 
     //------------------------------------------------------------------------
@@ -64,18 +70,6 @@ namespace Liersch.Json
       }
 
       writer.EndObject();
-    }
-
-    void SerializeValue(SLJsonWriter writer)
-    {
-      switch(NodeType)
-      {
-        case SLJsonNodeType.Null: writer.WriteValueNull(); break;
-        case SLJsonNodeType.Boolean: writer.WriteValue(AsBoolean); break;
-        case SLJsonNodeType.Number: writer.WriteValue(AsDouble); break;
-        case SLJsonNodeType.String: writer.WriteValue(AsString); break;
-        default: throw new InvalidOperationException();
-      }
     }
   }
 
