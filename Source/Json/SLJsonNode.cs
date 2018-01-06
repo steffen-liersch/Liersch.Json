@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -279,7 +279,7 @@ namespace Liersch.Json
         StringBuilder sb=new StringBuilder();
         sb.Append("Object: {");
         bool needSep=false;
-        foreach(string n in this)
+        foreach(string n in m_Object.Keys)
         {
           if(needSep)
             sb.Append(", ");
