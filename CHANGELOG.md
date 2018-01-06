@@ -7,3 +7,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Unreleased
 ### Added
 - CHANGELOG.md introduced
+### Changed
+- Signing assemblies
+- Using AssemblyInfo.cs for all library projects

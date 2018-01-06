@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Properties\KeyPrivate.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
@@ -60,6 +66,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\KeyPrivate.snk" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />

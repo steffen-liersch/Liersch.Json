@@ -3,12 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.0</TargetFramework>
     <AssemblyName>Liersch.Json_netcoreapp1.0</AssemblyName>
+    <PackageId>Liersch.Json_netcoreapp1.0</PackageId>
     <RootNamespace>Liersch.Json</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Steffen Liersch</Authors>
     <Company>Steffen Liersch</Company>
     <Copyright>© 2013-2017 Dipl.-Ing. (BA) Steffen Liersch</Copyright>
     <Product>Liersch.Json</Product>
-    <PackageId>Liersch.Json_netcoreapp1.0</PackageId>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Properties\KeyPrivate.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Properties\AssemblyInfo.cs" />
     <Compile Remove="Source\JsonReflectionBased\ExtensionAttribute.cs" />
     <Compile Remove="Source\JsonReflectionBased\SLExtensions_net20.cs" />
     <Compile Remove="Source\Json\SLJsonConvert_netmf.cs" />
@@ -45,10 +47,6 @@
     <None Update="Liersch.Json_License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>
