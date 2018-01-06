@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -62,7 +62,7 @@ namespace Liersch.Json
 
     static List<SLJsonNode> CreateArray() { return new List<SLJsonNode>(); }
 
-    static Dictionary<string, SLJsonNode> CreateObject() { return new Dictionary<string, SLJsonNode>(); }
+    static SortedDictionary<string, SLJsonNode> CreateObject() { return new SortedDictionary<string, SLJsonNode>(); }
 
     //------------------------------------------------------------------------
 
@@ -70,7 +70,7 @@ namespace Liersch.Json
     static readonly IList<SLJsonNode> m_EmptyNodes=new ReadOnlyCollection<SLJsonNode>(new SLJsonNode[0]);
 
     internal List<SLJsonNode> m_Array;
-    internal Dictionary<string, SLJsonNode> m_Object;
+    internal SortedDictionary<string, SLJsonNode> m_Object;
   }
 
   //--------------------------------------------------------------------------

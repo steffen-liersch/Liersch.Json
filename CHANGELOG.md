@@ -10,3 +10,5 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 - Signing assemblies
 - Using AssemblyInfo.cs for all library projects
+### Fixed
+- SLJsonNode changed to use SortedDictionary for SLJsonNodeType.Object (except .NET MF)
