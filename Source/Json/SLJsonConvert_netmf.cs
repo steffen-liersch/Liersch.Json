@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -12,6 +12,8 @@
 // E-Mail: S.Liersch@gmx.de
 //
 //----------------------------------------------------------------------------
+
+#if NETMF
 
 namespace Liersch.Json
 {
@@ -27,3 +29,5 @@ namespace Liersch.Json
 
   //--------------------------------------------------------------------------
 }
+
+#endif
