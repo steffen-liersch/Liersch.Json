@@ -150,7 +150,7 @@ namespace Liersch.Json
       if(typeof(Enum).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
         return Enum.Parse(type, value);
 
-#if NET20
+#if NET20 || NET30 || NET35 || NET40
       Type[] types=type.GetGenericArguments();
 #else
       Type[] types=type.GenericTypeArguments;
@@ -170,7 +170,7 @@ namespace Liersch.Json
 
     static object ParseTime(string value)
     {
-#if NET20
+#if NET20 || NET30 || NET35
       return TimeSpan.Parse(value);
 #else
       return TimeSpan.Parse(value, CultureInfo.InvariantCulture);
