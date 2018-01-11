@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -111,7 +111,7 @@ namespace Liersch.Json
             else
             {
               int len=m_Index-startIndex-1;
-              m_Token=len!=0 ? m_JsonExpression.Substring(startIndex, len) : String.Empty;
+              m_Token=len!=0 ? m_JsonExpression.Substring(startIndex, len) : string.Empty;
             }
             m_TokenIsString=true;
             return true;
