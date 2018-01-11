@@ -29,7 +29,7 @@ namespace Liersch.Json
 
     public string Serialize(bool indented)
     {
-      SLJsonWriter wr=new SLJsonWriter(new StringBuilder(), indented);
+      var wr=new SLJsonWriter(new StringBuilder(), indented);
       Serialize(wr);
       return wr.ToString();
     }

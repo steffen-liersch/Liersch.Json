@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -21,7 +21,7 @@ namespace Liersch.Json
   {
     public static SLJsonNode Parse(string jsonExpression)
     {
-      SLJsonTokenizer tokenizer=new SLJsonTokenizer(jsonExpression);
+      var tokenizer=new SLJsonTokenizer(jsonExpression);
       try
       {
         return ParseObject(tokenizer);
@@ -101,7 +101,7 @@ namespace Liersch.Json
 
     static SLJsonNode ParseArrayEx(SLJsonTokenizer tokenizer)
     {
-      SLJsonNode res=new SLJsonNode();
+      var res=new SLJsonNode();
       res.MakeArray();
       bool needSep=false;
       while(true)

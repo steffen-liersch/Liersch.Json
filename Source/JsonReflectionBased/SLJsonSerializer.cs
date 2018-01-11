@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -88,7 +88,7 @@ namespace Liersch.Json
 
       m_Writer.BeginArray();
 
-      IEnumerable helper=(IEnumerable)array;
+      var helper=(IEnumerable)array;
       foreach(object value in helper)
       {
         if(asObject)

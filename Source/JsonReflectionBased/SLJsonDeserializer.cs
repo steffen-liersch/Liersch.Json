@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -112,7 +112,7 @@ namespace Liersch.Json
         defaultValue=Activator.CreateInstance(t);
 
       int c=array.Count;
-      Array res=Array.CreateInstance(t, c);
+      var res=Array.CreateInstance(t, c);
 
       for(int i=0; i<c; i++)
       {
@@ -179,7 +179,7 @@ namespace Liersch.Json
 
     static Dictionary<Type, SLJsonConverter> CreateStandardConverters()
     {
-      Dictionary<Type, SLJsonConverter> res=new Dictionary<Type, SLJsonConverter>();
+      var res=new Dictionary<Type, SLJsonConverter>();
       res.Add(typeof(DateTime), delegate(string value) { return DateTime.Parse(value, CultureInfo.InvariantCulture); });
       res.Add(typeof(TimeSpan), ParseTime);
       return res;

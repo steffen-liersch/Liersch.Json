@@ -225,7 +225,7 @@ namespace Liersch.Json
 
     SLJsonNode Clone(SLJsonNode parent)
     {
-      SLJsonNode res=new SLJsonNode(parent);
+      var res=new SLJsonNode(parent);
 
       res.m_NodeType=m_NodeType;
       res.m_Value=m_Value;
@@ -276,7 +276,7 @@ namespace Liersch.Json
 
       if(m_Object!=null)
       {
-        StringBuilder sb=new StringBuilder();
+        var sb=new StringBuilder();
         sb.Append("Object: {");
         bool needSep=false;
         foreach(string n in m_Object.Keys)
