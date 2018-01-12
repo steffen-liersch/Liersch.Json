@@ -30,13 +30,13 @@ namespace Liersch.Json
   {
     public void RegisterConverter(Type type, SLJsonConverter converter) { m_Converters[type]=converter; }
 
-    public T Deserialize<T>(string jsonExpression)
+    public T Deserialize<T>(string jsonExpression) where T : new()
     {
       SLJsonNode n=SLJsonParser.Parse(jsonExpression);
       return Deserialize<T>(n);
     }
 
-    public T Deserialize<T>(SLJsonNode node)
+    public T Deserialize<T>(SLJsonNode node) where T : new()
     {
       if(node==null)
         throw new ArgumentNullException("node");
@@ -44,7 +44,8 @@ namespace Liersch.Json
       if(node.IsObject)
         return (T)DeserializeObject(typeof(T), node);
 
-      return Activator.CreateInstance<T>();
+      return new T();
+      //return Activator.CreateInstance<T>();
     }
 
     //------------------------------------------------------------------------
