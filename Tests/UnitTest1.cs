@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -145,7 +145,7 @@ namespace Liersch.Json
 
     void TestCreateNew()
     {
-      SLJsonNode n=new SLJsonNode();
+      var n=new SLJsonNode();
       n["person"]["firstName"].AsString="John";
       n["person"]["lastName"].AsString="Doe";
       Test.Assert(() => n.Count==1);
@@ -186,7 +186,7 @@ namespace Liersch.Json
 
     void TestOperators()
     {
-      SLJsonNode n=new SLJsonNode();
+      var n=new SLJsonNode();
 
       n["person"]["age"]=27;
       Test.Assert(() => n["person"]["age"].IsNumber);

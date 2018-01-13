@@ -27,7 +27,7 @@ namespace Liersch.Json
       Console.WriteLine("========================");
       Console.WriteLine();
 
-      Example e1=new Example();
+      var e1=new Example();
       e1.IntegerArray=new int[] { 10, 20, 30, 700, 800 };
       e1.StringValue="Example Text";
       e1.NotSerializedString="Other Text";

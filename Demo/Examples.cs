@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -138,7 +138,7 @@ namespace Liersch.Json
       Console.WriteLine("=========");
       Console.WriteLine();
 
-      SLJsonNode root=new SLJsonNode();
+      var root=new SLJsonNode();
       root["addressBook"]=CreateAddressBook();
       Console.WriteLine(root.AsJson);
       Console.WriteLine();
@@ -146,7 +146,7 @@ namespace Liersch.Json
 
     static SLJsonNode CreateAddressBook()
     {
-      SLJsonNode book=new SLJsonNode();
+      var book=new SLJsonNode();
 
       book[0]["LastName"]="Average";
       book[0]["firstName"]="Joe";

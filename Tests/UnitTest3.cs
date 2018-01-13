@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -26,7 +26,7 @@ namespace Liersch.Json
       Test=new UnitTestHelper();
       Test.PrintHeadline("UnitTest3 - Reflection-based Serialization");
 
-      ExampleOuter o1=new ExampleOuter()
+      var o1=new ExampleOuter()
       {
         ValueString="Test",
         ValueStringArray=new string[] { "A", "B,", "C" },
@@ -42,7 +42,7 @@ namespace Liersch.Json
       string s1=Serialize(o1);
       //Console.WriteLine(s1);
 
-      SLJsonDeserializer d=new SLJsonDeserializer();
+      var d=new SLJsonDeserializer();
       ExampleOuter o2=d.Deserialize<ExampleOuter>(s1);
 
       string s2=Serialize(o1);
@@ -91,7 +91,7 @@ namespace Liersch.Json
 
     static string Serialize(object instance)
     {
-      SLJsonWriter wr=new SLJsonWriter();
+      var wr=new SLJsonWriter();
       new SLJsonSerializer(wr).SerializeObject(instance);
       return wr.ToString();
     }

@@ -121,14 +121,14 @@ If accessing a missing object or if using an invalid array index, no exception i
 ```cs
 public static void RunExample3()
 {
-  SLJsonNode root=new SLJsonNode();
+  var root=new SLJsonNode();
   root["addressBook"]=CreateAddressBook();
   Console.WriteLine(root.AsJson);
 }
 
 static SLJsonNode CreateAddressBook()
 {
-  SLJsonNode book=new SLJsonNode();
+  var book=new SLJsonNode();
 
   book[0]["LastName"]="Average";
   book[0]["firstName"]="Joe";
@@ -183,7 +183,7 @@ class Example
 In the following example an instance of a serializable class is created, serialized and deserialized again.
 
 ```cs
-Example e1=new Example();
+var e1=new Example();
 e1.IntegerArray=new int[] { 10, 20, 30, 700, 800 };
 e1.StringValue="Example Text";
 e1.NotSerializedString="Other Text";
