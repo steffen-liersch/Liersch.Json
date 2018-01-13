@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -14,23 +14,29 @@
 //----------------------------------------------------------------------------
 
 using System;
-//using System.Diagnostics.CodeAnalysis;
-//using System.Runtime.Serialization;
 
 namespace Liersch.Json
 {
   //--------------------------------------------------------------------------
 
-  //[Serializable]
-  //[SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable")]
-  //[SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors")]
-  public class SLJsonException : Exception
+  public partial class SLJsonException : Exception
   {
     public SLJsonException() : base("JSON format exception") { }
     public SLJsonException(string message) : base(message) { }
     public SLJsonException(string message, Exception innerException) : base(message, innerException) { }
-    //protected SLJsonException(SerializationInfo info, StreamingContext context) : base(info, context) { }
   }
+
+  //--------------------------------------------------------------------------
+
+#if NET20 || NET30 || NET35 || NET40 || NET45 || NET46
+
+  [Serializable]
+  partial class SLJsonException
+  {
+    protected SLJsonException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+  }
+
+#endif
 
   //--------------------------------------------------------------------------
 }
