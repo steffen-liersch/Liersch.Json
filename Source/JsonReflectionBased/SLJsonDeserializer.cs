@@ -60,7 +60,7 @@ namespace Liersch.Json
             fi.SetValue(res, DeserializeObjectInternal(container[attr.MemberName], attr.MemberType, fi.FieldType, fi.GetValue(res)));
 
       foreach(PropertyInfo pi in type.GetRuntimeProperties())
-        if(pi.CanRead && pi.CanWrite /*&& pi.GetMethod.IsPublic && pi.SetMethod.IsPublic*/)
+        if(pi.CanRead && pi.CanWrite && pi.GetGetMethod().IsPublic && pi.GetSetMethod().IsPublic)
           foreach(SLJsonMemberAttribute attr in pi.GetCustomAttributes(typeof(SLJsonMemberAttribute), false))
             pi.SetValue(res, DeserializeObjectInternal(container[attr.MemberName], attr.MemberType, pi.PropertyType, pi.GetValue(res, null)), null);
 
@@ -151,12 +151,7 @@ namespace Liersch.Json
       if(typeof(Enum).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
         return Enum.Parse(type, value);
 
-#if NET20 || NET30 || NET35 || NET40
       Type[] types=type.GetGenericArguments();
-#else
-      Type[] types=type.GenericTypeArguments;
-#endif
-
       if(types.Length>0)
       {
         if(types.Length!=1 || type.GetGenericTypeDefinition()!=typeof(Nullable<>))

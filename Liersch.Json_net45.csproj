@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -27,7 +27,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;CODE_ANALYSIS;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -47,6 +47,7 @@
     <Compile Include="Source\JsonReflectionBased\SLJsonMemberAttribute.cs" />
     <Compile Include="Source\JsonReflectionBased\SLJsonMemberType.cs" />
     <Compile Include="Source\JsonReflectionBased\SLJsonSerializer.cs" />
+    <Compile Include="Source\JsonReflectionBased\SLReflectionExtensions.cs" />
     <Compile Include="Source\Json\SLJsonConvert_net20.cs" />
     <Compile Include="Source\Json\SLJsonException.cs" />
     <Compile Include="Source\Json\SLJsonMonitor.cs" />

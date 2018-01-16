@@ -50,7 +50,7 @@ namespace Liersch.Json
               SerializeProperty(attr, fi.FieldType, fi.GetValue(instance));
 
         foreach(PropertyInfo pi in t.GetRuntimeProperties())
-          if(pi.CanRead && pi.CanWrite /*&& pi.GetMethod.IsPublic && pi.SetMethod.IsPublic*/)
+          if(pi.CanRead && pi.CanWrite && pi.GetGetMethod().IsPublic && pi.GetSetMethod().IsPublic)
             foreach(SLJsonMemberAttribute attr in pi.GetCustomAttributes(typeof(SLJsonMemberAttribute), false))
               SerializeProperty(attr, pi.PropertyType, pi.GetValue(instance, null));
 
