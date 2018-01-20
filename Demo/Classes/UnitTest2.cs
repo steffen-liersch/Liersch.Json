@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -12,6 +12,8 @@
 // E-Mail: S.Liersch@gmx.de
 //
 //----------------------------------------------------------------------------
+
+using System;
 
 namespace Liersch.Json
 {
@@ -98,7 +100,7 @@ namespace Liersch.Json
       Test.Assert(() => n.AsBoolean==valueBoolean);
       Test.Assert(() => n.AsInt32==valueInt32);
       Test.Assert(() => n.AsInt64==valueInt64);
-      Test.Assert(() => n.AsDouble==valueNumber);
+      Test.Assert(() => Math.Abs(n.AsDouble-valueNumber)<=1e-7);
       Test.Assert(() => n.AsString==valueString);
     }
 
