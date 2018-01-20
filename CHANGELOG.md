@@ -13,6 +13,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Signing assemblies
 - Using AssemblyInfo.cs for all library projects
 - Function SLJsonNode.Serialize optimized and handling for nodes of type SLJsonNodeType.Missing added
+- Projects reworked
+- Using a single project file for multiple target frameworks (VS2017)
+- Using the same library name for all target frameworks
 ### Fixed
 - SLJsonNode changed to use SortedDictionary for SLJsonNodeType.Object (except .NET MF)
 - Function SLJsonNode.ToString fixed for SLJsonNodeType.Object

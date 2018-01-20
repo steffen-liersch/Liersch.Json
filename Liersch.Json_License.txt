@@ -6,8 +6,7 @@ Liersch.Json provides support for parsing and generating JSON expressions.
 Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch  
 http://www.steffen-liersch.de/
 
-
-The software is maintained and published here:
+The software is maintained and published here:  
 https://github.com/steffen-liersch/liersch.json
 
 
@@ -60,7 +59,7 @@ Lizenzbestimmungen (deutsche Originalfassung)
     auf Basis des Quellcodes noch auf Basis der kompilierten Software.
 
 12. Die Software darf ausschließlich durch Referenzierung des Assemblies
-    mit dem Originaldateinamen "Liersch.Json_*.dll" verwendet werden.
+    mit dem Originaldateinamen "Liersch.Json.dll" verwendet werden.
 
 13. Bei Verwendung der Software muss die Datei "Liersch.Json_License.txt"
     immer dem Ordner beigefügt werden, in dem sich die Software befindet.

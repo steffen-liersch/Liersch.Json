@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net20;net30;net35;net40;net45;net46;netcoreapp1.0;netstandard1.0</TargetFrameworks>
+    <LangVersion>3</LangVersion>
+    <AssemblyName>Liersch.Json</AssemblyName>
+    <PackageId>Liersch.Json</PackageId>
+    <RootNamespace>Liersch.Json</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Authors>Steffen Liersch</Authors>
+    <Company>Steffen Liersch</Company>
+    <Copyright>© 2013-2018 Dipl.-Ing. (BA) Steffen Liersch</Copyright>
+    <Product>Liersch.Json</Product>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Properties\KeyPrivate.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Demo\**" />
+    <EmbeddedResource Remove="Demo\**" />
+    <None Remove="Demo\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="*.bat" />
+    <None Remove="*.cmd" />
+    <None Remove="*.dat" />
+    <None Remove="*.dat.smd" />
+    <None Remove="*.suo" />
+    <None Remove="*.user" />
+    <None Remove="App.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Liersch.Json_License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

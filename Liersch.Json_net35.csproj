@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Liersch.Json</RootNamespace>
-    <AssemblyName>Liersch.Json_net35</AssemblyName>
+    <AssemblyName>Liersch.Json</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -17,20 +17,22 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\net35\</OutputPath>
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;NET35</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\Release\net35\</OutputPath>
     <DefineConstants>TRACE;CODE_ANALYSIS;NET35</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>3</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -50,11 +52,13 @@
     <Compile Include="Source\JsonReflectionBased\SLJsonSerializer.cs" />
     <Compile Include="Source\JsonReflectionBased\SLReflectionExtensions.cs" />
     <Compile Include="Source\Json\SLJsonConvert_net20.cs" />
+    <Compile Include="Source\Json\SLJsonConvert_netmf.cs" />
     <Compile Include="Source\Json\SLJsonException.cs" />
     <Compile Include="Source\Json\SLJsonMonitor.cs" />
     <Compile Include="Source\Json\SLJsonNode.cs" />
     <Compile Include="Source\Json\SLJsonNodeType.cs" />
     <Compile Include="Source\Json\SLJsonNode_ItemsTyped.cs" />
+    <Compile Include="Source\Json\SLJsonNode_ItemsUntyped.cs" />
     <Compile Include="Source\Json\SLJsonNode_Monitor.cs" />
     <Compile Include="Source\Json\SLJsonNode_Operators.cs" />
     <Compile Include="Source\Json\SLJsonNode_Serialization.cs" />
@@ -68,6 +72,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="CHANGELOG.md" />
     <None Include="Properties\KeyPrivate.snk" />
     <None Include="README.md" />
   </ItemGroup>
