@@ -1,27 +1,34 @@
 ﻿Liersch.Json - JSON Support for .NET
 ====================================
 
-Liersch.Json provides support for parsing and generating JSON expressions. The library is written in pure C# 3.0 and should work for most .NET platforms. At the moment the following platforms are directly supported:
+Liersch.Json provides support for parsing and generating JSON expressions. The library is written in pure C# 3.0 and should work for the most .NET platforms. The following platforms are explicitly supported:
 
-- .NET Framework 3.5, 4.5 and Mono
+- .NET Framework 2.0, 3.0, 3.5, 4.0, 4.5, 4.6 and Mono
 - .NET Core 1.0
 - .NET Standard 1.0
 - .NET Micro Framework 4.4 (excluding reflection-based features)
 
-[You can support maintenance and further development with a voluntary donation.](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NVXEQCNGJFK92)
-
 Changes are logged in file [CHANGELOG.md](https://github.com/steffen-liersch/liersch.json/blob/master/CHANGELOG.md).
+
+[You can support maintenance and further development with a voluntary donation.](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NVXEQCNGJFK92)
 
 
 Getting Started
 ---------------
 
-- "Liersch.Json.sln" - demo solution based on NET Framework 4.5
-- "Liersch.Json_net35.csproj" - library project for .NET Framework 3.5 and Mono
-- "Liersch.Json_net45.csproj" - library project for .NET Framework 4.5 and Mono
-- "Liersch.Json_netcoreapp1.0.csproj" - library project for .NET Core 1.0
-- "Liersch.Json_netstandard1.0.csproj" - library project for .NET Standard 1.0
-- "Liersch.Json_netmf.csproj" - library project for .NET Micro Framework 4.4
+The following solutions can be used to try the library:
+
+- "Liersch.Json.Demo_VS2017.sln" - demo using the library project for multiple target frameworks (VS 2017 required)
+- "Liersch.Json.Demo_VS2013.sln" - demo using the library project for .NET Framework 3.5 and Mono (VS 2013 required)
+- "Liersch.Json.Demo_netmf.sln" - demo using the library project for .NET Micro Framework 4.4 (VS 2015 required)
+
+To use the library in a project one of the following library project files must be included into the solution, depending on the used IDE and the target framework:
+
+- "Liersch.Json_sdk.csproj" - library project for multiple target frameworks (VS 2017 required)
+- "Liersch.Json_net20.csproj" - library project for .NET Framework 2.0 and Mono (VS 2013 required)
+- "Liersch.Json_net35.csproj" - library project for .NET Framework 3.5 and Mono (VS 2013 required)
+- "Liersch.Json_net45.csproj" - library project for .NET Framework 4.5 and Mono (VS 2013 required)
+- "Liersch.Json_netmf.csproj" - library project for .NET Micro Framework 4.4 (VS 2015 required)
 
 
 SLJsonParser

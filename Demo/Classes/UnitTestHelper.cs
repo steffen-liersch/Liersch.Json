@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -14,9 +14,12 @@
 //----------------------------------------------------------------------------
 
 using System;
+using System.Text;
+
+#if !NETMF
 using System.Globalization;
 using System.Linq.Expressions;
-using System.Text;
+#endif
 
 namespace Liersch.Json
 {
@@ -33,16 +36,36 @@ namespace Liersch.Json
     public void PrintHeadline(string headline)
     {
       Console.WriteLine(headline);
-      Console.WriteLine(new StringBuilder().Append('=', headline.Length));
+      Console.WriteLine(new StringBuilder().Append('=', headline.Length).ToString());
       Console.WriteLine();
     }
 
     public void PrintSummary()
     {
-      Console.WriteLine("Succeeded Tests: "+m_CountSucceeded.ToString(CultureInfo.InvariantCulture));
-      Console.WriteLine("Failed Tests: "+m_CountFailed.ToString(CultureInfo.InvariantCulture));
+      Console.WriteLine("Succeeded Tests: "+m_CountSucceeded);
+      Console.WriteLine("Failed Tests: "+m_CountFailed);
       Console.WriteLine();
     }
+
+    //------------------------------------------------------------------------
+
+#if NETMF
+
+    public delegate bool SLUnitTestFunction();
+
+    public void Assert(SLUnitTestFunction func)
+    {
+      bool res=func();
+      if(res)
+        m_CountSucceeded++;
+      else
+      {
+        m_CountFailed++;
+        Console.WriteLine("[FAILED]");
+      }
+    }
+
+#else
 
     public void Assert(Expression<Func<bool>> expression)
     {
@@ -56,6 +79,10 @@ namespace Liersch.Json
         Console.WriteLine("[FAILED] "+expression.Body.ToString());
       }
     }
+
+#endif
+
+    //------------------------------------------------------------------------
 
     int m_CountSucceeded;
     int m_CountFailed;

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net45</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>Liersch.Json.Demo</AssemblyName>
+    <RootNamespace>Liersch.Json</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="*.bat" />
+    <None Remove="*.cmd" />
+    <None Remove="*.dat" />
+    <None Remove="*.dat.smd" />
+    <None Remove="*.suo" />
+    <None Remove="*.user" />
+    <None Remove="App.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Liersch.Json_sdk.csproj" />
+  </ItemGroup>
+
+</Project>

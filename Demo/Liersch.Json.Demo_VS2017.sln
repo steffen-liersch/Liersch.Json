@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liersch.Json.Demo_VS2017", "Liersch.Json.Demo_VS2017.csproj", "{AEFE76BC-1C6B-489A-82DA-5807B385EFFE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liersch.Json_sdk", "..\Liersch.Json_sdk.csproj", "{756D34EA-9A6D-41AA-BA7C-8EDCDA851C0F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEFE76BC-1C6B-489A-82DA-5807B385EFFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFE76BC-1C6B-489A-82DA-5807B385EFFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFE76BC-1C6B-489A-82DA-5807B385EFFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFE76BC-1C6B-489A-82DA-5807B385EFFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{756D34EA-9A6D-41AA-BA7C-8EDCDA851C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{756D34EA-9A6D-41AA-BA7C-8EDCDA851C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{756D34EA-9A6D-41AA-BA7C-8EDCDA851C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{756D34EA-9A6D-41AA-BA7C-8EDCDA851C0F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2817F05-94EC-44EC-B62E-25B532FD77CD}
+	EndGlobalSection
+EndGlobal

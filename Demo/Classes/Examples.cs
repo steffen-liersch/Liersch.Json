@@ -107,7 +107,7 @@ namespace Liersch.Json
 
     static void Indent(int level)
     {
-      Console.Write(new StringBuilder().Append(' ', level*2));
+      Console.Write(new StringBuilder().Append(' ', level*2).ToString());
     }
 
     static string RetrieveJsonExample()

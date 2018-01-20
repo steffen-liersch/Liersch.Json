@@ -14,7 +14,7 @@
 //----------------------------------------------------------------------------
 
 using System;
-using System.Text.RegularExpressions;
+using System.Text;
 
 namespace Liersch.Json
 {
@@ -271,7 +271,22 @@ namespace Liersch.Json
       Test.Assert(() => n["newProperty"]["value"].NodeType==SLJsonNodeType.Missing);
     }
 
-    string RemoveWhitespace(string value) { return m_RegexWhitespace.Replace(value, string.Empty); }
+    static string RemoveWhitespace(string value)
+    {
+      if(value==null)
+        return null;
+
+      int c=value.Length;
+      var sb=new StringBuilder(c);
+      for(int i=0; i<c; i++)
+      {
+        char z=value[i];
+        if(z>' ')
+          sb.Append(z);
+      }
+
+      return sb.ToString();
+    }
 
     static string RetrieveJsonExpression()
     {
@@ -300,7 +315,6 @@ namespace Liersch.Json
       }";
     }
 
-    Regex m_RegexWhitespace=new Regex("\\s", RegexOptions.CultureInvariant);
     UnitTestHelper Test;
   }
 
