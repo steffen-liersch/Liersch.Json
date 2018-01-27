@@ -19,12 +19,28 @@ namespace Liersch.Json
 
   public static class SLJsonParser
   {
-    public static SLJsonNode Parse(string jsonExpression)
+    public static SLJsonNode Parse(string jsonExpression) { return Parse(jsonExpression, false); }
+
+    public static SLJsonNode Parse(string jsonExpression, bool allowArraysAndValues)
     {
       var tokenizer=new SLJsonTokenizer(jsonExpression);
       try
       {
-        return ParseObject(tokenizer);
+        tokenizer.ReadNext();
+
+        SLJsonNode res;
+        if(allowArraysAndValues)
+          res=ParseValue(tokenizer);
+        else
+        {
+          if(!tokenizer.HasSpecialChar || tokenizer.SpecialChar!='{')
+            ThrowUnexpected(tokenizer);
+
+          res=ParseObject(tokenizer);
+        }
+
+        CheckEndOfExpression(tokenizer);
+        return res;
       }
       catch(SLJsonException e)
       {
@@ -40,26 +56,6 @@ namespace Liersch.Json
     //------------------------------------------------------------------------
 
     static SLJsonNode ParseObject(SLJsonTokenizer tokenizer)
-    {
-      tokenizer.ReadNext();
-
-      if(tokenizer.SpecialChar=='{')
-      {
-        SLJsonNode res=ParseObjectEx(tokenizer);
-        CheckEndOfExpression(tokenizer);
-        return res;
-      }
-
-      if(tokenizer.Token=="null")
-      {
-        CheckEndOfExpression(tokenizer);
-        return null;
-      }
-
-      throw new SLJsonException("Syntax error");
-    }
-
-    static SLJsonNode ParseObjectEx(SLJsonTokenizer tokenizer)
     {
       SLJsonNode res=new SLJsonNode();
       res.MakeObject();
@@ -90,7 +86,7 @@ namespace Liersch.Json
 
         tokenizer.ReadNext();
 
-        SLJsonNode value=ParseValueEx(tokenizer);
+        SLJsonNode value=ParseValue(tokenizer);
 
         res.m_Object[field]=value; // No exception for multiple fields with the same name
         value.AssignParent(res);
@@ -99,7 +95,7 @@ namespace Liersch.Json
       }
     }
 
-    static SLJsonNode ParseArrayEx(SLJsonTokenizer tokenizer)
+    static SLJsonNode ParseArray(SLJsonTokenizer tokenizer)
     {
       var res=new SLJsonNode();
       res.MakeArray();
@@ -119,7 +115,7 @@ namespace Liersch.Json
           tokenizer.ReadNext();
         }
 
-        SLJsonNode value=ParseValueEx(tokenizer);
+        SLJsonNode value=ParseValue(tokenizer);
 
         res.m_Array.Add(value);
         value.AssignParent(res);
@@ -128,15 +124,15 @@ namespace Liersch.Json
       }
     }
 
-    static SLJsonNode ParseValueEx(SLJsonTokenizer tokenizer)
+    static SLJsonNode ParseValue(SLJsonTokenizer tokenizer)
     {
       if(tokenizer.HasSpecialChar)
       {
         switch(tokenizer.SpecialChar)
         {
-          case '{': return ParseObjectEx(tokenizer);
-          case '[': return ParseArrayEx(tokenizer);
-          default: throw new SLJsonException("Unexpected token ("+tokenizer.SpecialChar.ToString()+")");
+          case '{': return ParseObject(tokenizer);
+          case '[': return ParseArray(tokenizer);
+          default: throw new SLJsonException("Unexpected token: "+tokenizer.SpecialChar.ToString());
         }
       }
 
@@ -168,7 +164,15 @@ namespace Liersch.Json
     static void CheckEndOfExpression(SLJsonTokenizer tokenizer)
     {
       if(tokenizer.TryReadNext())
-        throw new SLJsonException("Unexpected token");
+        ThrowUnexpected(tokenizer);
+    }
+
+    static void ThrowUnexpected(SLJsonTokenizer tokenizer)
+    {
+      if(tokenizer.HasSpecialChar)
+        throw new SLJsonException("Unexpected special character: "+tokenizer.SpecialChar.ToString());
+
+      throw new SLJsonException((tokenizer.TokenIsString ? "Unexpected string: " : "Unexpected token: ")+tokenizer.Token);
     }
   }
 

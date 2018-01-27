@@ -32,6 +32,7 @@ namespace Liersch.Json
       TestCreateNew();
       TestOperators();
       TestSerialization();
+      TestParseAndSerialize();
 
       Test.PrintSummary();
       Test=null;
@@ -90,6 +91,16 @@ namespace Liersch.Json
       Test.Assert(() => n["test"]["testValue32"].NodeType==SLJsonNodeType.Number);
       Test.Assert(() => n["test"]["testValue32"].AsInt32==256);
       Test.Assert(() => n["test"]["testValue32"].AsString=="+256");
+
+      Test.Assert(() => n["test"]["testValueString1"].NodeType==SLJsonNodeType.String);
+      Test.Assert(() => n["test"]["testValueString1"].AsString=="abc 'def' ghi");
+
+      Test.Assert(() => n["test"]["testValueString2"].NodeType==SLJsonNodeType.String);
+      Test.Assert(() => n["test"]["testValueString2"].AsString=="ABC 'DEF' GHI");
+
+      Test.Assert(() => n["test"]["testValueString3"].NodeType==SLJsonNodeType.String);
+      Test.Assert(() => n["test"]["testValueString3"].AsString=="First Line\r\nSecond Line\r\nThird Line\0");
+      Test.Assert(() => n["test"]["testValueString3"].AsJsonCompact==@"""First Line\r\nSecond Line\r\nThird Line\u0000""");
 
       Test.Assert(() => !m.IsModified);
       Test.Assert(() => m.IsReadOnly);
@@ -271,6 +282,48 @@ namespace Liersch.Json
       Test.Assert(() => n["newProperty"]["value"].NodeType==SLJsonNodeType.Missing);
     }
 
+    void TestParseAndSerialize()
+    {
+      ParseAndSerialize("{\"a\": 1, \"b\": 2}", SLJsonNodeType.Object);
+      ParseAndSerialize("[{\"a\":1, \"b\":2}, 3, 4]", SLJsonNodeType.Array);
+      ParseAndSerialize("null", SLJsonNodeType.Null);
+      ParseAndSerialize("false", SLJsonNodeType.Boolean);
+      ParseAndSerialize("true", SLJsonNodeType.Boolean);
+      ParseAndSerialize("1234", SLJsonNodeType.Number);
+      ParseAndSerialize("3.1415", SLJsonNodeType.Number);
+      ParseAndSerialize("\"text\"", SLJsonNodeType.String);
+
+      try
+      {
+        ParseAndSerialize("\n   {}   \r\n\n\r\n\n       '123'", SLJsonNodeType.Object);
+        Test.Assert(() => false);
+      }
+      catch(SLJsonException e)
+      {
+        Test.Assert(() => e.Message=="Syntax error in JSON expression at row 6 in column 8: Unexpected string: 123");
+      }
+    }
+
+    void ParseAndSerialize(string jsonExpression, SLJsonNodeType nodeType)
+    {
+      if(nodeType!=SLJsonNodeType.Object)
+        ParseAndSerialize(jsonExpression, true, nodeType);
+      else
+      {
+        ParseAndSerialize(jsonExpression, false, nodeType);
+        ParseAndSerialize(jsonExpression, true, nodeType);
+      }
+    }
+
+    void ParseAndSerialize(string jsonExpression, bool allowArraysAndValues, SLJsonNodeType nodeType)
+    {
+      SLJsonNode n=SLJsonParser.Parse(jsonExpression, allowArraysAndValues);
+      Test.Assert(() => n.NodeType==nodeType);
+
+      string s=RemoveWhitespace(jsonExpression);
+      Test.Assert(() => n.AsJsonCompact==s);
+    }
+
     static string RemoveWhitespace(string value)
     {
       if(value==null)
@@ -310,7 +363,10 @@ namespace Liersch.Json
           testValueTrue: true,
           testValue32: +256,
           testValue64: 10000000000000000,
-          testValueDouble: 3.1415
+          testValueDouble: 3.1415,
+          testValueString1: 'abc \'def\' ghi',
+          testValueString2: 'A\u0042C \'DE\106\' GHI',
+          testValueString3: 'First Line\r\nSecond Line\r\nThird Line\0'
         }
       }";
     }

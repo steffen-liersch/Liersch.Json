@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - CHANGELOG.md introduced
 - Conditional directives added to platform-specific files
 - Constructor constraint added to SLJsonDeserializer.Deserialize
+- Function SLJsonParser.Parse(string jsonExpression, bool allowArraysAndValues) added
 ### Changed
 - Signing assemblies
 - Using AssemblyInfo.cs for all library projects
@@ -19,3 +20,4 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 - SLJsonNode changed to use SortedDictionary for SLJsonNodeType.Object (except .NET MF)
 - Function SLJsonNode.ToString fixed for SLJsonNodeType.Object
+- SLJsonTokenizer and SLJsonWriter improved to support all required escape sequences

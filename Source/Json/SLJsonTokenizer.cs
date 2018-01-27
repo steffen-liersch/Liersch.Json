@@ -22,8 +22,8 @@ namespace Liersch.Json
 
   public sealed class SLJsonTokenizer
   {
-    public int CurrentColumn { get { return m_PosInfo.X+1; } }
-    public int CurrentRow { get { return m_PosInfo.Y+1; } }
+    public int CurrentColumn { get { return m_PosInfo.CurrentColumn; } }
+    public int CurrentRow { get { return m_PosInfo.CurrentRow; } }
 
     public bool HasSpecialChar { get { return m_Token==null; } }
     public char SpecialChar { get { return m_SpecialChar; } }
@@ -42,16 +42,12 @@ namespace Liersch.Json
       m_Length=jsonExpression.Length;
     }
 
-    public override string ToString()
-    {
-      return "Row: "+SLJsonConvert.ToString(CurrentRow)+
-        "; Column: "+SLJsonConvert.ToString(CurrentColumn);
-    }
+    public override string ToString() { return m_PosInfo.ToString(); }
 
     public void ReadNext()
     {
       if(!TryReadNext())
-        throw new SLJsonException("Unexpected end of stream");
+        throw new SLJsonException("Unexpected end of JSON");
     }
 
     public bool TryReadNext()
@@ -59,7 +55,6 @@ namespace Liersch.Json
       m_SpecialChar='\0';
       m_Token=null;
       m_TokenIsString=false;
-
 
       // Skip whitespace
       char c;
@@ -73,13 +68,12 @@ namespace Liersch.Json
         if(!IsWhiteSpace(c))
         {
           m_PosInfo=m_PosWork;
-          UpdateWorkPosition(c);
+          m_PosWork.Update(c);
           break;
         }
 
-        UpdateWorkPosition(c);
+        m_PosWork.Update(c);
       }
-
 
       // Special symbol?
       if(c_SpecialChars.IndexOf(c)>=0)
@@ -88,138 +82,213 @@ namespace Liersch.Json
         return true;
       }
 
-
+      // Read string or token
       if(c=='"' || c=='\'')
+        ReadString(c);
+      else ReadToken();
+      return true;
+    }
+
+    //------------------------------------------------------------------------
+
+    void ReadToken()
+    {
+      int startIndex=m_Index-1;
+      while(true)
       {
-        char quote=c;
-
-        // Read string
-        StringBuilder sb=null;
-        int startIndex=m_Index;
-        while(true)
+        if(m_Index>=m_Length)
         {
-          if(m_Index>=m_Length)
-            throw new SLJsonException("Unterminated string expression");
-
-          c=m_JsonExpression[m_Index++];
-          UpdateWorkPosition(c);
-
-          if(c==quote)
-          {
-            if(sb!=null)
-              m_Token=sb.ToString();
-            else
-            {
-              int len=m_Index-startIndex-1;
-              m_Token=len!=0 ? m_JsonExpression.Substring(startIndex, len) : string.Empty;
-            }
-            m_TokenIsString=true;
-            return true;
-          }
-
-          switch(c)
-          {
-            default:
-              if(sb!=null)
-                sb.Append(c);
-              break;
-
-            case '\\':
-              if(m_Index>=m_Length)
-                throw new SLJsonException("Unterminated string expression");
-
-              if(sb==null)
-              {
-                sb=m_Sb;
-                sb.Length=0;
-                sb.Append(m_JsonExpression, startIndex, m_Index-startIndex-1);
-              }
-
-              c=m_JsonExpression[m_Index++];
-              UpdateWorkPosition(c);
-
-              switch(c)
-              {
-                case '"': sb.Append('"'); break;
-                case '\\': sb.Append('\\'); break;
-                case '/': sb.Append('/'); break;
-                case 'b': sb.Append('\b'); break;
-                case 't': sb.Append('\t'); break;
-                case 'n': sb.Append('\n'); break;
-                case 'f': sb.Append('\f'); break;
-                case 'r': sb.Append('\r'); break;
-                case 'u':
-                  SLPosition lastPI=m_PosInfo;
-                  m_PosInfo=m_PosWork; // Update position information at first for the case of a format exception.
-
-                  if(m_Index+4>m_Length)
-                    throw new SLJsonException("Unexpected end of escape sequence");
-
-                  string s=m_JsonExpression.Substring(m_Index, 4);
-                  int i=Convert.ToInt32(s, 16);
-                  sb.Append((char)i);
-
-                  UpdateWorkPosition(m_JsonExpression[m_Index++]);
-                  UpdateWorkPosition(m_JsonExpression[m_Index++]);
-                  UpdateWorkPosition(m_JsonExpression[m_Index++]);
-                  UpdateWorkPosition(m_JsonExpression[m_Index++]);
-
-                  m_PosInfo=lastPI; // Restore position information.
-                  break;
-
-                default:
-                  m_PosInfo=m_PosWork;
-                  throw new SLJsonException("Unsupported escape sequence ("+c.ToString()+")");
-              }
-              break;
-          }
+          m_Token=m_JsonExpression.Substring(startIndex);
+          return; // End
         }
-      }
-      else
-      {
-        // Read token
-        int startIndex=m_Index-1;
-        while(true)
+
+        char c=m_JsonExpression[m_Index];
+
+        if(IsWhiteSpace(c) || c_SpecialChars.IndexOf(c)>=0)
         {
-          if(m_Index>=m_Length)
+          m_Token=m_JsonExpression.Substring(startIndex, m_Index-startIndex);
+          return;
+        }
+
+        m_Index++;
+        m_PosWork.Update(c);
+      }
+    }
+
+    void ReadString(char quote)
+    {
+      StringBuilder sb=null;
+      int startIndex=m_Index;
+      while(true)
+      {
+        if(m_Index>=m_Length)
+          throw new SLJsonException("Unterminated string expression");
+
+        char c=m_JsonExpression[m_Index++];
+        m_PosWork.Update(c);
+
+        if(c==quote)
+        {
+          if(sb!=null)
+            m_Token=sb.ToString();
+          else
           {
-            m_Token=m_JsonExpression.Substring(startIndex);
-            return true; // End
+            int len=m_Index-startIndex-1;
+            m_Token=len!=0 ? m_JsonExpression.Substring(startIndex, len) : string.Empty;
           }
+          m_TokenIsString=true;
+          return;
+        }
 
-          c=m_JsonExpression[m_Index];
+        switch(c)
+        {
+          default:
+            if(sb!=null)
+              sb.Append(c);
+            break;
 
-          if(IsWhiteSpace(c) || c_SpecialChars.IndexOf(c)>=0)
-          {
-            m_Token=m_JsonExpression.Substring(startIndex, m_Index-startIndex);
-            return true;
-          }
+          case '\\':
+            if(m_Index>=m_Length)
+              throw new SLJsonException("Unterminated string expression");
 
-          m_Index++;
-          UpdateWorkPosition(c);
+            if(sb==null)
+            {
+              sb=m_Sb;
+              sb.Length=0;
+              sb.Append(m_JsonExpression, startIndex, m_Index-startIndex-1);
+            }
+
+            AppendEscapeSequence();
+            break;
         }
       }
     }
+
+    void AppendEscapeSequence()
+    {
+      char c=m_JsonExpression[m_Index];
+
+      if(IsOctalDigit(c))
+      {
+        AppendFromOctal();
+        return;
+      }
+
+      m_PosWork.Update(c);
+      m_Index++;
+
+      switch(c)
+      {
+        //case '0': m_Sb.Append('\0'); break; // Null character : \u0000
+        case 'b': m_Sb.Append('\b'); break; // Backspace      : \u0008
+        case 't': m_Sb.Append('\t'); break; // Horizontal tab : \u0009
+        case 'n': m_Sb.Append('\n'); break; // Line feed      : \u000A
+        case 'v': m_Sb.Append('\v'); break; // Vertical tab   : \u000B
+        case 'f': m_Sb.Append('\f'); break; // Form feed      : \u000C
+        case 'r': m_Sb.Append('\r'); break; // Carriage return: \u000D
+
+        case '"':
+        case '\'':
+        case '\\':
+          m_Sb.Append(c);
+          break;
+
+        case 'u':
+          AppendFromHex();
+          break;
+
+        default:
+          m_PosInfo=m_PosWork;
+          throw new SLJsonException("Unsupported escape sequence: \\"+c.ToString());
+      }
+    }
+
+    void AppendFromOctal()
+    {
+      int len=1;
+      while(m_Index+len<m_Length && len<3)
+      {
+        char c=m_JsonExpression[m_Index+len];
+        if(!IsOctalDigit(c))
+          break;
+        len++;
+      }
+
+      AppendFromAny(8, len);
+    }
+
+    void AppendFromHex()
+    {
+      SLPosition lastPI=m_PosInfo;
+      m_PosInfo=m_PosWork; // Update position information at first for the case of a format exception
+
+      if(m_Index+4>m_Length)
+        throw new SLJsonException("Unexpected end of escape sequence");
+
+      AppendFromAny(16, 4);
+
+      m_PosInfo=lastPI; // Restore position information
+    }
+
+    void AppendFromAny(int numericBase, int length)
+    {
+      string s=m_JsonExpression.Substring(m_Index, length);
+      int z=Convert.ToInt32(s, numericBase);
+      m_Sb.Append((char)z);
+
+      for(int i=length; i>0; i--)
+        m_PosWork.Update(m_JsonExpression[m_Index++]);
+    }
+
+    static bool IsOctalDigit(char c) { return c>='0' && c<='7'; }
 
     static bool IsWhiteSpace(char c) { return c==' ' || c>='\t' && c<='\r' || c=='\x00a0' ||c=='\x0085'; }
 
     //------------------------------------------------------------------------
 
-    void UpdateWorkPosition(char c)
-    {
-      if(c!='\n')
-        m_PosWork.X++;
-      else
-      {
-        m_PosWork.X=0;
-        m_PosWork.Y++;
-      }
-    }
-
     struct SLPosition
     {
-      public int X;
-      public int Y;
+      public int CurrentColumn { get { return m_X+1; } }
+      public int CurrentRow { get { return m_Y+1; } }
+
+      public override string ToString()
+      {
+        return "Row: "+SLJsonConvert.ToString(CurrentRow)+
+        "; Column: "+SLJsonConvert.ToString(CurrentColumn);
+      }
+
+      public void Update(char c)
+      {
+        // Linux  : LF
+        // Mac OS : CR
+        // Windows: CR + LF
+        switch(c)
+        {
+          case '\n':
+            switch(m_Last)
+            {
+              case '\r': m_Last='\0'; break;
+              case '\n': m_Last='\0'; m_Y++; break;
+              default: m_Last=c; m_Y++; m_X=0; break;
+            }
+            break;
+
+          case '\r':
+            switch(m_Last)
+            {
+              case '\n': m_Last='\0'; break;
+              case '\r': m_Last='\0'; m_Y++; break;
+              default: m_Last=c; m_Y++; m_X=0; break;
+            }
+            break;
+
+          default: m_Last='\0'; m_X++; break;
+        }
+      }
+
+      int m_X;
+      int m_Y;
+      char m_Last;
     }
 
     //------------------------------------------------------------------------

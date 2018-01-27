@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -94,12 +94,31 @@ namespace Liersch.Json
       for(int i=0; i<len; i++)
       {
         char c=value[i];
-        if(c=='\\' || c=='"')
-          m_Target.Append('\\');
-        m_Target.Append(c);
+        switch(c)
+        {
+          case '\b': m_Target.Append("\\b"); break; // Backspace      : \u0008
+          case '\t': m_Target.Append("\\t"); break; // Horizontal tab : \u0009
+          case '\n': m_Target.Append("\\n"); break; // Line feed      : \u000A
+          case '\v': m_Target.Append("\\v"); break; // Vertical tab   : \u000B
+          case '\f': m_Target.Append("\\f"); break; // Form feed      : \u000C
+          case '\r': m_Target.Append("\\r"); break; // Carriage return: \u000D
+          case '"': m_Target.Append("\\\""); break;
+          case '\\': m_Target.Append("\\\\"); break;
+          default:
+            if(!IsControl(c))
+              m_Target.Append(c);
+            else
+            {
+              m_Target.Append("\\u");
+              m_Target.Append(SLJsonConvert.ToString((int)c, "X4"));
+            }
+            break;
+        }
       }
       m_Target.Append('"');
     }
+
+    static bool IsControl(char c) { return c>='\0' && c<' '; }
 
     readonly bool m_Indented;
     StringBuilder m_Target;
