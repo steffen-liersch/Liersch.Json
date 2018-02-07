@@ -10,16 +10,60 @@ The software is maintained and published here:
 https://github.com/steffen-liersch/liersch.json
 
 
-License Terms (English translation)
------------------------------------
+License Agreement (English translation)
+---------------------------------------
 
-(TODO: Translation of the license conditions from German to English)
+1.  The material hereinafter referred to as "Software" comprises both
+    the files or parts thereof published in connection with the project
+    "Liersch.Json", as well as e.g. by compilation derivable files.
+
+2.  The Software is provided free of charge and is therefore subject to
+    liability limitations: The author, his vicarious agents or his legal
+    representatives are liable in case of defects (defects in quality and
+    title) and for damages caused by defects as well as consequential
+    damages only for intent and malice. Incidentally, the liability
+    is excluded, unless it is based on intent or gross negligence.
+    The liability for personal injury remains unaffected.
+
+3.  The use of the Software for private, academic or evaluative
+    purposes is permitted, if all other conditions are met as well.
+
+4.  The commercial use of the Software requires explicit permission
+    by the author Steffen Liersch (hereinafter called "the Author").
+
+5.  Any use of the Software which in case of malfunction may cause harm
+    e.g. for people, environment or technical equipment is not permitted.
+
+6.  Any use of the Software for purposes which are illegal according to
+    German law is not permitted.
+
+7.  Use of the Software by public organizations is not permitted.
+
+8.  Any use of the Software for military purposes is not permitted.
+
+9.  As far as the Software is modified, the respective passages
+    in the source code must be highlighted by marking.
+
+10. After any modifications the Software must be passed on
+    under the same license agreement.
+
+11. Measures to obfuscate the Software are not allowed, neither on the
+    basis of the source code nor on the basis of the compiled software.
+
+12. The Software shall only be used by referencing the
+    assembly with the original file name "Liersch.Json.dll".
+
+13. When using the Software, the file "Liersch.Json_License.txt" must
+    always be attached to the folder in which the Software is located.
+
+14. The publication of the Software, e.g. as download,
+    requires explicit permission by the Author.
 
 
 Lizenzbestimmungen (deutsche Originalfassung)
 ---------------------------------------------
 
-1.  Das im Folgenden als Software bezeichnete Material umfasst sowohl die im
+1.  Das im Folgenden als "Software" bezeichnete Material umfasst sowohl die im
     Zusammenhang mit dem Projekt "Liersch.Json" veröffentlichten Dateien oder
     Teilen davon, als auch z.B. durch Kompilierung daraus ableitbare Dateien.
 
