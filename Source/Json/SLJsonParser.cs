@@ -57,7 +57,7 @@ namespace Liersch.Json
 
     static SLJsonNode ParseObject(SLJsonTokenizer tokenizer)
     {
-      SLJsonNode res=new SLJsonNode();
+      var res=new SLJsonNode();
       res.MakeObject();
       bool needSep=false;
       while(true)
