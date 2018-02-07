@@ -61,7 +61,10 @@ namespace Liersch.Json
       while(true)
       {
         if(m_Index>=m_Length)
+        {
+          m_PosInfo=m_PosWork;
           return false; // End
+        }
 
         c=m_JsonExpression[m_Index++];
 
@@ -174,7 +177,6 @@ namespace Liersch.Json
         return;
       }
 
-      m_PosWork.Update(c);
       m_Index++;
 
       switch(c)
@@ -194,13 +196,16 @@ namespace Liersch.Json
           break;
 
         case 'u':
+          m_PosWork.Update(c);
           AppendFromHex();
-          break;
+          return; // Exit
 
         default:
           m_PosInfo=m_PosWork;
           throw new SLJsonException("Unsupported escape sequence: \\"+c.ToString());
       }
+
+      m_PosWork.Update(c);
     }
 
     void AppendFromOctal()
@@ -214,30 +219,51 @@ namespace Liersch.Json
         len++;
       }
 
-      AppendFromAny(8, len);
+      AppendFromAny(8, len, m_Index-1); // \0..\777
     }
 
     void AppendFromHex()
     {
-      SLPosition lastPI=m_PosInfo;
-      m_PosInfo=m_PosWork; // Update position information at first for the case of a format exception
-
       if(m_Index+4>m_Length)
+      {
+        m_PosInfo=m_PosWork;
         throw new SLJsonException("Unexpected end of escape sequence");
+      }
 
-      AppendFromAny(16, 4);
-
-      m_PosInfo=lastPI; // Restore position information
+      AppendFromAny(16, 4, m_Index-2); // \u0000..\uFFFF
     }
 
-    void AppendFromAny(int numericBase, int length)
+    void AppendFromAny(int numericBase, int length, int startIndex)
     {
-      string s=m_JsonExpression.Substring(m_Index, length);
-      int z=Convert.ToInt32(s, numericBase);
-      m_Sb.Append((char)z);
-
+      // Convert.ToInt32(m_JsonExpression.Substring(m_Index, length), numericBase) can't
+      // be used here due to a ArgumentException is thrown in .NET MF if numericBase is 8.
+      int z=0;
       for(int i=length; i>0; i--)
-        m_PosWork.Update(m_JsonExpression[m_Index++]);
+      {
+        char c=m_JsonExpression[m_Index++];
+
+        int v;
+        if(c>='0' && c<='9')
+          v=c-'0';
+        else if(c>='A' && c<='Z')
+          v=c-'A'+10;
+        else if(c>='a' && c<='z')
+          v=c-'a'+10;
+        else v=-1;
+
+        if(v<0 || v>=numericBase)
+        {
+          m_PosInfo=m_PosWork;
+          throw new SLJsonException("Invalid escape sequence: "+m_JsonExpression.Substring(startIndex, m_Index-startIndex));
+        }
+
+        m_PosWork.Update(c);
+
+        z*=numericBase;
+        z+=v;
+      }
+
+      m_Sb.Append((char)z);
     }
 
     static bool IsOctalDigit(char c) { return c>='0' && c<='7'; }
@@ -254,7 +280,7 @@ namespace Liersch.Json
       public override string ToString()
       {
         return "Row: "+SLJsonConvert.ToString(CurrentRow)+
-        "; Column: "+SLJsonConvert.ToString(CurrentColumn);
+          "; Column: "+SLJsonConvert.ToString(CurrentColumn);
       }
 
       public void Update(char c)

@@ -32,11 +32,14 @@ namespace Liersch.Json
       TestCreateNew();
       TestOperators();
       TestSerialization();
+      TestParseInvalid();
       TestParseAndSerialize();
 
       Test.PrintSummary();
       Test=null;
     }
+
+    //------------------------------------------------------------------------
 
     void TestReadOnly()
     {
@@ -100,7 +103,10 @@ namespace Liersch.Json
 
       Test.Assert(() => n["test"]["testValueString3"].NodeType==SLJsonNodeType.String);
       Test.Assert(() => n["test"]["testValueString3"].AsString=="First Line\r\nSecond Line\r\nThird Line\0");
-      Test.Assert(() => n["test"]["testValueString3"].AsJsonCompact==@"""First Line\r\nSecond Line\r\nThird Line\u0000""");
+
+      // .NET MF seems to work internally with zero-terminated strings. As a result the test case fails.
+      if("123\0".Length==4)
+        Test.Assert(() => n["test"]["testValueString3"].AsJsonCompact==@"""First Line\r\nSecond Line\r\nThird Line\u0000""");
 
       Test.Assert(() => !m.IsModified);
       Test.Assert(() => m.IsReadOnly);
@@ -282,6 +288,29 @@ namespace Liersch.Json
       Test.Assert(() => n["newProperty"]["value"].NodeType==SLJsonNodeType.Missing);
     }
 
+    void TestParseInvalid()
+    {
+      ParseInvalid("\n'abc def", "Syntax error in JSON expression at row 2 in column 1: Unterminated string expression");
+      ParseInvalid("\r'abc def \\", "Syntax error in JSON expression at row 2 in column 1: Unterminated string expression");
+
+      ParseInvalid("\r\r'abc def \\u", "Syntax error in JSON expression at row 3 in column 12: Unexpected end of escape sequence");
+      ParseInvalid("\n\r\n'abc def \\u00", "Syntax error in JSON expression at row 3 in column 12: Unexpected end of escape sequence");
+      ParseInvalid("\r\n\n'abc def \\u000", "Syntax error in JSON expression at row 3 in column 12: Unexpected end of escape sequence");
+
+      ParseInvalid("\n\n'abc \\A def'", "Syntax error in JSON expression at row 3 in column 7: Unsupported escape sequence: \\A");
+      ParseInvalid("\n\r\n\r\n\r'abc \\u004G def'", "Syntax error in JSON expression at row 4 in column 11: Invalid escape sequence: \\u004G");
+      ParseInvalid("\r\n\r\n\r\n' abc \\u00G4 def'", "Syntax error in JSON expression at row 4 in column 11: Invalid escape sequence: \\u00G");
+
+      ParseInvalid("{ x x }", "Syntax error in JSON expression at row 1 in column 5: Colon expected");
+      ParseInvalid("{ x: 1, [0, 1, 2] }", "Syntax error in JSON expression at row 1 in column 9: Unexpected token");
+      ParseInvalid("{ x: 1 y: 2}", "Syntax error in JSON expression at row 1 in column 8: Separator expected");
+      ParseInvalid("{ x: 1, y: [0, 1 2] }", "Syntax error in JSON expression at row 1 in column 18: Separator expected");
+
+      ParseInvalid("\n   {}   [", "Syntax error in JSON expression at row 2 in column 9: Unexpected special character: [");
+      ParseInvalid("\n   { }   \n  \n  \r  foo", "Syntax error in JSON expression at row 5 in column 3: Unexpected token: foo");
+      ParseInvalid("\n   {  }   \r\n\n\r\n\n       '123'", "Syntax error in JSON expression at row 6 in column 8: Unexpected string: 123");
+    }
+
     void TestParseAndSerialize()
     {
       ParseAndSerialize("{\"a\": 1, \"b\": 2}", SLJsonNodeType.Object);
@@ -290,17 +319,21 @@ namespace Liersch.Json
       ParseAndSerialize("false", SLJsonNodeType.Boolean);
       ParseAndSerialize("true", SLJsonNodeType.Boolean);
       ParseAndSerialize("1234", SLJsonNodeType.Number);
-      ParseAndSerialize("3.1415", SLJsonNodeType.Number);
       ParseAndSerialize("\"text\"", SLJsonNodeType.String);
+    }
 
+    //------------------------------------------------------------------------
+
+    void ParseInvalid(string jsonExpression, string expectedErrorMessage)
+    {
       try
       {
-        ParseAndSerialize("\n   {}   \r\n\n\r\n\n       '123'", SLJsonNodeType.Object);
+        SLJsonParser.Parse(jsonExpression, true);
         Test.Assert(() => false);
       }
       catch(SLJsonException e)
       {
-        Test.Assert(() => e.Message=="Syntax error in JSON expression at row 6 in column 8: Unexpected string: 123");
+        Test.Assert(() => e.Message==expectedErrorMessage);
       }
     }
 
@@ -370,6 +403,8 @@ namespace Liersch.Json
         }
       }";
     }
+
+    //------------------------------------------------------------------------
 
     UnitTestHelper Test;
   }
