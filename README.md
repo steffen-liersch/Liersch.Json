@@ -205,7 +205,8 @@ The reflection-based serialization and deserialization are unavailable for the .
 License
 -------
 
-Consider the license terms for the use of this software in whole or in part. The license terms are in file "Liersch.Json_License.txt".
+Consider the license terms for the use of this software in whole or in part. The license terms are in file
+[Liersch.Json_License.txt](https://github.com/steffen-liersch/liersch.json/blob/master/Liersch.Json_License.txt).
 
 
 Copyright
