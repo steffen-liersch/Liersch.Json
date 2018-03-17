@@ -190,6 +190,7 @@ namespace Liersch.Json
         case 'r': m_Sb.Append('\r'); break; // Carriage return: \u000D
 
         case '"':
+        case '/':
         case '\'':
         case '\\':
           m_Sb.Append(c);

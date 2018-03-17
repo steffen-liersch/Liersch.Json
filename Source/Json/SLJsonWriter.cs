@@ -99,7 +99,7 @@ namespace Liersch.Json
           case '\b': m_Target.Append("\\b"); break; // Backspace      : \u0008
           case '\t': m_Target.Append("\\t"); break; // Horizontal tab : \u0009
           case '\n': m_Target.Append("\\n"); break; // Line feed      : \u000A
-          case '\v': m_Target.Append("\\v"); break; // Vertical tab   : \u000B
+          //case '\v': m_Target.Append("\\v"); break; // Vertical tab   : \u000B
           case '\f': m_Target.Append("\\f"); break; // Form feed      : \u000C
           case '\r': m_Target.Append("\\r"); break; // Carriage return: \u000D
           case '"': m_Target.Append("\\\""); break;

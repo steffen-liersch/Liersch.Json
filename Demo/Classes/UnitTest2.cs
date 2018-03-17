@@ -73,7 +73,7 @@ namespace Liersch.Json
       Check("{value: \"Special_\\1010\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A0");
       Check("{value: \"Special_\\1018\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A8");
       Check("{value: \"Special_\\u0041\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A");
-      Check("{value: \"Special_\\b\\t\\n\\v\\f\\r\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\b\t\n\v\f\r");
+      Check("{value: \"Special_\\\\_\\/_/_\\b\\t\\n\\v\\f\\r\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\\_/_/_\b\t\n\v\f\r");
       Check("{value: \"null\"}", false, false, false, true, nt, false, 0, 0, 0, "null");
       Check("{value: \"false\"}", false, false, false, true, nt, false, 0, 0, 0, "false");
       Check("{value: \"FALSE\"}", false, false, false, true, nt, false, 0, 0, 0, "FALSE");
