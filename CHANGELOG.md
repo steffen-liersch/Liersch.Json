@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Conditional directives added to platform-specific files
 - Constructor constraint added to SLJsonDeserializer.Deserialize
 - Function SLJsonParser.Parse(string jsonExpression, bool allowArraysAndValues) added
+- Functions CreateEmptyArray and CreateEmptyObject added to SLJsonNode
 ### Changed
 - Signing assemblies
 - Using AssemblyInfo.cs for all library projects

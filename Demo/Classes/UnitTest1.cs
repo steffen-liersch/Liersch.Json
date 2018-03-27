@@ -199,6 +199,18 @@ namespace Liersch.Json
       Test.Assert(() => n["testArray"].Count==4);
       Test.Assert(() => n["testArray"][1].Remove());
       Test.Assert(() => n["testArray"].Count==3);
+
+      Test.Assert(() => n["emptyArray"].IsMissing);
+      n["emptyArray"].CreateEmptyArray();
+      Test.Assert(() => n["emptyArray"].IsArray);
+      Test.Assert(() => n["emptyArray"].Count==0);
+      Test.Assert(() => n["emptyArray"].AsJsonCompact=="[]");
+
+      Test.Assert(() => n["emptyObject"].IsMissing);
+      n["emptyObject"].CreateEmptyObject();
+      Test.Assert(() => n["emptyObject"].IsObject);
+      Test.Assert(() => n["emptyObject"].Count==0);
+      Test.Assert(() => n["emptyObject"].AsJsonCompact=="{}");
     }
 
     void TestOperators()

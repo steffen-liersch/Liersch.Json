@@ -180,6 +180,18 @@ namespace Liersch.Json
 
     //------------------------------------------------------------------------
 
+    public void CreateEmptyArray()
+    {
+      ChangeValue(SLJsonNodeType.Null, null);
+      MakeArray();
+    }
+
+    public void CreateEmptyObject()
+    {
+      ChangeValue(SLJsonNodeType.Null, null);
+      MakeObject();
+    }
+
     public bool Remove()
     {
       BeforeChange();
