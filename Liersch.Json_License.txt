@@ -7,7 +7,7 @@ Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 http://www.steffen-liersch.de/
 
 The software is maintained and published here:  
-https://github.com/steffen-liersch/liersch.json
+https://github.com/steffen-liersch/Liersch.Json
 
 
 License Agreement (English translation)

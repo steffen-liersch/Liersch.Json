@@ -8,7 +8,7 @@ Liersch.Json provides support for parsing and generating JSON expressions. The l
 - .NET Standard 1.0
 - .NET Micro Framework 4.4 (excluding reflection-based features)
 
-Changes are logged in file [CHANGELOG.md](https://github.com/steffen-liersch/liersch.json/blob/master/CHANGELOG.md).
+Changes are logged in file [CHANGELOG.md](https://github.com/steffen-liersch/Liersch.Json/blob/master/CHANGELOG.md).
 
 [You can support maintenance and further development with a voluntary donation.](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NVXEQCNGJFK92)
 
@@ -206,7 +206,7 @@ License
 -------
 
 Consider the license terms for the use of this software in whole or in part. The license terms are in file
-[Liersch.Json_License.txt](https://github.com/steffen-liersch/liersch.json/blob/master/Liersch.Json_License.txt).
+[Liersch.Json_License.txt](https://github.com/steffen-liersch/Liersch.Json/blob/master/Liersch.Json_License.txt).
 
 
 Copyright
@@ -216,4 +216,4 @@ Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
 http://www.steffen-liersch.de/
 
 The software is maintained and published here:  
-https://github.com/steffen-liersch/liersch.json
+https://github.com/steffen-liersch/Liersch.Json
