@@ -6,7 +6,7 @@ echo Current folder:
 echo %WorkDir%
 
 echo.
-set /p "Answer=Do you really want to clean up the current folder? [y/N] "
+set /p Answer="Do you really want to clean up the current folder? [y/N] "
 if /i "%Answer%" neq "y" goto end
 
 echo.
