@@ -17,7 +17,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Liersch.Json
 {
@@ -68,8 +67,8 @@ namespace Liersch.Json
 
     //------------------------------------------------------------------------
 
-    static readonly IList<string> m_EmptyNames=new ReadOnlyCollection<string>(new string[0]);
-    static readonly IList<SLJsonNode> m_EmptyNodes=new ReadOnlyCollection<SLJsonNode>(new SLJsonNode[0]);
+    static readonly IList<string> m_EmptyNames=new string[0];
+    static readonly IList<SLJsonNode> m_EmptyNodes=new SLJsonNode[0];
 
     internal List<SLJsonNode> m_Array;
     internal SortedDictionary<string, SLJsonNode> m_Object;
