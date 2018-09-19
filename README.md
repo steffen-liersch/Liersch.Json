@@ -3,7 +3,7 @@
 
 Liersch.Json provides support for parsing and generating JSON expressions. The library is written in pure C# 3.0 and should work for the most .NET platforms. The following platforms are explicitly supported:
 
-- .NET Framework 2.0, 3.0, 3.5, 4.0, 4.5, 4.6 and Mono
+- .NET Framework 2.0, 3.0, 3.5, 4.0, 4.5 and Mono
 - .NET Core 1.0
 - .NET Standard 1.0
 - .NET Micro Framework 4.4 (excluding reflection-based features)
@@ -34,7 +34,7 @@ To use the library in a project one of the following library project files must 
 SLJsonParser
 ------------
 
-The parser class SLJsonParser is easy to use. The input JSON expression should have a correct format. Otherwise a SLJsonException is thrown. In JSON expressions strings must be delimited with double-quotation marks. The parser also accepts single-quotation marks.
+The parser class SLJsonParser is easy to use. The input JSON expression should have a correct format. Otherwise a SLJsonException is thrown. In JSON strings must be delimited with double-quotation marks. The parser also accepts single-quotation marks.
 
 ```cs
 public static void RunExample1()
