@@ -89,8 +89,11 @@ namespace Liersch.Json
 
     void SerializeArray(Type type, object array, bool asObject)
     {
-      if(!type.IsArray)
-        throw new NotSupportedException("Type "+type.FullName+" is not an array");
+      if(type.IsArray && type.GetArrayRank()!=1)
+        throw new NotSupportedException("Multi-dimensional arrays are not supported");
+
+      if(!typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
+        throw new NotSupportedException("Type "+type.FullName+" does not implement IEnumerable");
 
       if(array==null)
       {

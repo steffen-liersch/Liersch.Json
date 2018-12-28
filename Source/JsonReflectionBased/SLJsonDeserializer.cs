@@ -14,6 +14,7 @@
 //----------------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -114,17 +115,35 @@ namespace Liersch.Json
 
     object DeserializeArray(Type type, SLJsonNode array, bool asObject)
     {
-      if(!type.IsArray)
-        throw new NotSupportedException("Type "+type.FullName+" is not an array");
+      int c=array.Count;
 
-      Type t=type.GetElementType();
+      Type elemType;
+      Array resArray;
+      IList resList;
+
+      if(type.IsArray)
+      {
+        if(type.GetArrayRank()!=1)
+          throw new NotSupportedException("Multi-dimensional arrays are not supported");
+
+        elemType=type.GetElementType();
+        resArray=Array.CreateInstance(elemType, c);
+        resList=null;
+      }
+      else
+      {
+        Type[] args=type.GetGenericArguments();
+        elemType=args.Length==1 ? args[0] : null;
+        if(elemType==null || !typeof(List<>).MakeGenericType(elemType).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
+          throw new NotSupportedException("Type "+type.FullName+" is neither an array nor a List<>");
+
+        resList=(IList)Activator.CreateInstance(type);
+        resArray=null;
+      }
 
       object defaultValue=null;
-      if(!asObject && !t.GetTypeInfo().IsClass)
-        defaultValue=Activator.CreateInstance(t);
-
-      int c=array.Count;
-      var res=Array.CreateInstance(t, c);
+      if(!asObject && !elemType.GetTypeInfo().IsClass)
+        defaultValue=Activator.CreateInstance(elemType);
 
       for(int i=0; i<c; i++)
       {
@@ -135,18 +154,21 @@ namespace Liersch.Json
           if(asObject)
           {
             if(n.IsObject)
-              v=DeserializeObject(t, n);
+              v=DeserializeObject(elemType, n);
           }
           else
           {
             if(n.IsValue)
-              v=DeserializeValue(t, n);
+              v=DeserializeValue(elemType, n);
           }
         }
-        res.SetValue(v, i);
-        }
 
-      return res;
+        if(resArray!=null)
+          resArray.SetValue(v, i);
+        else resList.Add(v);
+      }
+
+      return resArray ?? resList;
     }
 
     object DeserializeValue(Type type, SLJsonNode value) { return ParseValue(type, value.AsString); }

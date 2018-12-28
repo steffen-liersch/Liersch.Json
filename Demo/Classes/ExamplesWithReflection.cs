@@ -14,6 +14,7 @@
 //----------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace Liersch.Json
 {
@@ -28,7 +29,11 @@ namespace Liersch.Json
       Console.WriteLine();
 
       var e1=new Example();
-      e1.IntegerArray=new int[] { 10, 20, 30, 700, 800 };
+      e1.PersonList=new List<Person>();
+      e1.PersonList.Add(new Person() { LastName="Doe", FirstName="John" });
+      e1.PersonList.Add(new Person() { LastName="Smith", FirstName="Jane" });
+      e1.IntegerList=new List<int> { 10, 20, 30 };
+      e1.IntegerArray=new int[] { 700, 800 };
       e1.StringValue="Example Text";
       e1.NotSerializedString="Other Text";
 
@@ -38,22 +43,35 @@ namespace Liersch.Json
       string f="{0,-24} => {1,16} - {2}";
       Console.WriteLine(string.Format(f, "Object", "e1", "e2"));
 
-      int c1=e1.IntegerArray.Length;
-      int c2=e2.IntegerArray.Length;
-
-      Console.WriteLine(string.Format(f, "IntegerArray.Length", c1, c2));
-
-      int c=Math.Min(c1, c2);
-      for(int i=0; i<c; i++)
-        Console.WriteLine(string.Format(f, "IntegerArray["+i+"]", e1.IntegerArray[i], e2.IntegerArray[i]));
+      CompareLists(f, "PersonList", e1.PersonList, e2.PersonList);
+      CompareLists(f, "IntegerList", e1.IntegerList, e2.IntegerList);
+      CompareLists(f, "IntegerArray", e1.IntegerArray, e2.IntegerArray);
 
       Console.WriteLine(string.Format(f, "StringValue", e1.StringValue, e2.StringValue));
       Console.WriteLine(string.Format(f, "NotSerializedString", e1.NotSerializedString, e2.NotSerializedString));
       Console.WriteLine();
     }
 
+    static void CompareLists<T>(string format, string name, IList<T> list1, IList<T> list2)
+    {
+      int c1=list1.Count;
+      int c2=list2.Count;
+
+      Console.WriteLine(string.Format(format, name+".Count", c1, c2));
+
+      int c=Math.Min(c1, c2);
+      for(int i=0; i<c; i++)
+        Console.WriteLine(string.Format(format, name+"["+i+"]", list1[i], list2[i]));
+    }
+
     class Example
     {
+      [SLJsonMember("PersonList", SLJsonMemberType.ObjectArray)]
+      public List<Person> PersonList;
+
+      [SLJsonMember("IntegerList", SLJsonMemberType.ValueArray)]
+      public List<int> IntegerList;
+
       [SLJsonMember("IntegerArray", SLJsonMemberType.ValueArray)]
       public int[] IntegerArray;
 
@@ -61,6 +79,17 @@ namespace Liersch.Json
       public string StringValue;
 
       public string NotSerializedString;
+    }
+
+    class Person
+    {
+      [SLJsonMember("LastName")]
+      public string LastName;
+
+      [SLJsonMember("FirstName")]
+      public string FirstName;
+
+      public override string ToString() { return FirstName+" "+LastName; }
     }
   }
 

@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Constructor constraint added to SLJsonDeserializer.Deserialize
 - Function SLJsonParser.Parse(string jsonExpression, bool allowArraysAndValues) added
 - Functions CreateEmptyArray and CreateEmptyObject added to SLJsonNode
+- Support for List<T> added to SLJsonDeserializer and SLJsonSerializer
 ### Changed
 - Signing assemblies
 - Using AssemblyInfo.cs for all library projects
