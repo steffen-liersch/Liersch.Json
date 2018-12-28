@@ -60,10 +60,21 @@ namespace Liersch.Json
             fi.SetValue(res, DeserializeObjectInternal(container[attr.MemberName], attr.MemberType, fi.FieldType, fi.GetValue(res)));
 
       foreach(PropertyInfo pi in type.GetRuntimeProperties())
-        if(pi.CanRead && pi.CanWrite && pi.GetGetMethod().IsPublic && pi.GetSetMethod().IsPublic)
-          foreach(SLJsonMemberAttribute attr in pi.GetCustomAttributes(typeof(SLJsonMemberAttribute), false))
-            pi.SetValue(res, DeserializeObjectInternal(container[attr.MemberName], attr.MemberType, pi.PropertyType, pi.GetValue(res, null)), null);
-
+      {
+        if(pi.CanRead && pi.CanWrite)
+        {
+          MethodInfo mi1=pi.GetGetMethod();
+          if(mi1!=null && mi1.IsPublic)
+          {
+            MethodInfo mi2=pi.GetSetMethod();
+            if(mi2!=null && mi2.IsPublic)
+            {
+              foreach(SLJsonMemberAttribute attr in pi.GetCustomAttributes(typeof(SLJsonMemberAttribute), false))
+                pi.SetValue(res, DeserializeObjectInternal(container[attr.MemberName], attr.MemberType, pi.PropertyType, pi.GetValue(res, null)), null);
+            }
+          }
+        }
+      }
       return res;
     }
 
@@ -133,7 +144,7 @@ namespace Liersch.Json
           }
         }
         res.SetValue(v, i);
-      }
+        }
 
       return res;
     }

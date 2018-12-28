@@ -22,3 +22,4 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - SLJsonNode changed to use SortedDictionary for SLJsonNodeType.Object (except .NET MF)
 - Function SLJsonNode.ToString fixed for SLJsonNodeType.Object
 - SLJsonTokenizer and SLJsonWriter improved to support all required escape sequences
+- NullReferenceException in SLJsonDeserializer and SLJsonSerializer on missing getter or setter

@@ -50,9 +50,21 @@ namespace Liersch.Json
               SerializeProperty(attr, fi.FieldType, fi.GetValue(instance));
 
         foreach(PropertyInfo pi in t.GetRuntimeProperties())
-          if(pi.CanRead && pi.CanWrite && pi.GetGetMethod().IsPublic && pi.GetSetMethod().IsPublic)
-            foreach(SLJsonMemberAttribute attr in pi.GetCustomAttributes(typeof(SLJsonMemberAttribute), false))
-              SerializeProperty(attr, pi.PropertyType, pi.GetValue(instance, null));
+        {
+          if(pi.CanRead && pi.CanWrite)
+          {
+            MethodInfo mi1=pi.GetGetMethod();
+            if(mi1!=null && mi1.IsPublic)
+            {
+              MethodInfo mi2=pi.GetSetMethod();
+              if(mi2!=null && mi2.IsPublic)
+              {
+                foreach(SLJsonMemberAttribute attr in pi.GetCustomAttributes(typeof(SLJsonMemberAttribute), false))
+                  SerializeProperty(attr, pi.PropertyType, pi.GetValue(instance, null));
+              }
+            }
+          }
+        }
 
         m_Writer.EndObject();
       }
