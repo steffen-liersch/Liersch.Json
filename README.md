@@ -18,9 +18,9 @@ Getting Started
 
 The following solutions can be used to try the library:
 
-- "Liersch.Json.Demo_VS2017.sln" - demo using the library project for multiple target frameworks (VS 2017 required)
-- "Liersch.Json.Demo_VS2013.sln" - demo using the library project for .NET Framework 3.5 and Mono (VS 2013 required)
-- "Liersch.Json.Demo_netmf.sln" - demo using the library project for .NET Micro Framework 4.4 (VS 2015 required)
+- "Liersch.Json_VS2017.sln" - demo for multiple target frameworks (VS 2017 required)
+- "Liersch.Json_VS2013.sln" - demo for .NET Framework 3.5 and Mono (VS 2013 required)
+- "Liersch.Json_netmf.sln" - demo for .NET Micro Framework 4.4 (VS 2015 required)
 
 To use the library in a project one of the following library project files must be included into the solution, depending on the used IDE and the target framework:
 
@@ -206,13 +206,13 @@ License
 -------
 
 Consider the license terms for the use of this software in whole or in part. The license terms are in file
-[Liersch.Json_License.txt](https://github.com/steffen-liersch/Liersch.Json/blob/master/Liersch.Json_License.txt).
+[Liersch.Json_License.txt](https://github.com/steffen-liersch/Liersch.Json/blob/master/Liersch.Json/Liersch.Json_License.txt).
 
 
 Copyright
 ---------
 
-Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch  
+Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch  
 http://www.steffen-liersch.de/
 
 The software is maintained and published here:  

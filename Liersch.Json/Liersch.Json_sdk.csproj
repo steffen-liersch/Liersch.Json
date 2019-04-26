@@ -9,17 +9,11 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Steffen Liersch</Authors>
     <Company>Steffen Liersch</Company>
-    <Copyright>© 2013-2018 Dipl.-Ing. (BA) Steffen Liersch</Copyright>
+    <Copyright>© 2013-2019 Dipl.-Ing. (BA) Steffen Liersch</Copyright>
     <Product>Liersch.Json</Product>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Properties\KeyPrivate.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Demo\**" />
-    <EmbeddedResource Remove="Demo\**" />
-    <None Remove="Demo\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Remove="*.bat" />

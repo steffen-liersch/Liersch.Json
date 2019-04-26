@@ -43,7 +43,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Liersch.Json_net35.csproj">
+    <ProjectReference Include="..\Liersch.Json\Liersch.Json_net35.csproj">
       <Project>{fc56127a-019b-45f8-9a37-7ef5df34c894}</Project>
       <Name>Liersch.Json_net35</Name>
     </ProjectReference>

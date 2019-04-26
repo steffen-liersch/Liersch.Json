@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Liersch.Json_sdk.csproj" />
+    <ProjectReference Include="..\Liersch.Json\Liersch.Json_sdk.csproj" />
   </ItemGroup>
 
 </Project>

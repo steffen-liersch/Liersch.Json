@@ -3,7 +3,7 @@
 
 Liersch.Json provides support for parsing and generating JSON expressions.
 
-Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch  
+Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch  
 http://www.steffen-liersch.de/
 
 The software is maintained and published here:  

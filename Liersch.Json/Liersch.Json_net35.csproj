@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{166186EA-0910-41D5-83CE-E417EDE40A87}</ProjectGuid>
+    <ProjectGuid>{FC56127A-019B-45F8-9A37-7EF5DF34C894}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Liersch.Json</RootNamespace>
     <AssemblyName>Liersch.Json</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -17,8 +17,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\net45\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;NET45</DefineConstants>
+    <OutputPath>bin\Debug\net35\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;NET35</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -27,8 +27,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\net45\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS;NET45</DefineConstants>
+    <OutputPath>bin\Release\net35\</OutputPath>
+    <DefineConstants>TRACE;CODE_ANALYSIS;NET35</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -45,26 +45,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\JsonReflectionBased\ExtensionAttribute.cs" />
-    <Compile Include="Source\JsonReflectionBased\SLJsonDeserializer.cs" />
-    <Compile Include="Source\JsonReflectionBased\SLJsonMemberAttribute.cs" />
-    <Compile Include="Source\JsonReflectionBased\SLJsonMemberType.cs" />
-    <Compile Include="Source\JsonReflectionBased\SLJsonSerializer.cs" />
-    <Compile Include="Source\JsonReflectionBased\SLReflectionExtensions.cs" />
-    <Compile Include="Source\Json\SLJsonConvert_net20.cs" />
-    <Compile Include="Source\Json\SLJsonConvert_netmf.cs" />
-    <Compile Include="Source\Json\SLJsonException.cs" />
-    <Compile Include="Source\Json\SLJsonMonitor.cs" />
-    <Compile Include="Source\Json\SLJsonNode.cs" />
-    <Compile Include="Source\Json\SLJsonNodeType.cs" />
-    <Compile Include="Source\Json\SLJsonNode_ItemsTyped.cs" />
-    <Compile Include="Source\Json\SLJsonNode_ItemsUntyped.cs" />
-    <Compile Include="Source\Json\SLJsonNode_Monitor.cs" />
-    <Compile Include="Source\Json\SLJsonNode_Operators.cs" />
-    <Compile Include="Source\Json\SLJsonNode_Serialization.cs" />
-    <Compile Include="Source\Json\SLJsonParser.cs" />
-    <Compile Include="Source\Json\SLJsonTokenizer.cs" />
-    <Compile Include="Source\Json\SLJsonWriter.cs" />
+    <Compile Include="JsonReflectionBased\ExtensionAttribute.cs" />
+    <Compile Include="JsonReflectionBased\SLJsonDeserializer.cs" />
+    <Compile Include="JsonReflectionBased\SLJsonMemberAttribute.cs" />
+    <Compile Include="JsonReflectionBased\SLJsonMemberType.cs" />
+    <Compile Include="JsonReflectionBased\SLJsonSerializer.cs" />
+    <Compile Include="JsonReflectionBased\SLReflectionExtensions.cs" />
+    <Compile Include="Json\SLJsonConvert_net20.cs" />
+    <Compile Include="Json\SLJsonConvert_netmf.cs" />
+    <Compile Include="Json\SLJsonException.cs" />
+    <Compile Include="Json\SLJsonMonitor.cs" />
+    <Compile Include="Json\SLJsonNode.cs" />
+    <Compile Include="Json\SLJsonNodeType.cs" />
+    <Compile Include="Json\SLJsonNode_ItemsTyped.cs" />
+    <Compile Include="Json\SLJsonNode_ItemsUntyped.cs" />
+    <Compile Include="Json\SLJsonNode_Monitor.cs" />
+    <Compile Include="Json\SLJsonNode_Operators.cs" />
+    <Compile Include="Json\SLJsonNode_Serialization.cs" />
+    <Compile Include="Json\SLJsonParser.cs" />
+    <Compile Include="Json\SLJsonTokenizer.cs" />
+    <Compile Include="Json\SLJsonWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Liersch.Json_License.txt">
@@ -72,9 +72,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CHANGELOG.md" />
     <None Include="Properties\KeyPrivate.snk" />
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

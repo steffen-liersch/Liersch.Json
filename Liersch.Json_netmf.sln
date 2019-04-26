@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liersch.Json.Demo_netmf", "Liersch.Json.Demo_netmf.csproj", "{B60A3990-1261-4ED4-8554-DA8B06846537}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liersch.Json.Demo_netmf", "Liersch.Json.Demo\Liersch.Json.Demo_netmf.csproj", "{B60A3990-1261-4ED4-8554-DA8B06846537}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liersch.Json_netmf", "..\Liersch.Json_netmf.csproj", "{8C223448-9C03-43A3-BD71-5DBA45DBEE6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liersch.Json_netmf", "Liersch.Json\Liersch.Json_netmf.csproj", "{8C223448-9C03-43A3-BD71-5DBA45DBEE6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

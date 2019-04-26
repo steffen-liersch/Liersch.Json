@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liersch.Json.Demo_VS2013", "Liersch.Json.Demo_VS2013.csproj", "{6E84FF04-23D1-4C69-9FBD-A64F865B01BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liersch.Json.Demo_VS2013", "Liersch.Json.Demo\Liersch.Json.Demo_VS2013.csproj", "{6E84FF04-23D1-4C69-9FBD-A64F865B01BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liersch.Json_net35", "..\Liersch.Json_net35.csproj", "{FC56127A-019B-45F8-9A37-7EF5DF34C894}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liersch.Json_net35", "Liersch.Json\Liersch.Json_net35.csproj", "{FC56127A-019B-45F8-9A37-7EF5DF34C894}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

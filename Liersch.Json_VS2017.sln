@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liersch.Json.Demo_VS2017", "Liersch.Json.Demo_VS2017.csproj", "{AEFE76BC-1C6B-489A-82DA-5807B385EFFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liersch.Json.Demo_VS2017", "Liersch.Json.Demo\Liersch.Json.Demo_VS2017.csproj", "{AEFE76BC-1C6B-489A-82DA-5807B385EFFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liersch.Json_sdk", "..\Liersch.Json_sdk.csproj", "{756D34EA-9A6D-41AA-BA7C-8EDCDA851C0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liersch.Json_sdk", "Liersch.Json\Liersch.Json_sdk.csproj", "{756D34EA-9A6D-41AA-BA7C-8EDCDA851C0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

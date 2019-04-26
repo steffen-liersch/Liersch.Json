@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("Steffen Liersch")]
-[assembly: AssemblyCopyright("© 2013-2018 Dipl.-Ing. (BA) Steffen Liersch")]
+[assembly: AssemblyCopyright("© 2013-2019 Dipl.-Ing. (BA) Steffen Liersch")]
 [assembly: AssemblyProduct("Liersch.Json")]
 [assembly: AssemblyTitle("Liersch.Json")]
 [assembly: AssemblyConfiguration("")]
