@@ -18,8 +18,6 @@ using System.Collections.Generic;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   static class ExamplesWithReflection
   {
     public static void Run()
@@ -92,6 +90,4 @@ namespace Liersch.Json
       public override string ToString() { return FirstName+" "+LastName; }
     }
   }
-
-  //--------------------------------------------------------------------------
 }

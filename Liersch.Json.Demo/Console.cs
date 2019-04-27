@@ -20,8 +20,6 @@ using Microsoft.SPOT;
 
 namespace System
 {
-  //--------------------------------------------------------------------------
-
   static class Console // For .NET MF only
   {
     public static void WriteLine(string text)
@@ -43,12 +41,8 @@ namespace System
 
     public static void ReadKey(bool intercept) { }
 
-    //------------------------------------------------------------------------
-
     static StringBuilder m_Buffer=new StringBuilder();
   }
-
-  //--------------------------------------------------------------------------
 }
 
 #endif

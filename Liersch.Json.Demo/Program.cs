@@ -17,21 +17,12 @@ using System;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   static class Program
   {
     static void Main()
     {
       try
       {
-        new UnitTest1().Run();
-        new UnitTest2().Run();
-
-#if !NETMF
-        new UnitTest3().Run();
-#endif
-
         Examples.RunExample1();
         Examples.RunExample2();
         Examples.RunExample3();
@@ -50,6 +41,4 @@ namespace Liersch.Json
       Console.ReadKey(true);
     }
   }
-
-  //--------------------------------------------------------------------------
 }

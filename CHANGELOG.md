@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Signing assemblies
 - Using AssemblyInfo.cs for all library projects
 - Function SLJsonNode.Serialize optimized and handling for nodes of type SLJsonNodeType.Missing added
-- Projects and demos reworked
+- Projects and demos reworked, tests moved to test project
 - Using a single project file for multiple target frameworks (VS2017)
 - Using the same library name for all target frameworks
 ### Fixed

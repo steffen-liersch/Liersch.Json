@@ -18,8 +18,6 @@ using System.Text;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   static class Examples
   {
     public static void RunExample1()
@@ -54,7 +52,6 @@ namespace Liersch.Json
       Console.WriteLine();
     }
 
-    //------------------------------------------------------------------------
 
     public static void RunExample2()
     {
@@ -130,7 +127,6 @@ namespace Liersch.Json
       return jsonExpression;
     }
 
-    //------------------------------------------------------------------------
 
     public static void RunExample3()
     {
@@ -160,7 +156,6 @@ namespace Liersch.Json
       return book;
     }
 
-    //------------------------------------------------------------------------
 
     public static void RunExample4()
     {
@@ -201,6 +196,4 @@ namespace Liersch.Json
       Console.WriteLine();
     }
   }
-
-  //--------------------------------------------------------------------------
 }

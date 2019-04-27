@@ -14,18 +14,16 @@
 //----------------------------------------------------------------------------
 
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Liersch.Json
+namespace Liersch.Json.Tests
 {
-  //--------------------------------------------------------------------------
-
-  sealed class UnitTest2
+  [TestClass]
+  public class UnitTest2
   {
-    public void Run()
+    [TestMethod]
+    public void TestSystematically()
     {
-      Test=new UnitTestHelper();
-      Test.PrintHeadline("UnitTest2 - Values and Data Types");
-
       SLJsonNodeType nt;
 
       nt=SLJsonNodeType.Missing;
@@ -83,9 +81,6 @@ namespace Liersch.Json
       Check("{value: 'single-quoted'}", false, false, false, true, nt, false, 0, 0, 0, "single-quoted"); // Single-quotation marks are not allowed for JSON expressions
 
       Check("{value: INVALID}", false, false, false, true, SLJsonNodeType.Number, false, 0, 0, 0, "INVALID");
-
-      Test.PrintSummary();
-      Test=null;
     }
 
     void Check(
@@ -96,26 +91,22 @@ namespace Liersch.Json
       SLJsonNode parsed=SLJsonParser.Parse(json);
       SLJsonNode n=parsed["value"];
 
-      Test.Assert(() => n.IsArray==isArray);
-      Test.Assert(() => n.IsNull==isNull);
-      Test.Assert(() => n.IsObject==isObject);
-      Test.Assert(() => n.IsValue==isValue);
+      Assert.AreEqual(isArray, n.IsArray);
+      Assert.AreEqual(isNull, n.IsNull);
+      Assert.AreEqual(isObject, n.IsObject);
+      Assert.AreEqual(isValue, n.IsValue);
 
-      Test.Assert(() => n.NodeType==valueType);
-      Test.Assert(() => n.IsValue==(n.IsBoolean || n.IsNumber || n.IsString));
-      Test.Assert(() => n.IsBoolean==(valueType==SLJsonNodeType.Boolean));
-      Test.Assert(() => n.IsNumber==(valueType==SLJsonNodeType.Number));
-      Test.Assert(() => n.IsString==(valueType==SLJsonNodeType.String));
+      Assert.AreEqual(valueType, n.NodeType);
+      Assert.AreEqual(n.IsBoolean || n.IsNumber || n.IsString, n.IsValue);
+      Assert.AreEqual(valueType==SLJsonNodeType.Boolean, n.IsBoolean);
+      Assert.AreEqual(valueType==SLJsonNodeType.Number, n.IsNumber);
+      Assert.AreEqual(valueType==SLJsonNodeType.String, n.IsString);
 
-      Test.Assert(() => n.AsBoolean==valueBoolean);
-      Test.Assert(() => n.AsInt32==valueInt32);
-      Test.Assert(() => n.AsInt64==valueInt64);
-      Test.Assert(() => Math.Abs(n.AsDouble-valueNumber)<=1e-7);
-      Test.Assert(() => n.AsString==valueString);
+      Assert.AreEqual(valueBoolean, n.AsBoolean);
+      Assert.AreEqual(valueInt32, n.AsInt32);
+      Assert.AreEqual(valueInt64, n.AsInt64);
+      Assert.IsTrue(Math.Abs(n.AsDouble-valueNumber)<=1e-7);
+      Assert.AreEqual(valueString, n.AsString);
     }
-
-    UnitTestHelper Test;
   }
-
-  //--------------------------------------------------------------------------
 }

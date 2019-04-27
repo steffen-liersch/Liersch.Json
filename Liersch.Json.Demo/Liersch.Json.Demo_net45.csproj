@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Liersch.Json</RootNamespace>
     <AssemblyName>Liersch.Json.Demo</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -18,21 +18,23 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\net45\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>3</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\Release\net45\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>3</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -43,20 +45,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Liersch.Json\Liersch.Json_net35.csproj">
-      <Project>{fc56127a-019b-45f8-9a37-7ef5df34c894}</Project>
-      <Name>Liersch.Json_net35</Name>
-    </ProjectReference>
+    <Compile Include="Console.cs" />
+    <Compile Include="Examples.cs" />
+    <Compile Include="ExamplesWithReflection.cs" />
+    <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Console.cs" />
-    <Compile Include="Classes\Examples.cs" />
-    <Compile Include="Classes\ExamplesWithReflection.cs" />
-    <Compile Include="Classes\Program.cs" />
-    <Compile Include="Classes\UnitTest1.cs" />
-    <Compile Include="Classes\UnitTest2.cs" />
-    <Compile Include="Classes\UnitTest3.cs" />
-    <Compile Include="Classes\UnitTestHelper.cs" />
+    <ProjectReference Include="..\Liersch.Json\Liersch.Json_net45.csproj">
+      <Project>{166186ea-0910-41d5-83ce-e417ede40a87}</Project>
+      <Name>Liersch.Json_net45</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

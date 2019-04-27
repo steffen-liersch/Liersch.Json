@@ -14,18 +14,16 @@
 //----------------------------------------------------------------------------
 
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Liersch.Json
+namespace Liersch.Json.Tests
 {
-  //--------------------------------------------------------------------------
-
-  sealed class UnitTest3
+  [TestClass]
+  public class UnitTest3
   {
-    public void Run()
+    [TestMethod]
+    public void TestReflection()
     {
-      Test=new UnitTestHelper();
-      Test.PrintHeadline("UnitTest3 - Reflection-based Serialization");
-
       var o1=new ExampleOuter()
       {
         ValueString="Test",
@@ -46,33 +44,29 @@ namespace Liersch.Json
       ExampleOuter o2=d.Deserialize<ExampleOuter>(s1);
 
       string s2=Serialize(o1);
-      Test.Assert(() => s1==s2);
+      Assert.AreEqual(s1, s2);
 
       SLJsonNode n1=SLJsonParser.Parse(s1);
       SLJsonNode n2=n1.Clone();
       SLJsonNode n3=SLJsonParser.Parse(n2.AsJson);
       SLJsonNode n4=SLJsonParser.Parse(n3.AsJsonCompact);
-      Test.Assert(() => n1!=n2);
+      Assert.IsTrue(n1!=n2);
       CompareNodes(n1, n1);
       CompareNodes(n1, n2);
       CompareNodes(n1, n3);
       CompareNodes(n1, n4);
-
-      //Console.WriteLine();
-      Test.PrintSummary();
-      Test=null;
     }
 
     void CompareNodes(SLJsonNode n1, SLJsonNode n2)
     {
-      Test.Assert(() => n1.NodeType==n2.NodeType);
-      Test.Assert(() => n1.AsString==n2.AsString);
+      Assert.AreEqual(n1.NodeType, n2.NodeType);
+      Assert.AreEqual(n1.AsString, n2.AsString);
 
       if(n1.IsArray && n2.IsArray)
       {
         int c1=n1.Count;
         int c2=n2.Count;
-        Test.Assert(() => c1==c2);
+        Assert.AreEqual(c1, c2);
         if(c1==c2)
           for(int i=0; i<c1; i++)
             CompareNodes(n1[i], n2[i]);
@@ -82,7 +76,7 @@ namespace Liersch.Json
       {
         int c1=n1.Count;
         int c2=n2.Count;
-        Test.Assert(() => c1==c2);
+        Assert.AreEqual(c1, c2);
         if(c1==c2)
           foreach(string k in n1.Names)
             CompareNodes(n1[k], n2[k]);
@@ -96,7 +90,6 @@ namespace Liersch.Json
       return wr.ToString();
     }
 
-    //------------------------------------------------------------------------
 
     class ExampleOuter
     {
@@ -136,7 +129,6 @@ namespace Liersch.Json
       public void ChangePrivateValue(float value) { ValuePrivate=value; }
     }
 
-    //------------------------------------------------------------------------
 
     class ExampleInner
     {
@@ -148,11 +140,5 @@ namespace Liersch.Json
       public ExampleInner() { }
       public ExampleInner(int value) { Value=value; OtherValue=value*value; }
     }
-
-    //------------------------------------------------------------------------
-
-    UnitTestHelper Test;
   }
-
-  //--------------------------------------------------------------------------
 }
