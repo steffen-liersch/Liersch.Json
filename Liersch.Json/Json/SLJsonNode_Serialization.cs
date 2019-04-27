@@ -33,6 +33,9 @@ namespace Liersch.Json
 
     public void Serialize(SLJsonWriter writer)
     {
+      if(writer==null)
+        throw new ArgumentNullException("writer");
+
       switch(NodeType)
       {
         case SLJsonNodeType.Missing:
