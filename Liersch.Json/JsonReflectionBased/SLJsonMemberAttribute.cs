@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -17,8 +17,6 @@ using System;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
   public sealed class SLJsonMemberAttribute : Attribute
   {
@@ -29,6 +27,4 @@ namespace Liersch.Json
     readonly string m_MemberName;
     readonly SLJsonMemberType m_MemberType;
   }
-
-  //--------------------------------------------------------------------------
 }

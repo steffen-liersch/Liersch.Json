@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -15,8 +15,6 @@
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   public enum SLJsonNodeType
   {
     None,
@@ -28,6 +26,4 @@ namespace Liersch.Json
     Number,
     String,
   }
-
-  //--------------------------------------------------------------------------
 }

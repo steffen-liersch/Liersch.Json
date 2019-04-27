@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -18,14 +18,11 @@ using System.Text;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   partial class SLJsonNode
   {
     public string AsJson { get { return Serialize(true); } }
     public string AsJsonCompact { get { return Serialize(false); } }
 
-    //------------------------------------------------------------------------
 
     public string Serialize(bool indented)
     {
@@ -49,7 +46,6 @@ namespace Liersch.Json
       }
     }
 
-    //------------------------------------------------------------------------
 
     void SerializeArray(SLJsonWriter writer)
     {
@@ -72,6 +68,4 @@ namespace Liersch.Json
       writer.EndObject();
     }
   }
-
-  //--------------------------------------------------------------------------
 }

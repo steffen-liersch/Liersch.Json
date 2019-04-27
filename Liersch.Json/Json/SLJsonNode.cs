@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -18,8 +18,6 @@ using System.Text;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   public sealed partial class SLJsonNode
   {
     public int Count
@@ -105,7 +103,6 @@ namespace Liersch.Json
       }
     }
 
-    //------------------------------------------------------------------------
 
     public SLJsonNodeType NodeType { get { return m_NodeType; } }
     public bool IsMissing { get { return m_NodeType==SLJsonNodeType.Missing; } }
@@ -117,7 +114,6 @@ namespace Liersch.Json
     public bool IsNumber { get { return m_NodeType==SLJsonNodeType.Number; } }
     public bool IsString { get { return m_NodeType==SLJsonNodeType.String; } }
 
-    //------------------------------------------------------------------------
 
     public bool AsBoolean { get { return GetValue(false); } set { ChangeValue(SLJsonNodeType.Boolean, value ? "true" : "false"); } }
     public int AsInt32 { get { return GetValue(0); } set { ChangeValue(SLJsonNodeType.Number, SLJsonConvert.ToString(value)); } }
@@ -125,14 +121,12 @@ namespace Liersch.Json
     public double AsDouble { get { return GetValue(0.0); } set { ChangeValue(SLJsonNodeType.Number, SLJsonConvert.ToString(value)); } }
     public string AsString { get { return m_Value; } set { ChangeValue(value!=null ? SLJsonNodeType.String : SLJsonNodeType.Null, value); } }
 
-    //------------------------------------------------------------------------
 
     public bool GetValue(bool defaultValue) { bool res; return TryGetValue(out res) ? res : defaultValue; }
     public int GetValue(int defaultValue) { int res; return TryGetValue(out res) ? res : defaultValue; }
     public long GetValue(long defaultValue) { long res; return TryGetValue(out res) ? res : defaultValue; }
     public double GetValue(double defaultValue) { double res; return TryGetValue(out res) ? res : defaultValue; }
 
-    //------------------------------------------------------------------------
 
     public bool TryGetValue(out bool value)
     {
@@ -178,7 +172,6 @@ namespace Liersch.Json
 
     public bool TryGetValue(out double value) { return SLJsonConvert.TryParse(m_Value, out value); }
 
-    //------------------------------------------------------------------------
 
     public void CreateEmptyArray()
     {
@@ -313,7 +306,6 @@ namespace Liersch.Json
       }
     }
 
-    //------------------------------------------------------------------------
 
     internal void MakeArray()
     {
@@ -422,12 +414,10 @@ namespace Liersch.Json
       }
     }
 
-    //------------------------------------------------------------------------
 
     internal void AssignParent(SLJsonNode parent) { m_Parent=parent; } // Used by the parser and by the setters of the indexer properties
     void ClearParent() { m_Parent=null; }
 
-    //------------------------------------------------------------------------
 
     public SLJsonNode() { m_NodeType=SLJsonNodeType.Null; } // Used to create a new JSON expression; Also used by the parser
     internal SLJsonNode(SLJsonNodeType nodeType, string value) { m_NodeType=nodeType; m_Value=value; } // Used by the parser
@@ -435,7 +425,6 @@ namespace Liersch.Json
     SLJsonNode(SLJsonNode parent, string name) { m_NodeType=SLJsonNodeType.Missing; m_Parent=parent; m_Name=name; }
     SLJsonNode(SLJsonNode parent) { m_NodeType=SLJsonNodeType.Null; m_Parent=parent; }
 
-    //------------------------------------------------------------------------
 
     SLJsonNodeType m_NodeType;
     string m_Value;
@@ -444,6 +433,4 @@ namespace Liersch.Json
     int m_Index=-1;
     string m_Name;
   }
-
-  //--------------------------------------------------------------------------
 }

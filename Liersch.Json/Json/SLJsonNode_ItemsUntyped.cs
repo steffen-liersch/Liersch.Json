@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -19,8 +19,6 @@ using System.Collections;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   partial class SLJsonNode : IEnumerable
   {
     public IEnumerable Names
@@ -45,13 +43,11 @@ namespace Liersch.Json
       return m_UntypedEmptyList.GetEnumerator();
     }
 
-    //------------------------------------------------------------------------
 
     SLJsonNode GetArrayItem(int index) { return (SLJsonNode)m_Array[index]; }
 
     SLJsonNode TryGetObjectProperty(string name) { return (SLJsonNode)m_Object[name]; }
 
-    //------------------------------------------------------------------------
 
     static ArrayList CreateArray() { return new ArrayList(); }
 
@@ -64,15 +60,12 @@ namespace Liersch.Json
 #endif
     }
 
-    //------------------------------------------------------------------------
 
     static readonly IList m_UntypedEmptyList=new ArrayList();
 
     internal ArrayList m_Array; // List<SLJsonNode>
     internal IDictionary m_Object; // Dictionary<string, SLJsonNode>
   }
-
-  //--------------------------------------------------------------------------
 }
 
 #endif

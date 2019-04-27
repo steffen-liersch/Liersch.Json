@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -18,8 +18,6 @@ using System.Text;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   public sealed class SLJsonWriter
   {
     public int Level { get { return m_Level; } set { m_Level=value; } }
@@ -127,6 +125,4 @@ namespace Liersch.Json
     bool m_NeedVS; // Value separator required
     bool m_NeedLB; // Line-break required
   }
-
-  //--------------------------------------------------------------------------
 }

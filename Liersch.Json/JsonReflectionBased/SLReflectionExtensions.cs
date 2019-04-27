@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -15,8 +15,6 @@
 
 namespace System.Reflection
 {
-  //--------------------------------------------------------------------------
-
   static partial class SLReflectionExtensions
   {
 #if NET20 || NET30 || NET35 || NET40
@@ -31,6 +29,4 @@ namespace System.Reflection
     public static MethodInfo GetSetMethod(this PropertyInfo info) { return info.SetMethod; }
 #endif
   }
-
-  //--------------------------------------------------------------------------
 }

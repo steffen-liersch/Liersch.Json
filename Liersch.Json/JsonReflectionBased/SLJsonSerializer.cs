@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -20,13 +20,10 @@ using System.Reflection;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   public sealed class SLJsonSerializer
   {
     public bool ThrowOnUnknownValueType { get { return m_ThrowOnUnknownValueType; } set { m_ThrowOnUnknownValueType=value; } }
 
-    //------------------------------------------------------------------------
 
     public SLJsonSerializer() { m_Writer=new SLJsonWriter(); }
 
@@ -72,7 +69,6 @@ namespace Liersch.Json
       return this;
     }
 
-    //------------------------------------------------------------------------
 
     void SerializeProperty(SLJsonMemberAttribute attribute, Type type, object value)
     {
@@ -145,11 +141,8 @@ namespace Liersch.Json
       }
     }
 
-    //------------------------------------------------------------------------
 
     SLJsonWriter m_Writer;
     bool m_ThrowOnUnknownValueType;
   }
-
-  //--------------------------------------------------------------------------
 }

@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -20,8 +20,6 @@ using System.Collections.Generic;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   partial class SLJsonNode : IEnumerable<SLJsonNode>
   {
     public IEnumerable<string> Names
@@ -48,7 +46,6 @@ namespace Liersch.Json
 
     IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
 
-    //------------------------------------------------------------------------
 
     SLJsonNode GetArrayItem(int index) { return m_Array[index]; }
 
@@ -59,13 +56,11 @@ namespace Liersch.Json
       return res;
     }
 
-    //------------------------------------------------------------------------
 
     static List<SLJsonNode> CreateArray() { return new List<SLJsonNode>(); }
 
     static SortedDictionary<string, SLJsonNode> CreateObject() { return new SortedDictionary<string, SLJsonNode>(); }
 
-    //------------------------------------------------------------------------
 
     static readonly IList<string> m_EmptyNames=new string[0];
     static readonly IList<SLJsonNode> m_EmptyNodes=new SLJsonNode[0];
@@ -73,8 +68,6 @@ namespace Liersch.Json
     internal List<SLJsonNode> m_Array;
     internal SortedDictionary<string, SLJsonNode> m_Object;
   }
-
-  //--------------------------------------------------------------------------
 }
 
 #endif

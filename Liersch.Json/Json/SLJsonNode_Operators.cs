@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -15,8 +15,6 @@
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   partial class SLJsonNode
   {
     public static implicit operator SLJsonNode(bool value) { return new SLJsonNode(SLJsonNodeType.Boolean, value ? "true" : "false"); }
@@ -31,6 +29,4 @@ namespace Liersch.Json
     public static implicit operator double(SLJsonNode node) { return node.AsDouble; }
     public static implicit operator string(SLJsonNode node) { return node.AsString; }
   }
-
-  //--------------------------------------------------------------------------
 }

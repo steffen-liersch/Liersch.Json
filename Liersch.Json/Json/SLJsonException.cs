@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -17,16 +17,12 @@ using System;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   public partial class SLJsonException : Exception
   {
     public SLJsonException() : base("JSON format exception") { }
     public SLJsonException(string message) : base(message) { }
     public SLJsonException(string message, Exception innerException) : base(message, innerException) { }
   }
-
-  //--------------------------------------------------------------------------
 
 #if NET20 || NET30 || NET35 || NET40 || NET45 || NET46
 
@@ -37,6 +33,4 @@ namespace Liersch.Json
   }
 
 #endif
-
-  //--------------------------------------------------------------------------
 }

@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -17,13 +17,10 @@ using System;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   partial class SLJsonNode
   {
     public bool IsReadOnly { get { return RetrieveMonitor().IsReadOnly; } }
 
-    //------------------------------------------------------------------------
 
     public SLJsonMonitor CreateMonitor()
     {
@@ -37,7 +34,6 @@ namespace Liersch.Json
       return m_Monitor;
     }
 
-    //------------------------------------------------------------------------
 
     SLJsonMonitor RetrieveMonitor()
     {
@@ -71,11 +67,8 @@ namespace Liersch.Json
       }
     }
 
-    //------------------------------------------------------------------------
 
     static SLJsonMonitor m_DefaultMonitor=new SLJsonMonitor();
     SLJsonMonitor m_Monitor; // Must not be cloned!
   }
-
-  //--------------------------------------------------------------------------
 }

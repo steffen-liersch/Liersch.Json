@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -17,15 +17,11 @@
 
 namespace System.Runtime.CompilerServices
 {
-  //--------------------------------------------------------------------------
-
   /// <summary> This attribute enables extension methods in .NET 2.0 and 3.0. </summary>
   [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Assembly)]
   sealed class ExtensionAttribute : Attribute
   {
   }
-
-  //--------------------------------------------------------------------------
 }
 
 #endif

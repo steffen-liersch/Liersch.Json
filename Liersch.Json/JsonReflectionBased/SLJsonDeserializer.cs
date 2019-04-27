@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -21,11 +21,8 @@ using System.Reflection;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   public delegate object SLJsonConverter(string value);
 
-  //--------------------------------------------------------------------------
 
   public sealed class SLJsonDeserializer
   {
@@ -49,7 +46,6 @@ namespace Liersch.Json
       //return Activator.CreateInstance<T>();
     }
 
-    //------------------------------------------------------------------------
 
     object DeserializeObject(Type type, SLJsonNode container)
     {
@@ -173,7 +169,6 @@ namespace Liersch.Json
 
     object DeserializeValue(Type type, SLJsonNode value) { return ParseValue(type, value.AsString); }
 
-    //------------------------------------------------------------------------
 
     object ParseValue(Type type, string value)
     {
@@ -214,10 +209,7 @@ namespace Liersch.Json
       return res;
     }
 
-    //------------------------------------------------------------------------
 
     Dictionary<Type, SLJsonConverter> m_Converters=CreateStandardConverters();
   }
-
-  //--------------------------------------------------------------------------
 }

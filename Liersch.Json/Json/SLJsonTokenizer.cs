@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -18,8 +18,6 @@ using System.Text;
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   public sealed class SLJsonTokenizer
   {
     public int CurrentColumn { get { return m_PosInfo.CurrentColumn; } }
@@ -31,7 +29,6 @@ namespace Liersch.Json
     public string Token { get { return m_Token; } }
     public bool TokenIsString { get { return m_TokenIsString; } }
 
-    //------------------------------------------------------------------------
 
     public SLJsonTokenizer(string jsonExpression)
     {
@@ -92,7 +89,6 @@ namespace Liersch.Json
       return true;
     }
 
-    //------------------------------------------------------------------------
 
     void ReadToken()
     {
@@ -271,7 +267,6 @@ namespace Liersch.Json
 
     static bool IsWhiteSpace(char c) { return c==' ' || c>='\t' && c<='\r' || c=='\x00a0' ||c=='\x0085'; }
 
-    //------------------------------------------------------------------------
 
     struct SLPosition
     {
@@ -318,7 +313,6 @@ namespace Liersch.Json
       char m_Last;
     }
 
-    //------------------------------------------------------------------------
 
     const string c_SpecialChars="{}[]:,";
     readonly string m_JsonExpression;
@@ -331,6 +325,4 @@ namespace Liersch.Json
     bool m_TokenIsString;
     StringBuilder m_Sb=new StringBuilder();
   }
-
-  //--------------------------------------------------------------------------
 }

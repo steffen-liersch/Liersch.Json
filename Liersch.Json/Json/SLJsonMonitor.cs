@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2017 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -15,8 +15,6 @@
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   public sealed class SLJsonMonitor
   {
     public bool IsModified { get { return m_IsModified; } set { m_IsModified=value; } }
@@ -25,6 +23,4 @@ namespace Liersch.Json
     bool m_IsModified;
     bool m_IsReadOnly;
   }
-
-  //--------------------------------------------------------------------------
 }

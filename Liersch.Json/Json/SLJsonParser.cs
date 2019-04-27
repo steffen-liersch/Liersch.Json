@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2018 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -15,8 +15,6 @@
 
 namespace Liersch.Json
 {
-  //--------------------------------------------------------------------------
-
   public static class SLJsonParser
   {
     public static SLJsonNode Parse(string jsonExpression) { return Parse(jsonExpression, false); }
@@ -53,7 +51,6 @@ namespace Liersch.Json
       }
     }
 
-    //------------------------------------------------------------------------
 
     static SLJsonNode ParseObject(SLJsonTokenizer tokenizer)
     {
@@ -175,6 +172,4 @@ namespace Liersch.Json
       throw new SLJsonException((tokenizer.TokenIsString ? "Unexpected string: " : "Unexpected token: ")+tokenizer.Token);
     }
   }
-
-  //--------------------------------------------------------------------------
 }
