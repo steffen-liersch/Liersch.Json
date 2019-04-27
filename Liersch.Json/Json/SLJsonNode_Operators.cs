@@ -23,10 +23,10 @@ namespace Liersch.Json
     public static implicit operator SLJsonNode(double value) { return new SLJsonNode(SLJsonNodeType.Number, SLJsonConvert.ToString(value)); }
     public static implicit operator SLJsonNode(string value) { return new SLJsonNode(value!=null ? SLJsonNodeType.String : SLJsonNodeType.Null, value); }
 
-    public static implicit operator bool(SLJsonNode node) { return node.AsBoolean; }
-    public static implicit operator int(SLJsonNode node) { return node.AsInt32; }
-    public static implicit operator long(SLJsonNode node) { return node.AsInt64; }
-    public static implicit operator double(SLJsonNode node) { return node.AsDouble; }
-    public static implicit operator string(SLJsonNode node) { return node.AsString; }
+    public static implicit operator bool(SLJsonNode node) { return node!=null && node.AsBoolean; }
+    public static implicit operator int(SLJsonNode node) { return node!=null ? node.AsInt32 : 0; }
+    public static implicit operator long(SLJsonNode node) { return node!=null ? node.AsInt64 : 0; }
+    public static implicit operator double(SLJsonNode node) { return node!=null ? node.AsDouble : 0; }
+    public static implicit operator string(SLJsonNode node) { return node!=null ? node.AsString : null; }
   }
 }

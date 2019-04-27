@@ -24,3 +24,4 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Function SLJsonNode.ToString fixed for SLJsonNodeType.Object
 - SLJsonTokenizer and SLJsonWriter improved to support all required escape sequences
 - NullReferenceException in SLJsonDeserializer and SLJsonSerializer on missing getter or setter
+- NullReferenceException in implicit type conversion on null value

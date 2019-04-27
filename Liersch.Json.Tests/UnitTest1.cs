@@ -197,6 +197,17 @@ namespace Liersch.Json.Tests
     }
 
     [TestMethod]
+    public void TestOperatorsForNull()
+    {
+      SLJsonNode n=null;
+      Assert.IsFalse(n);
+      Assert.IsTrue(n==0);
+      Assert.IsTrue(n==0L);
+      Assert.IsTrue(n==0.0);
+      Assert.IsTrue((string)n==null);
+    }
+
+    [TestMethod]
     public void TestOperators()
     {
       var n=new SLJsonNode();
