@@ -22,75 +22,112 @@ namespace Liersch.Json.Tests
   public class UnitTest2
   {
     [TestMethod]
-    public void TestSystematically()
+    public void TestSystematically1()
     {
       SLJsonNodeType nt;
 
       nt=SLJsonNodeType.Missing;
-      Check("{other: 123}", false, false, false, false, nt, false, 0, 0, 0, null);
+      Check1("{other: 123}", false, false, false, false, nt, false, 0, 0, 0, null);
 
       nt=SLJsonNodeType.Null;
-      Check("{value: null}", true, false, false, false, nt, false, 0, 0, 0, null);
+      Check1("{value: null}", true, false, false, false, nt, false, 0, 0, 0, null);
 
       nt=SLJsonNodeType.Boolean;
-      Check("{value: false}", false, false, false, true, nt, false, 0, 0, 0, "false");
-      Check("{value: true}", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check("{value: true }", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check("{value:true}", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check(" {value:true}", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check(" { value:true}", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check(" { value :true}", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check(" { value : true}", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check(" { value : true }", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check(" { value : true } ", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check(" { value :\ttrue\t}\t", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check("{\"value\":true}", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check(" { \"value\" : true } ", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check(" { 'value' : true } ", false, false, false, true, nt, true, 0, 0, 0, "true"); // Single-quotation marks are not allowed for JSON expressions
+      Check1("{value: false}", false, false, false, true, nt, false, 0, 0, 0, "false");
+      Check1("{value: true}", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1("{value: true }", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1("{value:true}", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1(" {value:true}", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1(" { value:true}", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1(" { value :true}", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1(" { value : true}", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1(" { value : true }", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1(" { value : true } ", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1(" { value :\ttrue\t}\t", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1("{\"value\":true}", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1(" { \"value\" : true } ", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1(" { 'value' : true } ", false, false, false, true, nt, true, 1, 1, 1, "true"); // Single-quotation marks are not allowed for JSON expressions
 
       nt=SLJsonNodeType.Number;
-      Check("{value: 123}", false, false, false, true, nt, true, 123, 123, 123, "123");
-      Check("{value: 1.23}", false, false, false, true, nt, true, 1, 1, 1.23, "1.23");
-      Check("{value: 1.89}", false, false, false, true, nt, true, 1, 1, 1.89, "1.89");
-      Check("{value: 0.123}", false, false, false, true, nt, false, 0, 0, 0.123, "0.123");
-      Check("{value: .123}", false, false, false, true, nt, false, 0, 0, 0.123, ".123");
-      Check("{value: 1e-100}", false, false, false, true, nt, false, 0, 0, 1e-100, "1e-100");
-      Check("{value: 1.23e-100}", false, false, false, true, nt, false, 0, 0, 1.23e-100, "1.23e-100");
-      Check("{value: 1e+100}", false, false, false, true, nt, true, 0, 0, 1e+100, "1e+100");
-      Check("{value: 1.23e+100}", false, false, false, true, nt, true, 0, 0, 1.23e+100, "1.23e+100");
+      Check1("{value: 123}", false, false, false, true, nt, true, 123, 123, 123, "123");
+      Check1("{value: 1.23}", false, false, false, true, nt, true, 1, 1, 1.23, "1.23");
+      Check1("{value: 1.89}", false, false, false, true, nt, true, 1, 1, 1.89, "1.89");
+      Check1("{value: 0.123}", false, false, false, true, nt, false, 0, 0, 0.123, "0.123");
+      Check1("{value: .123}", false, false, false, true, nt, false, 0, 0, 0.123, ".123");
+      Check1("{value: 1e-100}", false, false, false, true, nt, false, 0, 0, 1e-100, "1e-100");
+      Check1("{value: 1.23e-100}", false, false, false, true, nt, false, 0, 0, 1.23e-100, "1.23e-100");
+      Check1("{value: 1e+100}", false, false, false, true, nt, true, 0, 0, 1e+100, "1e+100");
+      Check1("{value: 1.23e+100}", false, false, false, true, nt, true, 0, 0, 1.23e+100, "1.23e+100");
 
       nt=SLJsonNodeType.String;
-      Check("{value: \"text\"}", false, false, false, true, nt, false, 0, 0, 0, "text");
-      Check("{value: \"text with \\\" escape sequence\"}", false, false, false, true, nt, false, 0, 0, 0, "text with \" escape sequence");
-      Check("{value: \"text with \\\' escape sequence\"}", false, false, false, true, nt, false, 0, 0, 0, "text with \' escape sequence");
-      Check("{value: \'text with \\\' escape sequence\'}", false, false, false, true, nt, false, 0, 0, 0, "text with \' escape sequence");
-      Check("{value: \"Special_\\0\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\0");
-      Check("{value: \"Special_\\10\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\b");
-      Check("{value: \"Special_\\108\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\b8");
-      Check("{value: \"Special_\\101\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A");
-      Check("{value: \"Special_\\1010\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A0");
-      Check("{value: \"Special_\\1018\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A8");
-      Check("{value: \"Special_\\u0041\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A");
-      Check("{value: \"Special_\\\\_\\/_/_\\b\\t\\n\\v\\f\\r\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\\_/_/_\b\t\n\v\f\r");
-      Check("{value: \"null\"}", false, false, false, true, nt, false, 0, 0, 0, "null");
-      Check("{value: \"false\"}", false, false, false, true, nt, false, 0, 0, 0, "false");
-      Check("{value: \"FALSE\"}", false, false, false, true, nt, false, 0, 0, 0, "FALSE");
-      Check("{value: \"true\"}", false, false, false, true, nt, true, 0, 0, 0, "true");
-      Check("{value: \"TRUE\"}", false, false, false, true, nt, false, 0, 0, 0, "TRUE");
-      Check("{value: \"123\"}", false, false, false, true, nt, true, 123, 123, 123, "123");
-      Check("{value: 'single-quoted'}", false, false, false, true, nt, false, 0, 0, 0, "single-quoted"); // Single-quotation marks are not allowed for JSON expressions
+      Check1("{value: \"text\"}", false, false, false, true, nt, false, 0, 0, 0, "text");
+      Check1("{value: \"text with \\\" escape sequence\"}", false, false, false, true, nt, false, 0, 0, 0, "text with \" escape sequence");
+      Check1("{value: \"text with \\\' escape sequence\"}", false, false, false, true, nt, false, 0, 0, 0, "text with \' escape sequence");
+      Check1("{value: \'text with \\\' escape sequence\'}", false, false, false, true, nt, false, 0, 0, 0, "text with \' escape sequence");
+      Check1("{value: \"Special_\\0\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\0");
+      Check1("{value: \"Special_\\10\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\b");
+      Check1("{value: \"Special_\\108\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\b8");
+      Check1("{value: \"Special_\\101\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A");
+      Check1("{value: \"Special_\\1010\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A0");
+      Check1("{value: \"Special_\\1018\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A8");
+      Check1("{value: \"Special_\\u0041\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_A");
+      Check1("{value: \"Special_\\\\_\\/_/_\\b\\t\\n\\v\\f\\r\"}", false, false, false, true, nt, false, 0, 0, 0, "Special_\\_/_/_\b\t\n\v\f\r");
+      Check1("{value: \"null\"}", false, false, false, true, nt, false, 0, 0, 0, "null");
+      Check1("{value: \"false\"}", false, false, false, true, nt, false, 0, 0, 0, "false");
+      Check1("{value: \"FALSE\"}", false, false, false, true, nt, false, 0, 0, 0, "FALSE");
+      Check1("{value: \"true\"}", false, false, false, true, nt, true, 1, 1, 1, "true");
+      Check1("{value: \"TRUE\"}", false, false, false, true, nt, false, 0, 0, 0, "TRUE");
+      Check1("{value: \"123\"}", false, false, false, true, nt, true, 123, 123, 123, "123");
+      Check1("{value: 'single-quoted'}", false, false, false, true, nt, false, 0, 0, 0, "single-quoted"); // Single-quotation marks are not allowed for JSON expressions
 
-      Check("{value: INVALID}", false, false, false, true, SLJsonNodeType.Number, false, 0, 0, 0, "INVALID");
+      Check1("{value: INVALID}", false, false, false, true, SLJsonNodeType.Number, false, 0, 0, 0, "INVALID");
     }
 
-    void Check(
+    [TestMethod]
+    public void TestSystematically2()
+    {
+      SLJsonNodeType nt;
+
+      nt=SLJsonNodeType.Boolean;
+      Check2(false, false, false, false, true, nt, false, 0, 0, 0, "false");
+      Check2(true, false, false, false, true, nt, true, 1, 1, 1, "true");
+
+      nt=SLJsonNodeType.Number;
+      Check2(123, false, false, false, true, nt, true, 123, 123, 123, "123");
+      Check2(1.23, false, false, false, true, nt, true, 1, 1, 1.23, "1.23");
+      Check2(1.89, false, false, false, true, nt, true, 1, 1, 1.89, "1.89");
+      Check2(1e-100, false, false, false, true, nt, false, 0, 0, 1e-100, "1E-100");
+      Check2(1.23e-100, false, false, false, true, nt, false, 0, 0, 1.23e-100, "1.23E-100");
+      Check2(1e+100, false, false, false, true, nt, true, 0, 0, 1e+100, "1E+100");
+      Check2(1.23e+100, false, false, false, true, nt, true, 0, 0, 1.23e+100, "1.23E+100");
+    }
+
+    void Check1(
       string json,
       bool isNull, bool isArray, bool isObject, bool isValue, SLJsonNodeType valueType,
       bool valueBoolean, int valueInt32, long valueInt64, double valueNumber, string valueString)
     {
       SLJsonNode parsed=SLJsonParser.Parse(json);
       SLJsonNode n=parsed["value"];
+      CheckInternal(n, isNull, isArray, isObject, isValue, valueType, valueBoolean, valueInt32, valueInt64, valueNumber, valueString);
+      if(n.NodeType>=SLJsonNodeType.Boolean && n.NodeType<=SLJsonNodeType.String)
+        CheckInternal(n.AsString, isNull, isArray, isObject, isValue, SLJsonNodeType.String, valueBoolean, valueInt32, valueInt64, valueNumber, valueString);
+    }
 
+    void Check2(
+      SLJsonNode n,
+      bool isNull, bool isArray, bool isObject, bool isValue, SLJsonNodeType valueType,
+      bool valueBoolean, int valueInt32, long valueInt64, double valueNumber, string valueString)
+    {
+      CheckInternal(n, isNull, isArray, isObject, isValue, valueType, valueBoolean, valueInt32, valueInt64, valueNumber, valueString);
+      CheckInternal(n.AsString, isNull, isArray, isObject, isValue, SLJsonNodeType.String, valueBoolean, valueInt32, valueInt64, valueNumber, valueString);
+    }
+
+    static void CheckInternal(
+      SLJsonNode n,
+      bool isNull, bool isArray, bool isObject, bool isValue, SLJsonNodeType valueType,
+      bool valueBoolean, int valueInt32, long valueInt64, double valueNumber, string valueString)
+    {
       Assert.AreEqual(isArray, n.IsArray);
       Assert.AreEqual(isNull, n.IsNull);
       Assert.AreEqual(isObject, n.IsObject);

@@ -130,47 +130,53 @@ namespace Liersch.Json
 
     public bool TryGetValue(out bool value)
     {
-      switch(m_Value)
-      {
-        case "false": value=false; return true;
-        case "true": value=true; return true;
-      }
-
       double v;
       bool res=TryGetValue(out v);
-      value=res && Math.Abs(AsDouble)>=1-1e-7;
+      value=res && Math.Abs(v)>=1-1e-7;
       return res;
     }
 
     public bool TryGetValue(out int value)
     {
       double v;
-      bool res=TryGetValue(out v);
-      if(!res)
-        value=0;
+      if(TryGetValue(out v))
+      {
+        bool res=v>=int.MinValue && v<=int.MaxValue;
+        value=res ? (int)v : 0;
+        return res;
+      }
       else
       {
-        res=v>=int.MinValue && v<=int.MaxValue;
-        value=res ? (int)v : 0;
+        value=0;
+        return false;
       }
-      return res;
     }
 
     public bool TryGetValue(out long value)
     {
       double v;
-      bool res=TryGetValue(out v);
-      if(!res)
-        value=0;
+      if(TryGetValue(out v))
+      {
+        bool res=v>=long.MinValue && v<=long.MaxValue;
+        value=res ? (long)v : 0;
+        return res;
+      }
       else
       {
-        res=v>=long.MinValue && v<=long.MaxValue;
-        value=res ? (long)v : 0;
+        value=0;
+        return false;
       }
-      return res;
     }
 
-    public bool TryGetValue(out double value) { return SLJsonConvert.TryParse(m_Value, out value); }
+    public bool TryGetValue(out double value)
+    {
+      switch(m_Value)
+      {
+        case "false": value=0; return true;
+        case "true": value=1; return true;
+        default: return SLJsonConvert.TryParse(m_Value, out value);
+      }
+    }
 
 
     public void CreateEmptyArray()

@@ -70,7 +70,7 @@ namespace Liersch.Json.Tests
 
       Assert.AreEqual(SLJsonNodeType.Boolean, n["test"]["testValueTrue"].NodeType);
       Assert.IsTrue(n["test"]["testValueTrue"].AsBoolean);
-      Assert.AreEqual(0, n["test"]["testValueTrue"].AsInt32);
+      Assert.AreEqual(1, n["test"]["testValueTrue"].AsInt32);
       Assert.AreEqual("true", n["test"]["testValueTrue"].AsString);
 
       Assert.AreEqual(SLJsonNodeType.Number, n["test"]["testValue32"].NodeType);
@@ -203,8 +203,85 @@ namespace Liersch.Json.Tests
       Assert.IsFalse(n);
       Assert.IsTrue(n==0);
       Assert.IsTrue(n==0L);
-      Assert.IsTrue(n==0.0);
+      Assert.IsTrue(Math.Abs(n-0.0)<=1e-7);
       Assert.IsTrue((string)n==null);
+    }
+
+    [TestMethod]
+    public void TestOperatorsForFalse()
+    {
+      SLJsonNode n=false;
+      Assert.IsFalse(n);
+      Assert.IsTrue(n==0);
+      Assert.IsTrue(n==0L);
+      Assert.IsTrue(Math.Abs(n-0.0)<=1e-7);
+      Assert.IsTrue(n=="false");
+    }
+
+    [TestMethod]
+    public void TestOperatorsForTrue()
+    {
+      SLJsonNode n=true;
+      Assert.IsTrue(n);
+      Assert.IsTrue(n==1);
+      Assert.IsTrue(n==1L);
+      Assert.IsTrue(Math.Abs(n-1.0)<=1e-7);
+      Assert.IsTrue(n=="true");
+    }
+
+    [TestMethod]
+    public void TestOperatorsForInteger()
+    {
+      SLJsonNode n=123;
+      Assert.IsTrue(n);
+      Assert.IsTrue(n==123);
+      Assert.IsTrue(n==123L);
+      Assert.IsTrue(Math.Abs(n-123.0)<=1e-7);
+      Assert.IsTrue(n=="123");
+    }
+
+    [TestMethod]
+    public void TestOperatorsForDouble()
+    {
+      SLJsonNode n=123.456;
+      Assert.IsTrue(n);
+      Assert.IsTrue(n==123);
+      Assert.IsTrue(n==123L);
+      Assert.IsTrue(Math.Abs(n-123.456)<=1e-7);
+      Assert.IsTrue(n=="123.456");
+    }
+
+    [TestMethod]
+    public void TestOperatorsForStringFalse()
+    {
+      SLJsonNode n="false";
+      Assert.IsFalse(n);
+      Assert.IsTrue(n==0);
+      Assert.IsTrue(n==0L);
+      Assert.IsTrue(Math.Abs(n-0.0)<=1e-7);
+      Assert.IsTrue(n=="false");
+    }
+
+    [TestMethod]
+    public void TestOperatorsForStringTrue()
+    {
+      SLJsonNode n="true";
+      Assert.IsTrue(n);
+      Assert.IsTrue(n==1);
+      Assert.IsTrue(n==1L);
+      Assert.IsTrue(Math.Abs(n-1.0)<=1e-7);
+      Assert.IsTrue(n=="true");
+    }
+
+    [TestMethod]
+    public void TestOperatorsForStringDouble()
+    {
+      SLJsonNode n="123.456";
+      Assert.IsTrue(n);
+      Assert.IsTrue(n==123);
+      Assert.IsTrue(n==123L);
+      Assert.IsTrue(Math.Abs(n-123.456)<=1e-7);
+      Assert.IsTrue(n=="123.456");
     }
 
     [TestMethod]
