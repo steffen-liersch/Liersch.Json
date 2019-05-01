@@ -12,6 +12,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Function SLJsonParser.Parse(string jsonExpression, bool allowArraysAndValues) added
 - Functions CreateEmptyArray and CreateEmptyObject added to SLJsonNode
 - Support for List<T> added to SLJsonDeserializer and SLJsonSerializer
+- Property SLJsonTokenizer.AreSingleQuotesEnabled
+- Non-static functions in class SLJsonParser: ParseAny and ParseObject
+- SLJsonNode.Parse
 ### Changed
 - Signing assemblies
 - Using AssemblyInfo.cs for all library projects
@@ -19,6 +22,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Projects and demos reworked, tests moved to test project
 - Using a single project file for multiple target frameworks (VS2017)
 - Using the same library name for all target frameworks
+- SLJsonParser.Parse changed to work more restrictive
+- SLJsonParser can be instantiated to specify different options:
+  AreSingleQuotesAllowed, AreUnquotedNamesAllowed, IsNumericCheckDisabled
 ### Fixed
 - SLJsonNode changed to use SortedDictionary for SLJsonNodeType.Object (except .NET MF)
 - Function SLJsonNode.ToString fixed for SLJsonNodeType.Object

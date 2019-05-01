@@ -53,11 +53,11 @@ namespace Liersch.Json.Tests
       Check1("{value: 1.23}", false, false, false, true, nt, true, 1, 1, 1.23, "1.23");
       Check1("{value: 1.89}", false, false, false, true, nt, true, 1, 1, 1.89, "1.89");
       Check1("{value: 0.123}", false, false, false, true, nt, false, 0, 0, 0.123, "0.123");
-      Check1("{value: .123}", false, false, false, true, nt, false, 0, 0, 0.123, ".123");
-      Check1("{value: 1e-100}", false, false, false, true, nt, false, 0, 0, 1e-100, "1e-100");
-      Check1("{value: 1.23e-100}", false, false, false, true, nt, false, 0, 0, 1.23e-100, "1.23e-100");
-      Check1("{value: 1e+100}", false, false, false, true, nt, true, 0, 0, 1e+100, "1e+100");
-      Check1("{value: 1.23e+100}", false, false, false, true, nt, true, 0, 0, 1.23e+100, "1.23e+100");
+      Check1("{value: .123}", false, false, false, true, nt, false, 0, 0, 0.123, "0.123");
+      Check1("{value: 1e-100}", false, false, false, true, nt, false, 0, 0, 1e-100, "1E-100");
+      Check1("{value: 1.23e-100}", false, false, false, true, nt, false, 0, 0, 1.23e-100, "1.23E-100");
+      Check1("{value: 1e+100}", false, false, false, true, nt, true, 0, 0, 1e+100, "1E+100");
+      Check1("{value: 1.23e+100}", false, false, false, true, nt, true, 0, 0, 1.23e+100, "1.23E+100");
 
       nt=SLJsonNodeType.String;
       Check1("{value: \"text\"}", false, false, false, true, nt, false, 0, 0, 0, "text");
@@ -80,7 +80,14 @@ namespace Liersch.Json.Tests
       Check1("{value: \"123\"}", false, false, false, true, nt, true, 123, 123, 123, "123");
       Check1("{value: 'single-quoted'}", false, false, false, true, nt, false, 0, 0, 0, "single-quoted"); // Single-quotation marks are not allowed for JSON expressions
 
-      Check1("{value: INVALID}", false, false, false, true, SLJsonNodeType.Number, false, 0, 0, 0, "INVALID");
+      try
+      {
+        Check1("{value: INVALID}", false, false, false, true, SLJsonNodeType.Number, false, 0, 0, 0, "INVALID");
+        Assert.Fail();
+      }
+      catch(SLJsonException)
+      {
+      }
     }
 
     [TestMethod]
@@ -107,7 +114,7 @@ namespace Liersch.Json.Tests
       bool isNull, bool isArray, bool isObject, bool isValue, SLJsonNodeType valueType,
       bool valueBoolean, int valueInt32, long valueInt64, double valueNumber, string valueString)
     {
-      SLJsonNode parsed=SLJsonParser.Parse(json);
+      SLJsonNode parsed=ParseObject(json);
       SLJsonNode n=parsed["value"];
       CheckInternal(n, isNull, isArray, isObject, isValue, valueType, valueBoolean, valueInt32, valueInt64, valueNumber, valueString);
       if(n.NodeType>=SLJsonNodeType.Boolean && n.NodeType<=SLJsonNodeType.String)
@@ -144,6 +151,14 @@ namespace Liersch.Json.Tests
       Assert.AreEqual(valueInt64, n.AsInt64);
       Assert.IsTrue(Math.Abs(n.AsDouble-valueNumber)<=1e-7);
       Assert.AreEqual(valueString, n.AsString);
+    }
+
+    static SLJsonNode ParseObject(string jsonExpression)
+    {
+      var parser=new SLJsonParser();
+      parser.AreSingleQuotesAllowed=true;
+      parser.AreUnquotedNamesAllowed=true;
+      return parser.ParseObject(jsonExpression);
     }
   }
 }

@@ -26,7 +26,7 @@ namespace Liersch.Json.Tests
     public void TestReadOnly()
     {
       string s=RetrieveJsonExpression();
-      SLJsonNode n=SLJsonParser.Parse(s);
+      SLJsonNode n=ParseAny(s);
 
       Assert.AreEqual("Jane", n["person"]["firstName"].AsString);
       Assert.AreEqual("Doe", n["person"]["lastName"].AsString);
@@ -75,7 +75,7 @@ namespace Liersch.Json.Tests
 
       Assert.AreEqual(SLJsonNodeType.Number, n["test"]["testValue32"].NodeType);
       Assert.AreEqual(256, n["test"]["testValue32"].AsInt32);
-      Assert.AreEqual("+256", n["test"]["testValue32"].AsString);
+      Assert.AreEqual("256", n["test"]["testValue32"].AsString);
 
       Assert.AreEqual(SLJsonNodeType.String, n["test"]["testValueString1"].NodeType);
       Assert.AreEqual("abc 'def' ghi", n["test"]["testValueString1"].AsString);
@@ -98,7 +98,7 @@ namespace Liersch.Json.Tests
     public void TestReadWrite()
     {
       string s=RetrieveJsonExpression();
-      SLJsonNode n=SLJsonParser.Parse(s);
+      SLJsonNode n=ParseAny(s);
       SLJsonMonitor m=n.CreateMonitor();
 
       // Try to read some properties
@@ -351,7 +351,7 @@ namespace Liersch.Json.Tests
     public void TestSerialization()
     {
       string s=RetrieveJsonExpression();
-      SLJsonNode n=SLJsonParser.Parse(s);
+      SLJsonNode n=ParseAny(s);
 
       n["newProperty"]["value"].AsInt32=27;
       Assert.AreEqual(SLJsonNodeType.Number, n["newProperty"]["value"].NodeType);
@@ -410,11 +410,19 @@ namespace Liersch.Json.Tests
     }
 
 
+    static SLJsonNode ParseAny(string jsonExpression)
+    {
+      var parser=new SLJsonParser();
+      parser.AreSingleQuotesAllowed=true;
+      parser.AreUnquotedNamesAllowed=true;
+      return parser.ParseAny(jsonExpression);
+    }
+
     void ParseInvalid(string jsonExpression, string expectedErrorMessage)
     {
       try
       {
-        SLJsonParser.Parse(jsonExpression, true);
+        ParseAny(jsonExpression);
         Assert.Fail();
       }
       catch(SLJsonException e)

@@ -15,13 +15,35 @@
 
 namespace Liersch.Json
 {
-  public static class SLJsonParser
+  public sealed class SLJsonParser
   {
-    public static SLJsonNode Parse(string jsonExpression) { return Parse(jsonExpression, false); }
+    public bool AreSingleQuotesAllowed { get; set; }
+
+    public bool AreUnquotedNamesAllowed { get; set; }
+
+    public bool IsNumericCheckDisabled { get; set; }
+
+
+    public static SLJsonNode Parse(string jsonExpression)
+    {
+      return m_Parser.ParseObject(jsonExpression);
+    }
 
     public static SLJsonNode Parse(string jsonExpression, bool allowArraysAndValues)
     {
+      return allowArraysAndValues ? m_Parser.ParseAny(jsonExpression) : m_Parser.ParseObject(jsonExpression);
+    }
+
+
+    public SLJsonNode ParseAny(string jsonExpression) { return ParseRoot(jsonExpression, true); }
+
+    public SLJsonNode ParseObject(string jsonExpression) { return ParseRoot(jsonExpression, false); }
+
+
+    SLJsonNode ParseRoot(string jsonExpression, bool allowArraysAndValues)
+    {
       var tokenizer=new SLJsonTokenizer(jsonExpression);
+      tokenizer.AreSingleQuotesEnabled=AreSingleQuotesAllowed;
       try
       {
         tokenizer.ReadNext();
@@ -51,8 +73,7 @@ namespace Liersch.Json
       }
     }
 
-
-    static SLJsonNode ParseObject(SLJsonTokenizer tokenizer)
+    SLJsonNode ParseObject(SLJsonTokenizer tokenizer)
     {
       var res=new SLJsonNode();
       res.MakeObject();
@@ -75,6 +96,9 @@ namespace Liersch.Json
         if(tokenizer.HasSpecialChar)
           throw new SLJsonException("Unexpected token");
 
+        if(!AreUnquotedNamesAllowed && !tokenizer.TokenIsString)
+          throw new SLJsonException("String expected");
+
         string field=tokenizer.Token;
 
         tokenizer.ReadNext();
@@ -92,7 +116,7 @@ namespace Liersch.Json
       }
     }
 
-    static SLJsonNode ParseArray(SLJsonTokenizer tokenizer)
+    SLJsonNode ParseArray(SLJsonTokenizer tokenizer)
     {
       var res=new SLJsonNode();
       res.MakeArray();
@@ -121,7 +145,7 @@ namespace Liersch.Json
       }
     }
 
-    static SLJsonNode ParseValue(SLJsonTokenizer tokenizer)
+    SLJsonNode ParseValue(SLJsonTokenizer tokenizer)
     {
       if(tokenizer.HasSpecialChar)
       {
@@ -147,16 +171,19 @@ namespace Liersch.Json
           return new SLJsonNode(SLJsonNodeType.Boolean, t);
 
         default:
-          /*
-          double d;
-          if(SLJsonConvert.TryParse(t, out d))
+          if(!IsNumericCheckDisabled)
+          {
+            double d;
+            if(!SLJsonConvert.TryParse(t, out d))
+              throw new SLJsonException("Numeric value expected");
+
             t=SLJsonConvert.ToString(d); // Normalize numeric value
-          else throw new SLJsonException("Numeric value expected");
-          //*/
+          }
 
           return new SLJsonNode(SLJsonNodeType.Number, t);
       }
     }
+
 
     static void CheckEndOfExpression(SLJsonTokenizer tokenizer)
     {
@@ -171,5 +198,8 @@ namespace Liersch.Json
 
       throw new SLJsonException((tokenizer.TokenIsString ? "Unexpected string: " : "Unexpected token: ")+tokenizer.Token);
     }
+
+
+    static readonly SLJsonParser m_Parser=new SLJsonParser();
   }
 }

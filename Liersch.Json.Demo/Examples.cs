@@ -28,14 +28,14 @@ namespace Liersch.Json
 
       string jsonExpression=@"
       {
-        addressBook: [
-          {lastName: 'Average', firstName: 'Joe'},
-          {lastName: 'Doe', firstName: 'Jane'},
-          {lastName: 'Smith', firstName: 'John'}
+        ""addressBook"": [
+          {""lastName"": ""Average"", ""firstName"": ""Joe""},
+          {""lastName"": ""Doe"", ""firstName"": ""Jane""},
+          {""lastName"": ""Smith"", ""firstName"": ""John""}
         ]
       }";
 
-      SLJsonNode root=SLJsonParser.Parse(jsonExpression);
+      var root=SLJsonNode.Parse(jsonExpression);
       SLJsonNode book=root["addressBook"];
       if(book.IsArray)
       {
@@ -60,7 +60,7 @@ namespace Liersch.Json
       Console.WriteLine();
 
       string jsonExpression=RetrieveJsonExample();
-      PrintNode(SLJsonParser.Parse(jsonExpression), 0);
+      PrintNode(SLJsonNode.Parse(jsonExpression), 0);
       Console.WriteLine();
     }
 
@@ -109,22 +109,21 @@ namespace Liersch.Json
 
     static string RetrieveJsonExample()
     {
-      string jsonExpression=@"
+      return @"
       {
-        sensors: [
-          { name: 'Button', value: 1 },
-          { name: 'Temperature', value: 17.5 }
+        ""sensors"": [
+          { ""name"": ""Button"", ""value"": 1 },
+          { ""name"": ""Temperature"", ""value"": 17.5 }
         ],
 
-        actors: [
-          { name: 'Lamp', value: 0 }
+        ""actors"": [
+          { ""name"": ""Lamp"", ""value"": 0 }
         ],
 
-        debug: true,
-        timestamp: '2017-12-30 18:10:35',
-        unassigned: null
+        ""debug"": true,
+        ""timestamp"": ""2017-12-30 18:10:35"",
+        ""unassigned"": null
       }";
-      return jsonExpression;
     }
 
 
@@ -165,15 +164,15 @@ namespace Liersch.Json
 
       string s=@"
       {
-        options: { logging: true },
+        ""options"": { ""logging"": true },
 
-        sensors: [
-          { name: 'Button', value: 1 },
-          { name: 'Temperature', value: 17.5 }
+        ""sensors"": [
+          { ""name"": ""Button"", ""value"": 1 },
+          { ""name"": ""Temperature"", ""value"": 17.5 }
         ],
 
-        actors: [
-          { name: 'Lamp', value: 0 }
+        ""actors"": [
+          { ""name"": ""Lamp"", ""value"": 0 }
         ]
       }";
 
@@ -182,7 +181,7 @@ namespace Liersch.Json
       Console.WriteLine();
       //*/
 
-      SLJsonNode n=SLJsonParser.Parse(s);
+      var n=SLJsonNode.Parse(s);
       Console.WriteLine("n.AsJsonCompact          => "+n.AsJsonCompact);
       Console.WriteLine();
 

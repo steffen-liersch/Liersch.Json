@@ -20,6 +20,8 @@ namespace Liersch.Json
 {
   public sealed class SLJsonTokenizer
   {
+    public bool AreSingleQuotesEnabled { get; set; }
+
     public int CurrentColumn { get { return m_PosInfo.CurrentColumn; } }
     public int CurrentRow { get { return m_PosInfo.CurrentRow; } }
 
@@ -83,7 +85,7 @@ namespace Liersch.Json
       }
 
       // Read string or token
-      if(c=='"' || c=='\'')
+      if(c=='"' || AreSingleQuotesEnabled && c=='\'')
         ReadString(c);
       else ReadToken();
       return true;

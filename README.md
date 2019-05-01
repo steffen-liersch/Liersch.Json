@@ -31,24 +31,27 @@ To use the library in a project one of the following library project files must 
 - "Liersch.Json_netmf.csproj" - library project for .NET Micro Framework 4.4 (VS 2015 required)
 
 
-SLJsonParser
-------------
+Parsing
+-------
 
-The parser class SLJsonParser is easy to use. The input JSON expression should have a correct format. Otherwise a SLJsonException is thrown. In JSON strings must be delimited with double-quotation marks. The parser also accepts single-quotation marks.
+The static function SLJsonNode.Parse should be used to parse JSON expressions in restrictive mode. The input JSON expression should be formatted correctly. Otherwise a SLJsonException is thrown.
+
+For less restrictive parsing an instance of SLJsonParser must be created. There are different properties to configure the parsing mode. In JSON strings must be delimited by double-quotation marks. The parser also accepts single-quotation marks if property AreSingleQuotesAllowed is true.
+
 
 ```cs
 public static void RunExample1()
 {
   string jsonExpression=@"
   {
-    addressBook: [
-      {lastName: 'Average', firstName: 'Joe'},
-      {lastName: 'Doe', firstName: 'Jane'},
-      {lastName: 'Smith', firstName: 'John'}
+    ""addressBook"": [
+      {""lastName"": ""Average"", ""firstName"": ""Joe""},
+      {""lastName"": ""Doe"", ""firstName"": ""Jane""},
+      {""lastName"": ""Smith"", ""firstName"": ""John""}
     ]
   }";
 
-  SLJsonNode root=SLJsonParser.Parse(jsonExpression);
+  var root=SLJsonNode.Parse(jsonExpression);
   SLJsonNode book=root["addressBook"];
   if(book.IsArray)
   {
