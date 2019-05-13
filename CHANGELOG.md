@@ -33,3 +33,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - SLJsonTokenizer and SLJsonWriter improved to support all required escape sequences
 - NullReferenceException in SLJsonDeserializer and SLJsonSerializer on missing getter or setter
 - NullReferenceException in implicit type conversion on null value
+
+[Unreleased]: https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.0...HEAD
+[1.0.0]:      https://github.com/steffen-liersch/Liersch.Json/tree/v1.0.0
