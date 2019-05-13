@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Liersch.Json")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Liersch.Json provides support for parsing and generating JSON expressions. The library is written in pure C# 3.0 and should work for the most .NET platforms.")]
 [assembly: AssemblyTrademark("")]
 
 [assembly: AssemblyVersion("1.0.0.0")]

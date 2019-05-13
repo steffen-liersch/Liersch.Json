@@ -13,6 +13,13 @@
     <Product>Liersch.Json</Product>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Properties\KeyPrivate.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>Liersch.Json_License.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/steffen-liersch/Liersch.Json</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/steffen-liersch/Liersch.Json</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>json iot</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Liersch.Json_License.txt">
+    <None Include="Liersch.Json_License.txt" Pack="true" PackagePath="$(PackageLicenseFile)">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
