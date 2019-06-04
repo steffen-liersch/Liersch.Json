@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- SLJsonNode.Parse changed to parse not only objects, but also arrays and values
 
 ## [1.0.0] - 2019-05-13
 ### Added
@@ -34,5 +36,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - NullReferenceException in SLJsonDeserializer and SLJsonSerializer on missing getter or setter
 - NullReferenceException in implicit type conversion on null value
 
-[Unreleased]: https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.1...HEAD
+[1.0.1]:      https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.0...v1.0.1
 [1.0.0]:      https://github.com/steffen-liersch/Liersch.Json/tree/v1.0.0

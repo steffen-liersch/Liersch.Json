@@ -409,6 +409,36 @@ namespace Liersch.Json.Tests
       ParseAndSerialize("\"text\"", SLJsonNodeType.String);
     }
 
+    [TestMethod]
+    public void TestStandardParseForObject()
+    {
+      var n=SLJsonNode.Parse("{\"value\": true}");
+      Assert.IsTrue(n.IsObject);
+      Assert.IsTrue(n["value"].IsBoolean);
+      Assert.IsTrue(n["value"].AsBoolean);
+    }
+
+    [TestMethod]
+    public void TestStandardParseForArray()
+    {
+      var n=SLJsonNode.Parse("[null, false, true, 16, 3.14159265359, \"test\"]");
+      Assert.IsTrue(n[0].IsNull);
+      Assert.IsTrue(n[1].IsBoolean);
+      Assert.IsTrue(n[2].IsBoolean);
+      Assert.IsTrue(n[3].IsNumber);
+      Assert.IsTrue(n[4].IsNumber);
+      Assert.IsTrue(n[5].IsString);
+      Assert.IsTrue(n[6].IsMissing);
+    }
+
+    [TestMethod]
+    public void TestStandardParseForValue()
+    {
+      var n=SLJsonNode.Parse("123.456");
+      Assert.IsTrue(n.IsNumber);
+      Assert.AreEqual(123, n.AsInt32);
+    }
+
 
     static SLJsonNode ParseAny(string jsonExpression)
     {
@@ -490,7 +520,7 @@ namespace Liersch.Json.Tests
           testValueTrue: true,
           testValue32: +256,
           testValue64: 10000000000000000,
-          testValueDouble: 3.1415,
+          testValueDouble: 3.14159265359,
           testValueString1: 'abc \'def\' ghi',
           testValueString2: 'A\u0042C \'DE\106\' GHI',
           testValueString3: 'First Line\r\nSecond Line\r\nThird Line\0'

@@ -20,7 +20,7 @@ namespace Liersch.Json
 {
   public sealed partial class SLJsonNode
   {
-    public static SLJsonNode Parse(string jsonExpression) { return SLJsonParser.Parse(jsonExpression); }
+    public static SLJsonNode Parse(string jsonExpression) { return SLJsonParser.Parse(jsonExpression, true); }
 
 
     public int Count
