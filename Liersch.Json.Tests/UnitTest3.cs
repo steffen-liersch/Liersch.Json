@@ -83,12 +83,7 @@ namespace Liersch.Json.Tests
       }
     }
 
-    static string Serialize(object instance)
-    {
-      var wr=new SLJsonWriter();
-      new SLJsonSerializer(wr).SerializeObject(instance);
-      return wr.ToString();
-    }
+    static string Serialize(object instance) { return new SLJsonSerializer().Serialize(instance); }
 
 
     class ExampleOuter

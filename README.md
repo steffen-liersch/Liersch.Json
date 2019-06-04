@@ -198,7 +198,7 @@ e1.IntegerArray=new int[] { 10, 20, 30, 700, 800 };
 e1.StringValue="Example Text";
 e1.NotSerializedString="Other Text";
 
-string json=new SLJsonSerializer().SerializeObject(e1).ToString();
+string json=new SLJsonSerializer().Serialize(e1);
 Example e2=new SLJsonDeserializer().Deserialize<Example>(json);
 ```
 

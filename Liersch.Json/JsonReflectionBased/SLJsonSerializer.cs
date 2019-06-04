@@ -25,26 +25,39 @@ namespace Liersch.Json
     public bool ThrowOnUnknownValueType { get { return m_ThrowOnUnknownValueType; } set { m_ThrowOnUnknownValueType=value; } }
 
 
-    public SLJsonSerializer() { m_Writer=new SLJsonWriter(); }
+    public void Serialize(object instance, SLJsonWriter writer) { SerializeObject(writer, instance); }
 
-    public SLJsonSerializer(SLJsonWriter writer) { m_Writer=writer ?? new SLJsonWriter(); }
+    public string Serialize(object instance)
+    {
+      var wr=new SLJsonWriter();
+      SerializeObject(wr, instance);
+      return wr.ToString();
+    }
 
-    public override string ToString() { return m_Writer.ToString(); }
 
-    public SLJsonSerializer SerializeObject(object instance)
+    [Obsolete("Use Serialize instead")]
+    public SLJsonWriter SerializeObject(object instance)
+    {
+      var wr=new SLJsonWriter();
+      SerializeObject(wr, instance);
+      return wr;
+    }
+
+
+    void SerializeObject(SLJsonWriter writer, object instance)
     {
       if(instance==null)
-        m_Writer.WriteValueNull();
+        writer.WriteValueNull();
       else
       {
-        m_Writer.BeginObject();
+        writer.BeginObject();
 
         Type t=instance.GetType();
 
         foreach(FieldInfo fi in t.GetRuntimeFields())
           if(fi.IsPublic)
             foreach(SLJsonMemberAttribute attr in fi.GetCustomAttributes(typeof(SLJsonMemberAttribute), false))
-              SerializeProperty(attr, fi.FieldType, fi.GetValue(instance));
+              SerializeProperty(writer, attr, fi.FieldType, fi.GetValue(instance));
 
         foreach(PropertyInfo pi in t.GetRuntimeProperties())
         {
@@ -57,33 +70,30 @@ namespace Liersch.Json
               if(mi2!=null && mi2.IsPublic)
               {
                 foreach(SLJsonMemberAttribute attr in pi.GetCustomAttributes(typeof(SLJsonMemberAttribute), false))
-                  SerializeProperty(attr, pi.PropertyType, pi.GetValue(instance, null));
+                  SerializeProperty(writer, attr, pi.PropertyType, pi.GetValue(instance, null));
               }
             }
           }
         }
 
-        m_Writer.EndObject();
+        writer.EndObject();
       }
-
-      return this;
     }
 
-
-    void SerializeProperty(SLJsonMemberAttribute attribute, Type type, object value)
+    void SerializeProperty(SLJsonWriter writer, SLJsonMemberAttribute attribute, Type type, object value)
     {
-      m_Writer.BeginField(attribute.MemberName);
+      writer.BeginField(attribute.MemberName);
       switch(attribute.MemberType)
       {
-        case SLJsonMemberType.Value: SerializeValue(value); break;
-        case SLJsonMemberType.Object: SerializeObject(value); break;
-        case SLJsonMemberType.ValueArray: SerializeArray(type, value, false); break;
-        case SLJsonMemberType.ObjectArray: SerializeArray(type, value, true); break;
+        case SLJsonMemberType.Value: SerializeValue(writer, value); break;
+        case SLJsonMemberType.Object: SerializeObject(writer, value); break;
+        case SLJsonMemberType.ValueArray: SerializeArray(writer, type, value, false); break;
+        case SLJsonMemberType.ObjectArray: SerializeArray(writer, type, value, true); break;
         default: throw new NotImplementedException();
       }
     }
 
-    void SerializeArray(Type type, object array, bool asObject)
+    void SerializeArray(SLJsonWriter writer, Type type, object array, bool asObject)
     {
       if(type.IsArray && type.GetArrayRank()!=1)
         throw new NotSupportedException("Multi-dimensional arrays are not supported");
@@ -93,39 +103,39 @@ namespace Liersch.Json
 
       if(array==null)
       {
-        m_Writer.WriteValue(null);
+        writer.WriteValue(null);
         return;
       }
 
-      m_Writer.BeginArray();
+      writer.BeginArray();
 
       var helper=(IEnumerable)array;
       foreach(object value in helper)
       {
         if(asObject)
-          SerializeObject(value);
-        else SerializeValue(value);
+          SerializeObject(writer, value);
+        else SerializeValue(writer, value);
       }
 
-      m_Writer.EndArray();
+      writer.EndArray();
     }
 
-    void SerializeValue(object value)
+    void SerializeValue(SLJsonWriter writer, object value)
     {
-      if(value==null) m_Writer.WriteValueNull();
-      else if(value is bool) m_Writer.WriteValue((bool)value);
-      else if(value is sbyte) m_Writer.WriteValue((sbyte)value);
-      else if(value is byte) m_Writer.WriteValue((byte)value);
-      else if(value is short) m_Writer.WriteValue((short)value);
-      else if(value is ushort) m_Writer.WriteValue((ushort)value);
-      else if(value is int) m_Writer.WriteValue((int)value);
-      else if(value is uint) m_Writer.WriteValue((uint)value);
-      else if(value is long) m_Writer.WriteValue((long)value);
-      else if(value is ulong) m_Writer.WriteValue((ulong)value);
-      else if(value is float) m_Writer.WriteValue((float)value);
-      else if(value is double) m_Writer.WriteValue((double)value);
-      else if(value is DateTime) m_Writer.WriteValue((DateTime)value);
-      else if(value is TimeSpan) m_Writer.WriteValue((TimeSpan)value);
+      if(value==null) writer.WriteValueNull();
+      else if(value is bool) writer.WriteValue((bool)value);
+      else if(value is sbyte) writer.WriteValue((sbyte)value);
+      else if(value is byte) writer.WriteValue((byte)value);
+      else if(value is short) writer.WriteValue((short)value);
+      else if(value is ushort) writer.WriteValue((ushort)value);
+      else if(value is int) writer.WriteValue((int)value);
+      else if(value is uint) writer.WriteValue((uint)value);
+      else if(value is long) writer.WriteValue((long)value);
+      else if(value is ulong) writer.WriteValue((ulong)value);
+      else if(value is float) writer.WriteValue((float)value);
+      else if(value is double) writer.WriteValue((double)value);
+      else if(value is DateTime) writer.WriteValue((DateTime)value);
+      else if(value is TimeSpan) writer.WriteValue((TimeSpan)value);
       else
       {
         string s=value as string;
@@ -137,12 +147,11 @@ namespace Liersch.Json
           s=Convert.ToString(value, CultureInfo.InvariantCulture);
         }
 
-        m_Writer.WriteValue(s);
+        writer.WriteValue(s);
       }
     }
 
 
-    SLJsonWriter m_Writer;
     bool m_ThrowOnUnknownValueType;
   }
 }

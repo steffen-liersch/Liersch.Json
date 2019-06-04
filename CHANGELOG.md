@@ -5,7 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- SLJsonSerializer.Serialize
 ### Changed
+- Using the same concept for SLJsonSerializer as for SLJsonDeserializer
 - SLJsonNode.Parse changed to parse not only objects, but also arrays and values
 
 ## [1.0.0] - 2019-05-13
