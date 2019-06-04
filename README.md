@@ -77,7 +77,7 @@ The parser result is an instance of SLJsonNode. It can be used to analyze the pa
 public static void RunExample2()
 {
   string jsonExpression=RetrieveJsonExample();
-  PrintNode(SLJsonParser.Parse(jsonExpression), 0);
+  PrintNode(SLJsonNode.Parse(jsonExpression), 0);
 }
 
 static void PrintNode(SLJsonNode node, int level)
