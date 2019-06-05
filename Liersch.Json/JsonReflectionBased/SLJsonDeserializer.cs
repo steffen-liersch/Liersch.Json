@@ -21,12 +21,9 @@ using System.Reflection;
 
 namespace Liersch.Json
 {
-  public delegate object SLJsonConverter(string value);
-
-
   public sealed class SLJsonDeserializer
   {
-    public void RegisterConverter(Type type, SLJsonConverter converter) { m_Converters[type]=converter; }
+    public void RegisterConverter(Type type, Func<string, object> converter) { m_Converters[type]=converter; }
 
     public T Deserialize<T>(string jsonExpression) where T : new()
     {
@@ -172,7 +169,7 @@ namespace Liersch.Json
 
     object ParseValue(Type type, string value)
     {
-      SLJsonConverter parseValue;
+      Func<string, object> parseValue;
       if(m_Converters.TryGetValue(type, out parseValue))
         return parseValue(value);
 
@@ -201,15 +198,15 @@ namespace Liersch.Json
 #endif
     }
 
-    static Dictionary<Type, SLJsonConverter> CreateStandardConverters()
+    static Dictionary<Type, Func<string, object>> CreateStandardConverters()
     {
-      var res=new Dictionary<Type, SLJsonConverter>();
+      var res=new Dictionary<Type, Func<string, object>>();
       res.Add(typeof(DateTime), delegate(string value) { return DateTime.Parse(value, CultureInfo.InvariantCulture); });
       res.Add(typeof(TimeSpan), ParseTime);
       return res;
     }
 
 
-    Dictionary<Type, SLJsonConverter> m_Converters=CreateStandardConverters();
+    Dictionary<Type, Func<string, object>> m_Converters=CreateStandardConverters();
   }
 }

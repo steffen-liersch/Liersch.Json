@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 - Using the same concept for SLJsonSerializer as for SLJsonDeserializer
 - SLJsonNode.Parse changed to parse not only objects, but also arrays and values
-
+- Delegate SLJsonConverter replaced by Func<string, object>
 ## [1.0.0] - 2019-05-13
 ### Added
 - CHANGELOG.md introduced
