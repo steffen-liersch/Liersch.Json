@@ -43,7 +43,7 @@ namespace Liersch.Json.Tests
       var d=new SLJsonDeserializer();
       ExampleOuter o2=d.Deserialize<ExampleOuter>(s1);
 
-      string s2=Serialize(o1);
+      string s2=Serialize(o2);
       Assert.AreEqual(s1, s2);
 
       SLJsonNode n1=SLJsonParser.Parse(s1);
