@@ -7,10 +7,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Added
 - SLJsonSerializer.Serialize
+- SLJsonDeserializer.RegisterConverter (generic overload)
 ### Changed
 - Using the same concept for SLJsonSerializer as for SLJsonDeserializer
 - SLJsonNode.Parse changed to parse not only objects, but also arrays and values
-- Delegate SLJsonConverter replaced by Func<string, object>
+- SLJsonConverter changed to generic delegate comparable with Func<T, TResult> to keep compatible with .NET 2.0 and 3.0
 ## [1.0.0] - 2019-05-13
 ### Added
 - CHANGELOG.md introduced
@@ -39,6 +40,5 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - NullReferenceException in SLJsonDeserializer and SLJsonSerializer on missing getter or setter
 - NullReferenceException in implicit type conversion on null value
 
-[Unreleased]: https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.1...HEAD
-[1.0.1]:      https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.0...v1.0.1
+[Unreleased]: https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.0...HEAD
 [1.0.0]:      https://github.com/steffen-liersch/Liersch.Json/tree/v1.0.0

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsonReflectionBased\ExtensionAttribute.cs" />
+    <Compile Include="JsonReflectionBased\SLJsonConverter.cs" />
     <Compile Include="JsonReflectionBased\SLJsonDeserializer.cs" />
     <Compile Include="JsonReflectionBased\SLJsonMemberAttribute.cs" />
     <Compile Include="JsonReflectionBased\SLJsonMemberType.cs" />

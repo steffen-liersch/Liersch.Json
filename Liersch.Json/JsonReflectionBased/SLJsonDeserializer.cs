@@ -23,7 +23,25 @@ namespace Liersch.Json
 {
   public sealed class SLJsonDeserializer
   {
-    public void RegisterConverter(Type type, Func<string, object> converter) { m_Converters[type]=converter; }
+    public void RegisterConverter(Type type, SLJsonConverter<string, object> converter)
+    {
+      if(type==null)
+        throw new ArgumentNullException("type");
+
+      if(converter==null)
+        throw new ArgumentNullException("converter");
+
+      m_Converters[type]=converter;
+    }
+
+    public void RegisterConverter<T>(SLJsonConverter<string, T> converter)
+    {
+      if(converter==null)
+        throw new ArgumentNullException("converter");
+
+      m_Converters[typeof(T)]=x => converter(x);
+    }
+
 
     public T Deserialize<T>(string jsonExpression) where T : new()
     {
@@ -169,7 +187,7 @@ namespace Liersch.Json
 
     object ParseValue(Type type, string value)
     {
-      Func<string, object> parseValue;
+      SLJsonConverter<string, object> parseValue;
       if(m_Converters.TryGetValue(type, out parseValue))
         return parseValue(value);
 
@@ -198,15 +216,15 @@ namespace Liersch.Json
 #endif
     }
 
-    static Dictionary<Type, Func<string, object>> CreateStandardConverters()
+    static Dictionary<Type, SLJsonConverter<string, object>> CreateStandardConverters()
     {
-      var res=new Dictionary<Type, Func<string, object>>();
-      res.Add(typeof(DateTime), delegate(string value) { return DateTime.Parse(value, CultureInfo.InvariantCulture); });
+      var res=new Dictionary<Type, SLJsonConverter<string, object>>();
+      res.Add(typeof(DateTime), x => DateTime.Parse(x, CultureInfo.InvariantCulture));
       res.Add(typeof(TimeSpan), ParseTime);
       return res;
     }
 
 
-    Dictionary<Type, Func<string, object>> m_Converters=CreateStandardConverters();
+    Dictionary<Type, SLJsonConverter<string, object>> m_Converters=CreateStandardConverters();
   }
 }
