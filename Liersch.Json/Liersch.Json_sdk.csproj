@@ -14,6 +14,8 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Properties\KeyPrivate.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
     <PackageDescription>Liersch.Json provides support for parsing and generating JSON expressions. The library is written in C# 3.0 targeting many .NET platforms.</PackageDescription>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>Liersch.Json_License.txt</PackageLicenseFile>
