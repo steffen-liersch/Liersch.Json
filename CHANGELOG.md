@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Added
 - SLJsonSerializer.Serialize
+- SLJsonSerializer.RegisterConverter
 - SLJsonDeserializer.RegisterConverter (generic overload)
 ### Changed
 - Using the same concept for SLJsonSerializer as for SLJsonDeserializer

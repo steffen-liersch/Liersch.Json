@@ -14,6 +14,7 @@
 //----------------------------------------------------------------------------
 
 using System;
+using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Liersch.Json.Tests
@@ -84,6 +85,54 @@ namespace Liersch.Json.Tests
     }
 
     static string Serialize(object instance) { return new SLJsonSerializer().Serialize(instance); }
+
+
+    [TestMethod]
+    public void TesReflectionWithConverter1()
+    {
+      var ser=new SLJsonSerializer();
+
+      const string prefix="prefix: ";
+      ser.RegisterConverter<DateTime>(x => prefix+x.ToString(CultureInfo.InvariantCulture));
+
+      var o1=new ExampleOuter();
+      o1.PropertyDateTime=new DateTime(1950, 7, 20, 12, 34, 56);
+
+      string s=ser.Serialize(o1);
+      Assert.IsTrue(s.Contains(prefix+o1.PropertyDateTime.ToString(CultureInfo.InvariantCulture)));
+
+      var des=new SLJsonDeserializer();
+      des.RegisterConverter<DateTime>(x =>
+      {
+        string z=x.Substring(x.IndexOf(prefix)+prefix.Length);
+        return DateTime.Parse(z, CultureInfo.InvariantCulture);
+      });
+
+      var o2=des.Deserialize<ExampleOuter>(s);
+      Assert.AreEqual(o1.PropertyDateTime, o2.PropertyDateTime);
+    }
+
+
+    [TestMethod]
+    public void TesReflectionWithConverter2()
+    {
+      var ser=new SLJsonSerializer();
+      TestStringConversion(ser, null);
+
+      ser.RegisterConverter<string>(x => x ?? string.Empty);
+      TestStringConversion(ser, string.Empty);
+
+      ser.RegisterConverter<string>(x => x ?? "empty");
+      TestStringConversion(ser, "empty");
+    }
+
+    static void TestStringConversion(SLJsonSerializer serializer, string expectedValue)
+    {
+      var o1=new ExampleOuter();
+      string s=serializer.Serialize(o1);
+      var o2=new SLJsonDeserializer().Deserialize<ExampleOuter>(s);
+      Assert.AreEqual(expectedValue, o2.ValueString);
+    }
 
 
     class ExampleOuter

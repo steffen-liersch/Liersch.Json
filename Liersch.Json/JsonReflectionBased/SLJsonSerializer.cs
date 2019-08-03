@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 
@@ -23,6 +24,26 @@ namespace Liersch.Json
   public sealed class SLJsonSerializer
   {
     public bool ThrowOnUnknownValueType { get { return m_ThrowOnUnknownValueType; } set { m_ThrowOnUnknownValueType=value; } }
+
+
+    public void RegisterConverter(Type type, SLJsonConverter<object, string> converter)
+    {
+      if(type==null)
+        throw new ArgumentNullException("type");
+
+      if(converter==null)
+        throw new ArgumentNullException("converter");
+
+      m_Converters[type]=converter;
+    }
+
+    public void RegisterConverter<T>(SLJsonConverter<T, string> converter)
+    {
+      if(converter==null)
+        throw new ArgumentNullException("converter");
+
+      m_Converters[typeof(T)]=x => converter((T)x);
+    }
 
 
     public void Serialize(object instance, SLJsonWriter writer) { SerializeObject(writer, instance); }
@@ -85,7 +106,7 @@ namespace Liersch.Json
       writer.BeginField(attribute.MemberName);
       switch(attribute.MemberType)
       {
-        case SLJsonMemberType.Value: SerializeValue(writer, value); break;
+        case SLJsonMemberType.Value: SerializeValue(writer, type, value); break;
         case SLJsonMemberType.Object: SerializeObject(writer, value); break;
         case SLJsonMemberType.ValueArray: SerializeArray(writer, type, value, false); break;
         case SLJsonMemberType.ObjectArray: SerializeArray(writer, type, value, true); break;
@@ -114,14 +135,24 @@ namespace Liersch.Json
       {
         if(asObject)
           SerializeObject(writer, value);
-        else SerializeValue(writer, value);
+        else SerializeValue(writer, type, value);
       }
 
       writer.EndArray();
     }
 
-    void SerializeValue(SLJsonWriter writer, object value)
+    void SerializeValue(SLJsonWriter writer, Type type, object value)
     {
+      SLJsonConverter<object, string> serialize;
+      if(m_Converters.TryGetValue(type, out serialize))
+      {
+        string s=serialize(value);
+        if(s==null)
+          writer.WriteValueNull();
+        else writer.WriteValue(s);
+        return;
+      }
+
       if(value==null) writer.WriteValueNull();
       else if(value is bool) writer.WriteValue((bool)value);
       else if(value is sbyte) writer.WriteValue((sbyte)value);
@@ -144,7 +175,7 @@ namespace Liersch.Json
           if(m_ThrowOnUnknownValueType)
             throw new NotSupportedException("Unknown data type "+value.GetType().FullName+" is not supported");
 
-          s=Convert.ToString(value, CultureInfo.InvariantCulture);
+          s=ToStringInvariant(value);
         }
 
         writer.WriteValue(s);
@@ -152,6 +183,18 @@ namespace Liersch.Json
     }
 
 
+    static Dictionary<Type, SLJsonConverter<object, string>> CreateStandardConverters()
+    {
+      var res=new Dictionary<Type, SLJsonConverter<object, string>>();
+      res.Add(typeof(DateTime), ToStringInvariant);
+      res.Add(typeof(TimeSpan), ToStringInvariant);
+      return res;
+    }
+
+    static string ToStringInvariant(object value) { return Convert.ToString(value, CultureInfo.InvariantCulture); }
+
+
     bool m_ThrowOnUnknownValueType;
+    Dictionary<Type, SLJsonConverter<object, string>> m_Converters=CreateStandardConverters();
   }
 }
