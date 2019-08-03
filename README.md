@@ -30,7 +30,7 @@ To use the library in a project one of the following library project files can b
 - "Liersch.Json_net45.csproj" - library project for .NET Framework 4.5 and Mono (VS 2013 required)
 - "Liersch.Json_netmf.csproj" - library project for .NET Micro Framework 4.4 (VS 2015 required)
 
-The easiest and the fastest way to integrate the library into a project is to use the Liersch.Json package from [NuGet](https://www.nuget.org/packages/Liersch.Json).
+The easiest and the fastest way to integrate the library into a project is to use the [Liersch.Json package published on NuGet](https://www.nuget.org/packages/Liersch.Json).
 
 
 Parsing
