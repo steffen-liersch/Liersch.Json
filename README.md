@@ -1,7 +1,7 @@
 ﻿Liersch.Json - JSON Support for .NET
 ====================================
 
-Liersch.Json provides support for parsing and generating JSON expressions. The library is written in pure C# 3.0 and should work for the most .NET platforms. The following platforms are explicitly supported:
+Liersch.Json provides support for parsing and generating JSON expressions. The library is written in C# 3.0 targeting many .NET platforms. The following platforms are explicitly supported:
 
 - .NET Framework 2.0, 3.0, 3.5, 4.0, 4.5 and Mono
 - .NET Core 1.0
@@ -22,13 +22,15 @@ The following solutions can be used to try the library:
 - "Liersch.Json_VS2013.sln" - demo for .NET Framework 3.5 and Mono (VS 2013 required)
 - "Liersch.Json_netmf.sln" - demo for .NET Micro Framework 4.4 (VS 2015 required)
 
-To use the library in a project one of the following library project files must be included into the solution, depending on the used IDE and the target framework:
+To use the library in a project one of the following library project files can be included into the solution, depending on the used IDE and the target framework:
 
 - "Liersch.Json_sdk.csproj" - library project for multiple target frameworks (VS 2017 required)
 - "Liersch.Json_net20.csproj" - library project for .NET Framework 2.0 and Mono (VS 2013 required)
 - "Liersch.Json_net35.csproj" - library project for .NET Framework 3.5 and Mono (VS 2013 required)
 - "Liersch.Json_net45.csproj" - library project for .NET Framework 4.5 and Mono (VS 2013 required)
 - "Liersch.Json_netmf.csproj" - library project for .NET Micro Framework 4.4 (VS 2015 required)
+
+The easiest and the fastest way to integrate the library into a project is to use the Liersch.Json package from [NuGet](https://www.nuget.org/packages/Liersch.Json).
 
 
 Parsing
