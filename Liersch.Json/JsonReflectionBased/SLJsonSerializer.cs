@@ -56,15 +56,6 @@ namespace Liersch.Json
     }
 
 
-    [Obsolete("Use Serialize instead")]
-    public SLJsonWriter SerializeObject(object instance)
-    {
-      var wr=new SLJsonWriter();
-      SerializeObject(wr, instance);
-      return wr;
-    }
-
-
     void SerializeObject(SLJsonWriter writer, object instance)
     {
       if(instance==null)
@@ -196,5 +187,31 @@ namespace Liersch.Json
 
     bool m_ThrowOnUnknownValueType;
     Dictionary<Type, SLJsonConverter<object, string>> m_Converters=CreateStandardConverters();
+
+
+    #region Code for backward compatibility with v1.0.0 (will be removed in v2.0.0)
+
+    public SLJsonSerializer() { }
+
+    [Obsolete("Use function Serialize instead")]
+    public SLJsonSerializer(SLJsonWriter writer) { m_Writer=writer; }
+
+    // The new modifier is required to get the obsolete warning. On the other side the new modifier breaks the inheritance.
+    [Obsolete("Use function Serialize instead")]
+    public new string ToString() { return m_Writer!=null ? m_Writer.ToString() : string.Empty; }
+
+    [Obsolete("Use function Serialize instead")]
+    public SLJsonWriter SerializeObject(object instance)
+    {
+      if(m_Writer==null)
+        m_Writer=new SLJsonWriter();
+
+      SerializeObject(m_Writer, instance);
+      return m_Writer;
+    }
+
+    SLJsonWriter m_Writer;
+
+    #endregion
   }
 }

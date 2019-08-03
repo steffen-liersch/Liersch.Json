@@ -25,26 +25,15 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestReflection()
     {
-      var o1=new ExampleOuter()
-      {
-        ValueString="Test",
-        ValueStringArray=new string[] { "A", "B,", "C" },
-        ValueDoubleArray=new double[] { 2, 3.14, 10000 },
-        PropertyInteger=27,
-        PropertyDateTime=new DateTime(2017, 12, 27, 14, 30, 0),
-      };
+      ExampleOuter o1=CreateExample();
 
-      o1.ValueObject=new ExampleInner(2);
-      o1.ValueObjectArray=new ExampleInner[] { new ExampleInner(4), new ExampleInner(6) };
-      o1.ChangePrivateValue(2.345f);
-
-      string s1=Serialize(o1);
-      //Console.WriteLine(s1);
+      string s1=new SLJsonSerializer().Serialize(o1);
 
       var d=new SLJsonDeserializer();
       ExampleOuter o2=d.Deserialize<ExampleOuter>(s1);
+      CompareSomeFields(o1, o2);
 
-      string s2=Serialize(o2);
+      string s2=new SLJsonSerializer().Serialize(o2);
       Assert.AreEqual(s1, s2);
 
       SLJsonNode n1=SLJsonParser.Parse(s1);
@@ -56,6 +45,33 @@ namespace Liersch.Json.Tests
       CompareNodes(n1, n2);
       CompareNodes(n1, n3);
       CompareNodes(n1, n4);
+    }
+
+    static ExampleOuter CreateExample()
+    {
+      var res=new ExampleOuter()
+      {
+        ValueString="Test",
+        ValueStringArray=new string[] { "A", "B,", "C" },
+        ValueDoubleArray=new double[] { 2, 3.14, 10000 },
+        PropertyInteger=27,
+        PropertyDateTime=new DateTime(2017, 12, 27, 14, 30, 0),
+      };
+
+      res.ValueObject=new ExampleInner(2);
+      res.ValueObjectArray=new ExampleInner[] { new ExampleInner(4), new ExampleInner(6) };
+      res.ChangePrivateValue(2.345f);
+      return res;
+    }
+
+    static void CompareSomeFields(ExampleOuter o1, ExampleOuter o2)
+    {
+      Assert.AreEqual(o1.ValueBoolean1, o2.ValueBoolean1);
+      Assert.AreEqual(o1.ValueBoolean2, o2.ValueBoolean2);
+      Assert.AreEqual(o1.ValueBoolean3, o2.ValueBoolean3);
+      Assert.AreEqual(o1.ValueString, o2.ValueString);
+      Assert.AreEqual(o1.PropertyInteger, o2.PropertyInteger);
+      Assert.AreEqual(o1.PropertyDateTime, o2.PropertyDateTime);
     }
 
     void CompareNodes(SLJsonNode n1, SLJsonNode n2)
@@ -83,8 +99,6 @@ namespace Liersch.Json.Tests
             CompareNodes(n1[k], n2[k]);
       }
     }
-
-    static string Serialize(object instance) { return new SLJsonSerializer().Serialize(instance); }
 
 
     [TestMethod]
@@ -132,6 +146,51 @@ namespace Liersch.Json.Tests
       string s=serializer.Serialize(o1);
       var o2=new SLJsonDeserializer().Deserialize<ExampleOuter>(s);
       Assert.AreEqual(expectedValue, o2.ValueString);
+    }
+
+
+    [TestMethod]
+    public void TestObsoleteSerializeObject()
+    {
+      ExampleOuter o1=CreateExample();
+
+      var wr1=new SLJsonWriter();
+
+#pragma warning disable 618 // Disable obsolete warning
+
+      var ser=new SLJsonSerializer(wr1);
+      SLJsonWriter wr2=ser.SerializeObject(o1);
+      string s1=ser.ToString();
+
+#pragma warning restore 618
+
+      string s2=wr1.ToString();
+
+      Assert.AreSame(wr1, wr2);
+      Assert.AreEqual(s1, s2);
+
+      var o2=new SLJsonDeserializer().Deserialize<ExampleOuter>(s1);
+      CompareSomeFields(o1, o2);
+    }
+
+    [TestMethod]
+    public void TestObsoleteSerializeObject2()
+    {
+      ExampleOuter o1=CreateExample();
+      var ser=new SLJsonSerializer();
+
+#pragma warning disable 618 // Disable obsolete warning
+
+      SLJsonWriter wr=ser.SerializeObject(o1);
+      string s1=ser.ToString();
+
+#pragma warning restore 618
+
+      string s2=wr.ToString();
+      Assert.AreEqual(s1, s2);
+
+      var o2=new SLJsonDeserializer().Deserialize<ExampleOuter>(s1);
+      CompareSomeFields(o1, o2);
     }
 
 
