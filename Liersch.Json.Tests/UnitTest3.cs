@@ -31,7 +31,10 @@ namespace Liersch.Json.Tests
 
       var d=new SLJsonDeserializer();
       ExampleOuter o2=d.Deserialize<ExampleOuter>(s1);
+
       CompareSomeFields(o1, o2);
+      Assert.AreEqual(2.345f, o1.RetrievePrivateValue());
+      Assert.AreEqual(0, o2.RetrievePrivateValue());
 
       string s2=new SLJsonSerializer().Serialize(o2);
       Assert.AreEqual(s1, s2);
@@ -228,6 +231,8 @@ namespace Liersch.Json.Tests
 
       [SLJsonMember("PropertyDateTime ")]
       public DateTime PropertyDateTime { get; set; }
+
+      public float RetrievePrivateValue() { return ValuePrivate; }
 
       public void ChangePrivateValue(float value) { ValuePrivate=value; }
     }
