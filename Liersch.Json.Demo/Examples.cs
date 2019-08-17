@@ -14,7 +14,7 @@
 //----------------------------------------------------------------------------
 
 using System;
-using System.Text;
+using System.Globalization;
 
 namespace Liersch.Json
 {
@@ -60,34 +60,28 @@ namespace Liersch.Json
       Console.WriteLine();
 
       string jsonExpression=RetrieveJsonExample();
-      PrintNode(SLJsonNode.Parse(jsonExpression), 0);
+      PrintNode(SLJsonNode.Parse(jsonExpression), "demo = ", 0);
       Console.WriteLine();
     }
 
-    static void PrintNode(SLJsonNode node, int level)
+    static void PrintNode(SLJsonNode node, string prefix, int level)
     {
-      if(level<=0)
-        level=1;
+      Console.Write(new String(' ', level*2));
+      Console.Write(prefix);
 
       switch(node.NodeType)
       {
         case SLJsonNodeType.Array:
           Console.WriteLine("(Array)");
-          foreach(SLJsonNode item in node)
-          {
-            Indent(level);
-            PrintNode(item, level+1);
-          }
+          int c=node.Count;
+          for(int i=0; i<c; i++)
+            PrintNode(node[i], "["+i.ToString(CultureInfo.InvariantCulture)+"] = ", level+1);
           break;
 
         case SLJsonNodeType.Object:
           Console.WriteLine("(Object)");
           foreach(string name in node.Names)
-          {
-            Indent(level);
-            Console.Write(name+" = ");
-            PrintNode(node[name], level+1);
-          }
+            PrintNode(node[name], name+" = ", level+1);
           break;
 
         case SLJsonNodeType.Boolean:
@@ -100,11 +94,6 @@ namespace Liersch.Json
           Console.WriteLine("("+node.NodeType.ToString()+")");
           break;
       }
-    }
-
-    static void Indent(int level)
-    {
-      Console.Write(new StringBuilder().Append(' ', level*2).ToString());
     }
 
     static string RetrieveJsonExample()
