@@ -68,7 +68,7 @@ namespace Liersch.Json
     }
 
 
-    static SLJsonMonitor m_DefaultMonitor=new SLJsonMonitor();
+    static readonly SLJsonMonitor m_DefaultMonitor=new SLJsonMonitor();
     SLJsonMonitor m_Monitor; // Must not be cloned!
   }
 }

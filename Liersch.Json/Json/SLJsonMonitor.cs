@@ -17,10 +17,9 @@ namespace Liersch.Json
 {
   public sealed class SLJsonMonitor
   {
-    public bool IsModified { get { return m_IsModified; } set { m_IsModified=value; } }
-    public bool IsReadOnly { get { return m_IsReadOnly; } set { m_IsReadOnly=value; } }
+    public bool IsModified { get; set; }
+    public bool IsReadOnly { get; set; }
 
-    bool m_IsModified;
-    bool m_IsReadOnly;
+    internal SLJsonMonitor() { }
   }
 }
