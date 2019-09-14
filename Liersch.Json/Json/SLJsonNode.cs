@@ -144,8 +144,10 @@ namespace Liersch.Json
       double v;
       if(TryGetValue(out v))
       {
-        bool res=v>=int.MinValue && v<=int.MaxValue;
-        value=res ? (int)v : 0;
+        v=Math.Round(v);
+        int i=unchecked((int)v);
+        bool res=v-i==0;
+        value=res ? i : 0;
         return res;
       }
       else
@@ -160,8 +162,10 @@ namespace Liersch.Json
       double v;
       if(TryGetValue(out v))
       {
-        bool res=v>=long.MinValue && v<=long.MaxValue;
-        value=res ? (long)v : 0;
+        v=Math.Round(v);
+        long i=unchecked((long)v);
+        bool res=v-i==0;
+        value=res ? i : 0;
         return res;
       }
       else

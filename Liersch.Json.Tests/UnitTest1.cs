@@ -14,6 +14,7 @@
 //----------------------------------------------------------------------------
 
 using System;
+using System.Globalization;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -282,6 +283,30 @@ namespace Liersch.Json.Tests
       Assert.IsTrue(n==123L);
       Assert.IsTrue(Math.Abs(n-123.456)<=1e-7);
       Assert.IsTrue(n=="123.456");
+    }
+
+    [TestMethod]
+    public void TestOperatorsWithInt32Overflow()
+    {
+      long v=int.MaxValue+1L;
+      SLJsonNode n=v;
+      Assert.IsTrue(n);
+      Assert.IsTrue(n==0); // 0 because of overflow for int
+      Assert.IsTrue(n==v);
+      Assert.IsTrue(n-v==0);
+      Assert.IsTrue(n==v.ToString(CultureInfo.InvariantCulture));
+    }
+
+    [TestMethod]
+    public void TestOperatorsWithInt64Overflow()
+    {
+      double v=long.MaxValue+1.0;
+      SLJsonNode n=v;
+      Assert.IsTrue(n);
+      Assert.IsTrue(n==0); // 0 because of overflow for int
+      Assert.IsTrue(n==0L); // 0 because of overflow for long
+      Assert.IsTrue(n-v==0);
+      Assert.IsTrue(n==v.ToString("R", CultureInfo.InvariantCulture));
     }
 
     [TestMethod]

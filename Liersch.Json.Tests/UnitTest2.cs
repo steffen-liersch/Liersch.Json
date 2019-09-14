@@ -51,7 +51,7 @@ namespace Liersch.Json.Tests
       nt=SLJsonNodeType.Number;
       Check1("{value: 123}", false, false, false, true, nt, true, 123, 123, 123, "123");
       Check1("{value: 1.23}", false, false, false, true, nt, true, 1, 1, 1.23, "1.23");
-      Check1("{value: 1.89}", false, false, false, true, nt, true, 1, 1, 1.89, "1.89");
+      Check1("{value: 1.89}", false, false, false, true, nt, true, 2, 2, 1.89, "1.89");
       Check1("{value: 0.123}", false, false, false, true, nt, false, 0, 0, 0.123, "0.123");
       Check1("{value: .123}", false, false, false, true, nt, false, 0, 0, 0.123, "0.123");
       Check1("{value: 1e-100}", false, false, false, true, nt, false, 0, 0, 1e-100, "1E-100");
@@ -102,7 +102,7 @@ namespace Liersch.Json.Tests
       nt=SLJsonNodeType.Number;
       Check2(123, false, false, false, true, nt, true, 123, 123, 123, "123");
       Check2(1.23, false, false, false, true, nt, true, 1, 1, 1.23, "1.23");
-      Check2(1.89, false, false, false, true, nt, true, 1, 1, 1.89, "1.89");
+      Check2(1.89, false, false, false, true, nt, true, 2, 2, 1.89, "1.89");
       Check2(1e-100, false, false, false, true, nt, false, 0, 0, 1e-100, "1E-100");
       Check2(1.23e-100, false, false, false, true, nt, false, 0, 0, 1.23e-100, "1.23E-100");
       Check2(1e+100, false, false, false, true, nt, true, 0, 0, 1e+100, "1E+100");
