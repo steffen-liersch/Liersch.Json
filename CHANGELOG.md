@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Changed
 - Scope of SLJsonMonitor.ctor changed from public to internal
+- Rounding floating-point numbers on conversion to integer
+- Higher precision for floating-point numbers
+### Fixed
+- Conversion to data type long fixed for values nearby long.MaxValue
 
 ## [1.0.1] - 2019-08-03
 ### Added
