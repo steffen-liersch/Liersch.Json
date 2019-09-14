@@ -1,4 +1,7 @@
-﻿Liersch.Json - JSON Support for .NET
+﻿[![NuGet](https://img.shields.io/nuget/v/Liersch.Json.svg)](https://www.nuget.org/packages/Liersch.Json)
+
+
+Liersch.Json - JSON Support for .NET
 ====================================
 
 Liersch.Json provides support for parsing and generating JSON expressions. The library is written in C# 3.0 targeting many .NET platforms. The following platforms are explicitly supported:
