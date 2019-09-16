@@ -25,6 +25,10 @@
     <PackageTags>json iot</PackageTags>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="*.bat" />
     <None Remove="*.cmd" />
