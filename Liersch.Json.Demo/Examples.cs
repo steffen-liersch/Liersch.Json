@@ -14,7 +14,6 @@
 //----------------------------------------------------------------------------
 
 using System;
-using System.Globalization;
 
 namespace Liersch.Json
 {
@@ -75,7 +74,7 @@ namespace Liersch.Json
           Console.WriteLine("(Array)");
           int c=node.Count;
           for(int i=0; i<c; i++)
-            PrintNode(node[i], "["+i.ToString(CultureInfo.InvariantCulture)+"] = ", level+1);
+            PrintNode(node[i], "["+i.ToString(/*CultureInfo.InvariantCulture*/)+"] = ", level+1);
           break;
 
         case SLJsonNodeType.Object:
