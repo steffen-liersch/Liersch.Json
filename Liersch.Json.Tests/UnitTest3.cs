@@ -111,13 +111,13 @@ namespace Liersch.Json.Tests
       var ser=new SLJsonSerializer();
 
       const string prefix="prefix: ";
-      ser.RegisterConverter<DateTime>(x => prefix+x.ToString(CultureInfo.InvariantCulture));
+      ser.RegisterConverter<DateTime>(x => prefix+x.ToString(@"yyyy\-MM\-dd HH\:mm\:ss", CultureInfo.InvariantCulture));
 
       var o1=new ExampleOuter();
       o1.PropertyDateTime=new DateTime(1950, 7, 20, 12, 34, 56);
 
       string s=ser.Serialize(o1);
-      Assert.IsTrue(s.Contains(prefix+o1.PropertyDateTime.ToString(CultureInfo.InvariantCulture)));
+      Assert.IsTrue(s.Contains(prefix+o1.PropertyDateTime.ToString(@"yyyy\-MM\-dd HH\:mm\:ss", CultureInfo.InvariantCulture)));
 
       var des=new SLJsonDeserializer();
       des.RegisterConverter<DateTime>(x =>

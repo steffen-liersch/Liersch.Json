@@ -468,6 +468,33 @@ namespace Liersch.Json.Tests
     }
 
 
+    [TestMethod]
+    [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
+    public void TestWriter()
+    {
+      TestAsJsonCompact("null", new SLJsonNode());
+      TestAsJsonCompact("false", false);
+      TestAsJsonCompact("true", true);
+      TestAsJsonCompact("123", 123);
+      TestAsJsonCompact("123.456", 123.456);
+
+      TestAsJsonCompact("\"ABC\"", "ABC");
+      TestAsJsonCompact("\"A\"", "A");
+      TestAsJsonCompact("\"'\"", "'");
+
+      TestAsJsonCompact("\"\\b\"", "\b");
+      TestAsJsonCompact("\"\\t\"", "\t");
+      TestAsJsonCompact("\"\\n\"", "\n");
+      TestAsJsonCompact("\"\\f\"", "\f");
+      TestAsJsonCompact("\"\\r\"", "\r");
+      TestAsJsonCompact("\"\\\"\"", "\"");
+      TestAsJsonCompact("\"\\/\"", "/");
+      TestAsJsonCompact("\"\\\\\"", "\\");
+    }
+
+    static void TestAsJsonCompact(string expected, SLJsonNode node) { Assert.AreEqual(expected, node.AsJsonCompact); }
+
+
     static SLJsonNode ParseAny(string jsonExpression)
     {
       var parser=new SLJsonParser();
@@ -516,7 +543,7 @@ namespace Liersch.Json.Tests
 
       int c=value.Length;
       var sb=new StringBuilder(c);
-      for(int i=0; i<c; i++)
+      for(int i = 0; i<c; i++)
       {
         char z=value[i];
         if(z>' ')

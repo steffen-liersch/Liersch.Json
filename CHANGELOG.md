@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Higher precision for floating-point numbers
 ### Fixed
 - Conversion to data type long fixed for values nearby long.MaxValue
+- Escaping slashes correctly
 
 ## [1.0.1] - 2019-08-03
 ### Added
