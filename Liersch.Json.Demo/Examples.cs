@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2020 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -65,7 +65,7 @@ namespace Liersch.Json
 
     static void PrintNode(SLJsonNode node, string prefix, int level)
     {
-      Console.Write(new String(' ', level*2));
+      Console.Write(new string(' ', level*2));
       Console.Write(prefix);
 
       switch(node.NodeType)
