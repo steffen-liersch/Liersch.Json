@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2020 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -14,6 +14,7 @@
 //----------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -131,6 +132,7 @@ namespace Liersch.Json.Tests
 
 
     [TestMethod]
+    [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
     public void TesReflectionWithConverter2()
     {
       var ser=new SLJsonSerializer();

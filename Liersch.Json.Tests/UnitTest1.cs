@@ -14,6 +14,7 @@
 //----------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -399,6 +400,7 @@ namespace Liersch.Json.Tests
     }
 
     [TestMethod]
+    [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
     public void TestParseInvalid()
     {
       ParseInvalid("\n'abc def", "Syntax error in JSON expression at row 2 in column 1: Unterminated string expression");
@@ -423,6 +425,7 @@ namespace Liersch.Json.Tests
     }
 
     [TestMethod]
+    [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
     public void TestParseAndSerialize()
     {
       ParseAndSerialize("{\"a\": 1, \"b\": 2}", SLJsonNodeType.Object);

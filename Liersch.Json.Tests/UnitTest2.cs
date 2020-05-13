@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2020 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -87,6 +87,7 @@ namespace Liersch.Json.Tests
       }
       catch(SLJsonException)
       {
+        // Ignored
       }
     }
 
