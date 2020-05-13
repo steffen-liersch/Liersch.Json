@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------
 //
-// Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch
+// Copyright © 2013-2020 Dipl.-Ing. (BA) Steffen Liersch
 // All rights reserved.
 //
 // Steffen Liersch
@@ -330,7 +330,7 @@ namespace Liersch.Json.Tests
 
       n["person"]["age"].AsString="29";
       Assert.IsTrue(n["person"]["age"].IsString);
-      Assert.IsTrue(n["person"]["age"]=29);
+      Assert.IsTrue(n["person"]["age"]==29);
       Assert.IsTrue(n["person"]["age"]=="29");
 
       n["person"]["age"]="30";
