@@ -9,7 +9,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Steffen Liersch</Authors>
     <Company>Steffen Liersch</Company>
-    <Copyright>© 2013-2019 Dipl.-Ing. (BA) Steffen Liersch</Copyright>
+    <Copyright>© 2013-2020 Dipl.-Ing. (BA) Steffen Liersch</Copyright>
     <Product>Liersch.Json</Product>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Properties\KeyPrivate.snk</AssemblyOriginatorKeyFile>

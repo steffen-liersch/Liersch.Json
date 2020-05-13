@@ -209,7 +209,7 @@ Consider the license terms for the use of this software in whole or in part. The
 Copyright
 ---------
 
-Copyright © 2013-2019 Dipl.-Ing. (BA) Steffen Liersch  
+Copyright © 2013-2020 Dipl.-Ing. (BA) Steffen Liersch  
 http://www.steffen-liersch.de/
 
 The software is maintained and published here:  
