@@ -20,7 +20,7 @@ namespace Liersch.Json
 {
   public sealed class SLJsonWriter
   {
-    public int Level { get { return m_Level; } set { m_Level=value; } }
+    public int Level { get; set; }
 
     public SLJsonWriter() : this(new StringBuilder(), true) { }
     public SLJsonWriter(StringBuilder target) : this(target, true) { }
@@ -31,8 +31,27 @@ namespace Liersch.Json
     public void EndObject() { EndRegion('}'); }
     public void BeginArray() { BeginRegion('['); }
     public void EndArray() { EndRegion(']'); }
-    void BeginRegion(char token) { CheckNL(); CheckVS(); m_Target.Append(token); m_NeedFS=false; m_NeedVS=false; m_NeedLB=true; m_Level++; }
-    void EndRegion(char token) { m_Level--; WriteLineBreak(); m_Target.Append(token); m_NeedFS=true; m_NeedVS=true; m_NeedLB=false; }
+
+    void BeginRegion(char token)
+    {
+      CheckNL();
+      CheckVS();
+      m_Target.Append(token);
+      m_NeedFS=false;
+      m_NeedVS=false;
+      m_NeedLB=true;
+      Level++;
+    }
+
+    void EndRegion(char token)
+    {
+      Level--;
+      WriteLineBreak();
+      m_Target.Append(token);
+      m_NeedFS=true;
+      m_NeedVS=true;
+      m_NeedLB=false;
+    }
 
     public void SetFieldNull(string name) { BeginField(name); WriteValueNull(); }
     public void SetField(string name, bool value) { BeginField(name); WriteValue(value); }
@@ -43,7 +62,20 @@ namespace Liersch.Json
     public void SetField(string name, TimeSpan value) { BeginField(name); WriteValue(value); }
     public void SetField(string name, string value) { BeginField(name); WriteValue(value); }
 
-    public void BeginField(string name) { CheckNL(); CheckFS(); WriteQuoted(name); m_Target.Append(':'); WriteSpace(); m_NeedVS=false; }
+    public void BeginField(string name) { BeginField(name, true); }
+
+    public void BeginField(string name, bool isEscapingRequired)
+    {
+      CheckNL();
+      CheckFS();
+      m_Target.Append('"');
+      m_Target.Append(name);
+      m_Target.Append('"');
+      m_Target.Append(':');
+      WriteSpace();
+      m_NeedVS=false;
+    }
+
     public void WriteValueNull() { CheckVS(); m_Target.Append("null"); }
     public void WriteValue(bool value) { CheckVS(); m_Target.Append(value ? "true" : "false"); }
     public void WriteValue(int value) { CheckVS(); m_Target.Append(value); }
@@ -53,13 +85,56 @@ namespace Liersch.Json
     public void WriteValue(TimeSpan value) { CheckVS(); m_Target.Append('"').Append(value.ToString()).Append('"'); }
     public void WriteValue(string value) { CheckVS(); WriteQuoted(value); }
 
-    public void WriteLineBreak() { if(m_Indented) { m_Target.Append("\r\n"); WriteIndentation(); } m_NeedLB=false; }
-    void WriteIndentation() { if(m_Indented) { m_Target.Append('\t', m_Level); } }
-    void WriteSpace() { if(m_Indented) { m_Target.Append(' '); } }
+    public void WriteLineBreak()
+    {
+      if(m_Indented)
+      {
+        m_Target.Append("\r\n");
+        WriteIndentation();
+      }
+      m_NeedLB=false;
+    }
 
-    void CheckFS() { if(m_NeedFS) { m_Target.Append(','); WriteLineBreak(); } m_NeedFS=true; }
-    void CheckVS() { CheckNL(); if(m_NeedVS) { m_Target.Append(','); WriteLineBreak(); } m_NeedVS=true; }
-    void CheckNL() { if(m_NeedLB) { WriteLineBreak(); } }
+    void WriteIndentation()
+    {
+      if(m_Indented)
+        m_Target.Append('\t', Level);
+    }
+
+    void WriteSpace()
+    {
+      if(m_Indented)
+        m_Target.Append(' ');
+    }
+
+    void CheckFS()
+    {
+      if(!m_NeedFS)
+        m_NeedFS=true;
+      else
+      {
+        m_Target.Append(',');
+        WriteLineBreak();
+      }
+    }
+
+    void CheckVS()
+    {
+      CheckNL();
+      if(!m_NeedVS)
+        m_NeedVS=true;
+      else
+      {
+        m_Target.Append(',');
+        WriteLineBreak();
+      }
+    }
+
+    void CheckNL()
+    {
+      if(m_NeedLB)
+        WriteLineBreak();
+    }
 
     void WriteDateTime(DateTime value)
     {
@@ -71,12 +146,6 @@ namespace Liersch.Json
       m_Target.Append(SLJsonConvert.ToString(value.Minute, "00")).Append(':');
       m_Target.Append(SLJsonConvert.ToString(value.Second, "00"));
       m_Target.Append('"');
-
-      /*
-      sb.Append('"');
-      sb.Append(value.ToString(@"yyyy\-MM\-dd HH\:mm\:ss", CultureInfo.InvariantCulture));
-      sb.Append('"');
-      */
     }
 
     void WriteQuoted(string value)
@@ -89,7 +158,7 @@ namespace Liersch.Json
 
       m_Target.Append('"');
       int len=value.Length;
-      for(int i=0; i<len; i++)
+      for(int i = 0; i<len; i++)
       {
         char c=value[i];
         switch(c)
@@ -119,8 +188,7 @@ namespace Liersch.Json
     static bool IsControl(char c) { return c>='\0' && c<' '; }
 
     readonly bool m_Indented;
-    StringBuilder m_Target;
-    int m_Level;
+    readonly StringBuilder m_Target;
     bool m_NeedFS; // Field separator required
     bool m_NeedVS; // Value separator required
     bool m_NeedLB; // Line-break required
