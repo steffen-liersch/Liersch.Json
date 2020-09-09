@@ -23,6 +23,7 @@ namespace Liersch.Json
     public int Level { get; set; }
 
     public SLJsonWriter() : this(new StringBuilder(), true) { }
+    public SLJsonWriter(bool indented) : this(new StringBuilder(), indented) { }
     public SLJsonWriter(StringBuilder target) : this(target, true) { }
     public SLJsonWriter(StringBuilder target, bool indented) { m_Target=target ?? new StringBuilder(); m_Indented=indented; }
     public override string ToString() { return m_Target.ToString(); }
@@ -68,9 +69,16 @@ namespace Liersch.Json
     {
       CheckNL();
       CheckFS();
-      m_Target.Append('"');
-      m_Target.Append(name);
-      m_Target.Append('"');
+
+      if(isEscapingRequired)
+        WriteQuoted(name);
+      else
+      {
+        m_Target.Append('"');
+        m_Target.Append(name);
+        m_Target.Append('"');
+      }
+
       m_Target.Append(':');
       WriteSpace();
       m_NeedVS=false;
