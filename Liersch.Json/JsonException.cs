@@ -16,7 +16,7 @@ namespace Liersch.Json
     public JsonException(string message, Exception innerException) : base(message, innerException) { }
   }
 
-#if NET20 || NET30 || NET35 || NET40 || NET45 || NET46
+#if !NETCOREAPP1_0 && !NETCOREAPP1_1 && !NETSTANDARD1_0
 
   [Serializable]
   partial class JsonException
