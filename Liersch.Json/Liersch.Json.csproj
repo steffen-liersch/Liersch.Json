@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net40;net45;net47;net48;netcoreapp1.0;netcoreapp1.1;netcoreapp2.0;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1;netstandard1.0</TargetFrameworks>
+    <LangVersion>3</LangVersion>
+    <NoWarn>1591</NoWarn>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RootNamespace>Liersch.Json</RootNamespace>
+    <AssemblyName>Liersch.Json</AssemblyName>
+    <AssemblyOriginatorKeyFile>Liersch.Json.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <PackageId>Liersch.Json</PackageId>
+    <Authors>Steffen Liersch</Authors>
+    <Company>Steffen Liersch</Company>
+    <Copyright>© 2013-2020 Steffen Liersch</Copyright>
+    <Product>Liersch.Json</Product>
+    <Description>Small .NET library for parsing and generating JSON documents</Description>
+    <VersionPrefix>2.0.0</VersionPrefix>
+    <VersionSuffix>beta</VersionSuffix>
+    <PackageTags>c# json iot mqtt netmf parser formatter serialization serializer</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageIcon>Liersch-Logo-128px.png</PackageIcon>
+    <PackageIconUrl>https://www.steffen-liersch.de/files/images/Liersch-Logo-128px.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/steffen-liersch/Liersch.Json</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/steffen-liersch/Liersch.Json</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+
+    <AssemblyTitle>$(Description)</AssemblyTitle>
+    <VersionSuffix Condition="'$(VersionSuffix)'!='' AND '$(GITHUB_RUN_ID)'!=''">$(VersionSuffix)-$(GITHUB_RUN_ID)</VersionSuffix>
+    <CheckForOverflowUnderflow Condition="'$(Configuration)'=='Debug'">true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Pack="true" PackagePath="" Include="..\LICENSE.txt" Link="doc\LICENSE.txt" />
+    <None Pack="true" PackagePath="" Include="..\Liersch-Logo-128px.png" Link="doc\Liersch-Logo-128px.png" />
+    <None Pack="true" PackagePath="" Include="..\Liersch-Logo-Notice.txt" Link="doc\Liersch-Logo-Notice.txt" />
+    <None Pack="true" PackagePath="" Include="..\README.md" Link="doc\README.md" />
+  </ItemGroup>
+
+</Project>

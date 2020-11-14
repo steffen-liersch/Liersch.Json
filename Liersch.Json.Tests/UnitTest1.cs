@@ -1,17 +1,9 @@
-﻿//----------------------------------------------------------------------------
-//
-// Copyright © 2013-2020 Dipl.-Ing. (BA) Steffen Liersch
-// All rights reserved.
-//
-// Steffen Liersch
-// Robert-Schumann-Straße 1
-// 08289 Schneeberg
-// Germany
-//
-// Phone: +49-3772-38 28 08
-// E-Mail: S.Liersch@gmx.de
-//
-//----------------------------------------------------------------------------
+﻿/*--------------------------------------------------------------------------*\
+::
+::  Copyright © 2013-2020 Steffen Liersch
+::  https://www.steffen-liersch.de/
+::
+\*--------------------------------------------------------------------------*/
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -28,14 +20,14 @@ namespace Liersch.Json.Tests
     public void TestReadOnly()
     {
       string s=RetrieveJsonExpression();
-      SLJsonNode n=ParseAny(s);
+      JsonNode n=ParseAny(s);
 
       Assert.AreEqual("Jane", n["person"]["firstName"].AsString);
       Assert.AreEqual("Doe", n["person"]["lastName"].AsString);
       Assert.AreEqual("12345", n["person"]["zipCode"].AsString);
 
       Assert.IsFalse(n["person"]["street"].IsReadOnly);
-      SLJsonMonitor m=n.CreateMonitor();
+      JsonMonitor m=n.CreateMonitor();
       Assert.IsFalse(m.IsModified);
       Assert.IsFalse(m.IsReadOnly);
       m.IsReadOnly=true;
@@ -56,36 +48,36 @@ namespace Liersch.Json.Tests
       Assert.IsFalse(n["test"]["testArray"][4].IsValue); // Check missing entry
       Assert.AreEqual(4, n["test"]["testArray"].Count); // Check count again
 
-      Assert.AreEqual(SLJsonNodeType.Object, n["test"]["testObject"].NodeType);
+      Assert.AreEqual(JsonNodeType.Object, n["test"]["testObject"].NodeType);
       Assert.AreEqual(2, n["test"]["testObject"].Count);
       Assert.IsNull(n["test"]["testObject"].AsString);
 
-      Assert.AreEqual(SLJsonNodeType.Missing, n["test"]["testValueMissing__"].NodeType);
+      Assert.AreEqual(JsonNodeType.Missing, n["test"]["testValueMissing__"].NodeType);
       Assert.IsFalse(n["test"]["testValueMissing__"].AsBoolean);
       Assert.AreEqual(0, n["test"]["testValueMissing__"].AsInt32);
       Assert.IsNull(n["test"]["testValueMissing__"].AsString);
 
-      Assert.AreEqual(SLJsonNodeType.Null, n["test"]["testValueNull"].NodeType);
+      Assert.AreEqual(JsonNodeType.Null, n["test"]["testValueNull"].NodeType);
       Assert.IsFalse(n["test"]["testValueNull"].AsBoolean);
       Assert.AreEqual(0, n["test"]["testValueNull"].AsInt32);
       Assert.IsNull(n["test"]["testValueNull"].AsString);
 
-      Assert.AreEqual(SLJsonNodeType.Boolean, n["test"]["testValueTrue"].NodeType);
+      Assert.AreEqual(JsonNodeType.Boolean, n["test"]["testValueTrue"].NodeType);
       Assert.IsTrue(n["test"]["testValueTrue"].AsBoolean);
       Assert.AreEqual(1, n["test"]["testValueTrue"].AsInt32);
       Assert.AreEqual("true", n["test"]["testValueTrue"].AsString);
 
-      Assert.AreEqual(SLJsonNodeType.Number, n["test"]["testValue32"].NodeType);
+      Assert.AreEqual(JsonNodeType.Number, n["test"]["testValue32"].NodeType);
       Assert.AreEqual(256, n["test"]["testValue32"].AsInt32);
       Assert.AreEqual("256", n["test"]["testValue32"].AsString);
 
-      Assert.AreEqual(SLJsonNodeType.String, n["test"]["testValueString1"].NodeType);
+      Assert.AreEqual(JsonNodeType.String, n["test"]["testValueString1"].NodeType);
       Assert.AreEqual("abc 'def' ghi", n["test"]["testValueString1"].AsString);
 
-      Assert.AreEqual(SLJsonNodeType.String, n["test"]["testValueString2"].NodeType);
+      Assert.AreEqual(JsonNodeType.String, n["test"]["testValueString2"].NodeType);
       Assert.AreEqual("ABC 'DEF' GHI", n["test"]["testValueString2"].AsString);
 
-      Assert.AreEqual(SLJsonNodeType.String, n["test"]["testValueString3"].NodeType);
+      Assert.AreEqual(JsonNodeType.String, n["test"]["testValueString3"].NodeType);
       Assert.AreEqual("First Line\r\nSecond Line\r\nThird Line\0", n["test"]["testValueString3"].AsString);
 
       // .NET MF seems to work internally with zero-terminated strings. As a result the test case fails.
@@ -100,8 +92,8 @@ namespace Liersch.Json.Tests
     public void TestReadWrite()
     {
       string s=RetrieveJsonExpression();
-      SLJsonNode n=ParseAny(s);
-      SLJsonMonitor m=n.CreateMonitor();
+      JsonNode n=ParseAny(s);
+      JsonMonitor m=n.CreateMonitor();
 
       // Try to read some properties
       Assert.AreEqual("Jane", n["person"]["firstName"].AsString);
@@ -129,25 +121,25 @@ namespace Liersch.Json.Tests
 
       // Try to add a new property
       int c=n["person"].Count;
-      Assert.AreEqual(SLJsonNodeType.Missing, n["person"]["newProperty"].NodeType);
+      Assert.AreEqual(JsonNodeType.Missing, n["person"]["newProperty"].NodeType);
       n["person"]["newProperty"].AsInt32=333;
       Assert.AreEqual(c+1, n["person"].Count);
-      Assert.AreEqual(SLJsonNodeType.Number, n["person"]["newProperty"].NodeType);
+      Assert.AreEqual(JsonNodeType.Number, n["person"]["newProperty"].NodeType);
       Assert.AreEqual("333", n["person"]["newProperty"].AsString);
 
       // Try to delete a property
       c=n["person"].Count;
-      Assert.AreEqual(SLJsonNodeType.String, n["person"]["lastName"].NodeType);
+      Assert.AreEqual(JsonNodeType.String, n["person"]["lastName"].NodeType);
       n["person"]["lastName"].Remove();
       Assert.AreEqual(c-1, n["person"].Count);
-      Assert.AreEqual(SLJsonNodeType.Missing, n["person"]["lastName"].NodeType);
+      Assert.AreEqual(JsonNodeType.Missing, n["person"]["lastName"].NodeType);
       Assert.IsNull(n["person"]["lastName"].AsString);
     }
 
     [TestMethod]
     public void TestCreateNew()
     {
-      var n=new SLJsonNode();
+      var n=new JsonNode();
       n["person"]["firstName"].AsString="John";
       n["person"]["lastName"].AsString="Doe";
       Assert.AreEqual(1, n.Count);
@@ -201,7 +193,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestOperatorsForNull()
     {
-      SLJsonNode n=null;
+      JsonNode n=null;
       Assert.IsFalse(n);
       Assert.IsTrue(n==0);
       Assert.IsTrue(n==0L);
@@ -212,7 +204,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestOperatorsForFalse()
     {
-      SLJsonNode n=false;
+      JsonNode n=false;
       Assert.IsFalse(n);
       Assert.IsTrue(n==0);
       Assert.IsTrue(n==0L);
@@ -223,7 +215,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestOperatorsForTrue()
     {
-      SLJsonNode n=true;
+      JsonNode n=true;
       Assert.IsTrue(n);
       Assert.IsTrue(n==1);
       Assert.IsTrue(n==1L);
@@ -234,7 +226,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestOperatorsForInteger()
     {
-      SLJsonNode n=123;
+      JsonNode n=123;
       Assert.IsTrue(n);
       Assert.IsTrue(n==123);
       Assert.IsTrue(n==123L);
@@ -245,7 +237,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestOperatorsForDouble()
     {
-      SLJsonNode n=123.456;
+      JsonNode n=123.456;
       Assert.IsTrue(n);
       Assert.IsTrue(n==123);
       Assert.IsTrue(n==123L);
@@ -256,7 +248,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestOperatorsForStringFalse()
     {
-      SLJsonNode n="false";
+      JsonNode n="false";
       Assert.IsFalse(n);
       Assert.IsTrue(n==0);
       Assert.IsTrue(n==0L);
@@ -267,7 +259,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestOperatorsForStringTrue()
     {
-      SLJsonNode n="true";
+      JsonNode n="true";
       Assert.IsTrue(n);
       Assert.IsTrue(n==1);
       Assert.IsTrue(n==1L);
@@ -278,7 +270,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestOperatorsForStringDouble()
     {
-      SLJsonNode n="123.456";
+      JsonNode n="123.456";
       Assert.IsTrue(n);
       Assert.IsTrue(n==123);
       Assert.IsTrue(n==123L);
@@ -290,7 +282,7 @@ namespace Liersch.Json.Tests
     public void TestOperatorsWithInt32Overflow()
     {
       long v=int.MaxValue+1L;
-      SLJsonNode n=v;
+      JsonNode n=v;
       Assert.IsTrue(n);
       Assert.IsTrue(n==0); // 0 because of overflow for int
       Assert.IsTrue(n==v);
@@ -302,7 +294,7 @@ namespace Liersch.Json.Tests
     public void TestOperatorsWithInt64Overflow()
     {
       double v=long.MaxValue+1.0;
-      SLJsonNode n=v;
+      JsonNode n=v;
       Assert.IsTrue(n);
       Assert.IsTrue(n==0); // 0 because of overflow for int
       Assert.IsTrue(n==0L); // 0 because of overflow for long
@@ -313,7 +305,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestOperators()
     {
-      var n=new SLJsonNode();
+      var n=new JsonNode();
 
       n["person"]["age"]=27;
       Assert.IsTrue(n["person"]["age"].IsNumber);
@@ -352,7 +344,7 @@ namespace Liersch.Json.Tests
       Assert.IsFalse(n["person"]["age"].IsString);
 
       n["person"]["other"]["property"]="test_1";
-      SLJsonNode o=n["person"]["other"]["property"];
+      JsonNode o=n["person"]["other"]["property"];
       Assert.IsTrue(o.IsString);
       Assert.AreEqual("test_1", o.AsString);
       o.AsString="test_2";
@@ -377,26 +369,26 @@ namespace Liersch.Json.Tests
     public void TestSerialization()
     {
       string s=RetrieveJsonExpression();
-      SLJsonNode n=ParseAny(s);
+      JsonNode n=ParseAny(s);
 
       n["newProperty"]["value"].AsInt32=27;
-      Assert.AreEqual(SLJsonNodeType.Number, n["newProperty"]["value"].NodeType);
+      Assert.AreEqual(JsonNodeType.Number, n["newProperty"]["value"].NodeType);
       Assert.AreEqual("27", n["newProperty"]["value"].AsJson);
       Assert.AreEqual("{\"value\":27}", RemoveWhitespace(n["newProperty"].AsJson));
 
       n["newProperty"]["value"][0].AsInt32=100;
       n["newProperty"]["value"][3].AsInt32=333;
-      Assert.AreEqual(SLJsonNodeType.Array, n["newProperty"]["value"].NodeType);
+      Assert.AreEqual(JsonNodeType.Array, n["newProperty"]["value"].NodeType);
       Assert.AreEqual("{\"value\":[100,null,null,333]}", n["newProperty"].AsJsonCompact);
 
       n["newProperty"]["value"].AsString="Text";
-      Assert.AreEqual(SLJsonNodeType.String, n["newProperty"]["value"].NodeType);
+      Assert.AreEqual(JsonNodeType.String, n["newProperty"]["value"].NodeType);
 
       n["newProperty"]["value"].AsString=null;
-      Assert.AreEqual(SLJsonNodeType.Null, n["newProperty"]["value"].NodeType);
+      Assert.AreEqual(JsonNodeType.Null, n["newProperty"]["value"].NodeType);
 
       Assert.IsTrue(n["newProperty"]["value"].Remove());
-      Assert.AreEqual(SLJsonNodeType.Missing, n["newProperty"]["value"].NodeType);
+      Assert.AreEqual(JsonNodeType.Missing, n["newProperty"]["value"].NodeType);
     }
 
     [TestMethod]
@@ -428,19 +420,19 @@ namespace Liersch.Json.Tests
     [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
     public void TestParseAndSerialize()
     {
-      ParseAndSerialize("{\"a\": 1, \"b\": 2}", SLJsonNodeType.Object);
-      ParseAndSerialize("[{\"a\":1, \"b\":2}, 3, 4]", SLJsonNodeType.Array);
-      ParseAndSerialize("null", SLJsonNodeType.Null);
-      ParseAndSerialize("false", SLJsonNodeType.Boolean);
-      ParseAndSerialize("true", SLJsonNodeType.Boolean);
-      ParseAndSerialize("1234", SLJsonNodeType.Number);
-      ParseAndSerialize("\"text\"", SLJsonNodeType.String);
+      ParseAndSerialize("{\"a\": 1, \"b\": 2}", JsonNodeType.Object);
+      ParseAndSerialize("[{\"a\":1, \"b\":2}, 3, 4]", JsonNodeType.Array);
+      ParseAndSerialize("null", JsonNodeType.Null);
+      ParseAndSerialize("false", JsonNodeType.Boolean);
+      ParseAndSerialize("true", JsonNodeType.Boolean);
+      ParseAndSerialize("1234", JsonNodeType.Number);
+      ParseAndSerialize("\"text\"", JsonNodeType.String);
     }
 
     [TestMethod]
     public void TestStandardParseForObject()
     {
-      var n=SLJsonNode.Parse("{\"value\": true}");
+      var n=JsonNode.Parse("{\"value\": true}");
       Assert.IsTrue(n.IsObject);
       Assert.IsTrue(n["value"].IsBoolean);
       Assert.IsTrue(n["value"].AsBoolean);
@@ -449,7 +441,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestStandardParseForArray()
     {
-      var n=SLJsonNode.Parse("[null, false, true, 16, 3.14159265359, \"test\"]");
+      var n=JsonNode.Parse("[null, false, true, 16, 3.14159265359, \"test\"]");
       Assert.IsTrue(n[0].IsNull);
       Assert.IsTrue(n[1].IsBoolean);
       Assert.IsTrue(n[2].IsBoolean);
@@ -462,7 +454,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestStandardParseForValue()
     {
-      var n=SLJsonNode.Parse("123.456");
+      var n=JsonNode.Parse("123.456");
       Assert.IsTrue(n.IsNumber);
       Assert.AreEqual(123, n.AsInt32);
     }
@@ -472,7 +464,7 @@ namespace Liersch.Json.Tests
     [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
     public void TestWriter()
     {
-      TestAsJsonCompact("null", new SLJsonNode());
+      TestAsJsonCompact("null", new JsonNode());
       TestAsJsonCompact("false", false);
       TestAsJsonCompact("true", true);
       TestAsJsonCompact("123", 123);
@@ -492,12 +484,12 @@ namespace Liersch.Json.Tests
       TestAsJsonCompact("\"\\\\\"", "\\");
     }
 
-    static void TestAsJsonCompact(string expected, SLJsonNode node) { Assert.AreEqual(expected, node.AsJsonCompact); }
+    static void TestAsJsonCompact(string expected, JsonNode node) { Assert.AreEqual(expected, node.AsJsonCompact); }
 
 
-    static SLJsonNode ParseAny(string jsonExpression)
+    static JsonNode ParseAny(string jsonExpression)
     {
-      var parser=new SLJsonParser();
+      var parser=new JsonParser();
       parser.AreSingleQuotesAllowed=true;
       parser.AreUnquotedNamesAllowed=true;
       return parser.ParseAny(jsonExpression);
@@ -510,15 +502,15 @@ namespace Liersch.Json.Tests
         ParseAny(jsonExpression);
         Assert.Fail();
       }
-      catch(SLJsonException e)
+      catch(JsonException e)
       {
         Assert.AreEqual(expectedErrorMessage, e.Message);
       }
     }
 
-    void ParseAndSerialize(string jsonExpression, SLJsonNodeType nodeType)
+    void ParseAndSerialize(string jsonExpression, JsonNodeType nodeType)
     {
-      if(nodeType!=SLJsonNodeType.Object)
+      if(nodeType!=JsonNodeType.Object)
         ParseAndSerialize(jsonExpression, true, nodeType);
       else
       {
@@ -527,9 +519,9 @@ namespace Liersch.Json.Tests
       }
     }
 
-    void ParseAndSerialize(string jsonExpression, bool allowArraysAndValues, SLJsonNodeType nodeType)
+    void ParseAndSerialize(string jsonExpression, bool allowArraysAndValues, JsonNodeType nodeType)
     {
-      SLJsonNode n=SLJsonParser.Parse(jsonExpression, allowArraysAndValues);
+      JsonNode n=JsonParser.Parse(jsonExpression, allowArraysAndValues);
       Assert.AreEqual(nodeType, n.NodeType);
 
       string s=RemoveWhitespace(jsonExpression);

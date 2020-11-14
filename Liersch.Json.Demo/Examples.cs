@@ -1,17 +1,9 @@
-﻿//----------------------------------------------------------------------------
-//
-// Copyright © 2013-2020 Dipl.-Ing. (BA) Steffen Liersch
-// All rights reserved.
-//
-// Steffen Liersch
-// Robert-Schumann-Straße 1
-// 08289 Schneeberg
-// Germany
-//
-// Phone: +49-3772-38 28 08
-// E-Mail: S.Liersch@gmx.de
-//
-//----------------------------------------------------------------------------
+﻿/*--------------------------------------------------------------------------*\
+::
+::  Copyright © 2013-2020 Steffen Liersch
+::  https://www.steffen-liersch.de/
+::
+\*--------------------------------------------------------------------------*/
 
 using System;
 
@@ -34,14 +26,14 @@ namespace Liersch.Json
         ]
       }";
 
-      var root=SLJsonNode.Parse(jsonExpression);
-      SLJsonNode book=root["addressBook"];
+      var root=JsonNode.Parse(jsonExpression);
+      JsonNode book=root["addressBook"];
       if(book.IsArray)
       {
         int c=book.Count;
         for(int i=0; i<c; i++)
         {
-          SLJsonNode entry=book[i];
+          JsonNode entry=book[i];
           string ln=entry["lastName"];
           string fn=entry["firstName"];
           Console.WriteLine(fn+" "+ln);
@@ -59,33 +51,33 @@ namespace Liersch.Json
       Console.WriteLine();
 
       string jsonExpression=RetrieveJsonExample();
-      PrintNode(SLJsonNode.Parse(jsonExpression), "demo = ", 0);
+      PrintNode(JsonNode.Parse(jsonExpression), "demo = ", 0);
       Console.WriteLine();
     }
 
-    static void PrintNode(SLJsonNode node, string prefix, int level)
+    static void PrintNode(JsonNode node, string prefix, int level)
     {
       Console.Write(new string(' ', level*2));
       Console.Write(prefix);
 
       switch(node.NodeType)
       {
-        case SLJsonNodeType.Array:
+        case JsonNodeType.Array:
           Console.WriteLine("(Array)");
           int c=node.Count;
           for(int i=0; i<c; i++)
             PrintNode(node[i], "["+i.ToString(/*CultureInfo.InvariantCulture*/)+"] = ", level+1);
           break;
 
-        case SLJsonNodeType.Object:
+        case JsonNodeType.Object:
           Console.WriteLine("(Object)");
           foreach(string name in node.Names)
             PrintNode(node[name], name+" = ", level+1);
           break;
 
-        case SLJsonNodeType.Boolean:
-        case SLJsonNodeType.Number:
-        case SLJsonNodeType.String:
+        case JsonNodeType.Boolean:
+        case JsonNodeType.Number:
+        case JsonNodeType.String:
           Console.WriteLine(node.AsString+" ("+node.NodeType.ToString()+")");
           break;
 
@@ -121,15 +113,15 @@ namespace Liersch.Json
       Console.WriteLine("=========");
       Console.WriteLine();
 
-      var root=new SLJsonNode();
+      var root=new JsonNode();
       root["addressBook"]=CreateAddressBook();
       Console.WriteLine(root.AsJson);
       Console.WriteLine();
     }
 
-    static SLJsonNode CreateAddressBook()
+    static JsonNode CreateAddressBook()
     {
-      var book=new SLJsonNode();
+      var book=new JsonNode();
 
       book[0]["LastName"]="Average";
       book[0]["firstName"]="Joe";
@@ -169,7 +161,7 @@ namespace Liersch.Json
       Console.WriteLine();
       //*/
 
-      var n=SLJsonNode.Parse(s);
+      var n=JsonNode.Parse(s);
       Console.WriteLine("n.AsJsonCompact          => "+n.AsJsonCompact);
       Console.WriteLine();
 

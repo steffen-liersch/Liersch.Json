@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - Additional constructor for SLJsonWriter
 - Additional overload for function BeginField of SLJsonWriter
+### Changed
+- Type name prefix removed
+- Reflection-based types moved to a new library
+- Project reorganized and simplified
+- From version 2 the project is licensed under LGPL-2.0.
 
 ## [1.0.2] - 2020-08-26
 ### Changed
