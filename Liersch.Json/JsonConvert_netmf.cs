@@ -9,7 +9,7 @@
 
 namespace Liersch.Json
 {
-  static class JsonConvert // For .NET MF only
+  public static class JsonConvert // For .NET MF only
   {
     public static string ToString(int value, string format) { return value.ToString(format); }
     public static string ToString(int value) { return value.ToString(); }

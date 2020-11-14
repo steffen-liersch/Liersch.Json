@@ -11,7 +11,7 @@ using System.Globalization;
 
 namespace Liersch.Json
 {
-  static class JsonConvert // For all platforms, but not .NET MF
+  public static class JsonConvert // For all platforms, but not .NET MF
   {
     public static string ToString(int value, string format) { return value.ToString(format, CultureInfo.InvariantCulture); }
     public static string ToString(int value) { return value.ToString(CultureInfo.InvariantCulture); }
