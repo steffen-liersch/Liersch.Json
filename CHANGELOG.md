@@ -6,13 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Added
-- Additional constructor for SLJsonWriter
-- Additional overload for function BeginField of SLJsonWriter
+- Additional constructor for JsonWriter
+- Additional overload for function BeginField of JsonWriter
+- JsonWriter.IsEscapingRequired
 ### Changed
 - Type name prefix removed
 - Reflection-based types moved to a new library
 - Project reorganized and simplified
 - From version 2 the project is licensed under LGPL-2.0.
+- JsonWriter.WriteQuoted optimized
 
 ## [1.0.2] - 2020-08-26
 ### Changed

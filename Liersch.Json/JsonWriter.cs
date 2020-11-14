@@ -78,7 +78,22 @@ namespace Liersch.Json
 
     public void WriteValueNull() { CheckVS(); m_Target.Append("null"); }
     public void WriteValue(bool value) { CheckVS(); m_Target.Append(value ? "true" : "false"); }
-    public void WriteValue(int value) { CheckVS(); m_Target.Append(value); }
+
+    public void WriteValue(int value)
+    {
+      CheckVS();
+
+      if(value<0)
+      {
+        m_Target.Append('-');
+        value=-value;
+      }
+
+      if(value>=0 && value<=9)
+        m_Target.Append((char)('0'+value));
+      else m_Target.Append(value);
+    }
+
     public void WriteValue(long value) { CheckVS(); m_Target.Append(value); }
     public void WriteValue(double value) { CheckVS(); m_Target.Append(JsonConvert.ToString(value)); }
     public void WriteValue(DateTime value) { CheckVS(); WriteDateTime(value); }
@@ -156,36 +171,91 @@ namespace Liersch.Json
         return;
       }
 
-      m_Target.Append('"');
       int len=value.Length;
+      if(len<=0)
+      {
+        m_Target.Append("\"\"");
+        return;
+      }
+
+      int start=0;
+      int c;
+
       for(int i = 0; i<len; i++)
       {
-        char c=value[i];
-        switch(c)
+        int v=value[i];
+        if(v<m_EscapeMap.Length)
         {
-          case '\b': m_Target.Append("\\b"); break; // Backspace      : \u0008
-          case '\t': m_Target.Append("\\t"); break; // Horizontal tab : \u0009
-          case '\n': m_Target.Append("\\n"); break; // Line feed      : \u000A
-          case '\f': m_Target.Append("\\f"); break; // Form feed      : \u000C
-          case '\r': m_Target.Append("\\r"); break; // Carriage return: \u000D
-          case '"': m_Target.Append("\\\""); break;
-          case '/': m_Target.Append("\\/"); break;
-          case '\\': m_Target.Append("\\\\"); break;
-          default:
-            if(!IsControl(c))
-              m_Target.Append(c);
-            else
-            {
-              m_Target.Append("\\u");
-              m_Target.Append(JsonConvert.ToString((int)c, "X4"));
-            }
-            break;
+          string alt=m_EscapeMap[v];
+          if(alt!=null)
+          {
+            if(start<=0)
+              m_Target.Append('"');
+            c=i-start;
+            if(c>0)
+              m_Target.Append(value, start, c);
+            m_Target.Append(alt);
+            start=i+1;
+          }
         }
       }
-      m_Target.Append('"');
+
+      if(start>0)
+      {
+        c=value.Length-start;
+        if(c>0)
+          m_Target.Append(value, start, c);
+        m_Target.Append('"');
+      }
+      else
+      {
+        m_Target.Append('"');
+        m_Target.Append(value);
+        m_Target.Append('"');
+      }
     }
 
-    static bool IsControl(char c) { return c>='\0' && c<' '; }
+
+    public static bool IsEscapingRequired(string value)
+    {
+      if(value!=null)
+      {
+        int c=value.Length;
+        for(int i = 0; i<c; i++)
+        {
+          int v=value[i];
+          if(v<m_EscapeMap.Length)
+          {
+            string alt=m_EscapeMap[v];
+            if(alt!=null)
+              return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    static string[] CreateEscapeMap()
+    {
+      string[] res=new string['\\'+1];
+
+      for(char c = '\0'; c<' '; c++)
+        res[c]="\\u"+JsonConvert.ToString(c, "X4");
+
+      res['\b']="\\b"; // Backspace      : \u0008
+      res['\t']="\\t"; // Horizontal tab : \u0009
+      res['\n']="\\n"; // Line feed      : \u000A
+      res['\f']="\\f"; // Form feed      : \u000C
+      res['\r']="\\r"; // Carriage return: \u000D
+      res['"']="\\\"";
+      res['/']="\\/";
+      res['\\']="\\\\";
+
+      return res;
+    }
+
+    static readonly string[] m_EscapeMap=CreateEscapeMap();
+
 
     readonly bool m_Indented;
     readonly StringBuilder m_Target;
