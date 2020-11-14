@@ -93,10 +93,7 @@ namespace Liersch.Json
 
         string field=tokenizer.Token;
 
-        tokenizer.ReadNext();
-        if(tokenizer.SpecialChar!=':')
-          throw new JsonException("Colon expected");
-
+        tokenizer.ReadColon();
         tokenizer.ReadNext();
 
         JsonNode value=ParseValue(tokenizer);

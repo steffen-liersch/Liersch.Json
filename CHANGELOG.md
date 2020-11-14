@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Additional constructor for JsonWriter
 - Additional overload for function BeginField of JsonWriter
 - JsonWriter.IsEscapingRequired
+- New functions in JsonTokenizer: ReadColon, ReadString, BeginReadArray, SkipValue, SkipValueBody, SkipObjectProperties and SkipArrayValues
 ### Changed
 - Type name prefix removed
 - Reflection-based types moved to a new library

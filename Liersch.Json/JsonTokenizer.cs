@@ -17,11 +17,11 @@ namespace Liersch.Json
     public int CurrentColumn { get { return m_PosInfo.CurrentColumn; } }
     public int CurrentRow { get { return m_PosInfo.CurrentRow; } }
 
-    public bool HasSpecialChar { get { return m_Token==null; } }
-    public char SpecialChar { get { return m_SpecialChar; } }
+    public bool HasSpecialChar { get { return Token==null; } }
+    public char SpecialChar { get; private set; }
 
-    public string Token { get { return m_Token; } }
-    public bool TokenIsString { get { return m_TokenIsString; } }
+    public string Token { get; private set; }
+    public bool TokenIsString { get; private set; }
 
 
     public JsonTokenizer(string jsonExpression)
@@ -35,17 +35,129 @@ namespace Liersch.Json
 
     public override string ToString() { return m_PosInfo.ToString(); }
 
+
     public void ReadNext()
     {
       if(!TryReadNext())
         throw new JsonException("Unexpected end of JSON");
     }
 
+    public void ReadColon()
+    {
+      ReadNext();
+      if(SpecialChar!=':')
+        throw new JsonException("Colon expected");
+    }
+
+    public void ReadString()
+    {
+      ReadNext();
+      if(!TokenIsString)
+        throw new JsonException("String expected");
+    }
+
+    public bool BeginReadArray()
+    {
+      ReadNext();
+      return !HasSpecialChar || SpecialChar!=']';
+    }
+
+    public void SkipValue()
+    {
+      ReadNext();
+      SkipValueBody();
+    }
+
+    public void SkipValueBody()
+    {
+      if(HasSpecialChar)
+      {
+        switch(SpecialChar)
+        {
+          case '{': SkipObjectProperties(); break;
+          case '[': SkipArrayValues(); break;
+          default: throw new JsonException("Unexpected token");
+        }
+      }
+    }
+
+    public void SkipObjectProperties()
+    {
+      ReadNext();
+
+      if(HasSpecialChar)
+      {
+        switch(SpecialChar)
+        {
+          case '}': return;
+          default: throw new JsonException("Unexpected token");
+        }
+      }
+
+      while(true)
+      {
+        if(!TokenIsString)
+          throw new JsonException("String expected");
+
+        ReadColon();
+        SkipValue();
+        ReadNext();
+
+        switch(SpecialChar)
+        {
+          case ',': ReadNext(); break;
+          case '}': return;
+          default: throw new JsonException("Unexpected token");
+        }
+      }
+    }
+
+    public void SkipArrayValues()
+    {
+      ReadNext();
+
+      bool canComma=false;
+      while(true)
+      {
+        if(!HasSpecialChar)
+          ReadNext();
+        else
+        {
+          switch(SpecialChar)
+          {
+            case ',':
+              if(!canComma)
+                throw new JsonException("Unexpected token");
+
+              SkipValue();
+              ReadNext();
+              break;
+
+            case '{':
+              SkipObjectProperties();
+              ReadNext();
+              break;
+
+            case '[':
+              SkipArrayValues();
+              ReadNext();
+              break;
+
+            case ']': return;
+            default: throw new JsonException("Unexpected token");
+          }
+        }
+
+        canComma=true;
+      }
+    }
+
+
     public bool TryReadNext()
     {
-      m_SpecialChar='\0';
-      m_Token=null;
-      m_TokenIsString=false;
+      SpecialChar='\0';
+      Token=null;
+      TokenIsString=false;
 
       // Skip whitespace
       char c;
@@ -72,13 +184,13 @@ namespace Liersch.Json
       // Special symbol?
       if(c_SpecialChars.IndexOf(c)>=0)
       {
-        m_SpecialChar=c;
+        SpecialChar=c;
         return true;
       }
 
       // Read string or token
       if(c=='"' || AreSingleQuotesEnabled && c=='\'')
-        ReadString(c);
+        ReadStringToken(c);
       else ReadToken();
       return true;
     }
@@ -91,7 +203,7 @@ namespace Liersch.Json
       {
         if(m_Index>=m_Length)
         {
-          m_Token=m_JsonExpression.Substring(startIndex);
+          Token=m_JsonExpression.Substring(startIndex);
           return; // End
         }
 
@@ -99,7 +211,7 @@ namespace Liersch.Json
 
         if(IsWhiteSpace(c) || c_SpecialChars.IndexOf(c)>=0)
         {
-          m_Token=m_JsonExpression.Substring(startIndex, m_Index-startIndex);
+          Token=m_JsonExpression.Substring(startIndex, m_Index-startIndex);
           return;
         }
 
@@ -108,7 +220,7 @@ namespace Liersch.Json
       }
     }
 
-    void ReadString(char quote)
+    void ReadStringToken(char quotation)
     {
       StringBuilder sb=null;
       int startIndex=m_Index;
@@ -120,16 +232,19 @@ namespace Liersch.Json
         char c=m_JsonExpression[m_Index++];
         m_PosWork.Update(c);
 
-        if(c==quote)
+        if(c==quotation)
         {
           if(sb!=null)
-            m_Token=sb.ToString();
+          {
+            Token=sb.ToString();
+            sb.Length=0;
+          }
           else
           {
             int len=m_Index-startIndex-1;
-            m_Token=len!=0 ? m_JsonExpression.Substring(startIndex, len) : string.Empty;
+            Token=len!=0 ? m_JsonExpression.Substring(startIndex, len) : string.Empty;
           }
-          m_TokenIsString=true;
+          TokenIsString=true;
           return;
         }
 
@@ -147,7 +262,6 @@ namespace Liersch.Json
             if(sb==null)
             {
               sb=m_Sb;
-              sb.Length=0;
               sb.Append(m_JsonExpression, startIndex, m_Index-startIndex-1);
             }
 
@@ -229,7 +343,7 @@ namespace Liersch.Json
       // Convert.ToInt32(m_JsonExpression.Substring(m_Index, length), numericBase) can't
       // be used here due to a ArgumentException is thrown in .NET MF if numericBase is 8.
       int z=0;
-      for(int i=length; i>0; i--)
+      for(int i = length; i>0; i--)
       {
         char c=m_JsonExpression[m_Index++];
 
@@ -311,12 +425,11 @@ namespace Liersch.Json
     const string c_SpecialChars="{}[]:,";
     readonly string m_JsonExpression;
     readonly int m_Length;
+
     int m_Index;
-    Position m_PosWork;
+    Position m_PosWork=default(Position);
     Position m_PosInfo;
-    char m_SpecialChar;
-    string m_Token;
-    bool m_TokenIsString;
-    StringBuilder m_Sb=new StringBuilder();
+
+    readonly StringBuilder m_Sb=new StringBuilder();
   }
 }
