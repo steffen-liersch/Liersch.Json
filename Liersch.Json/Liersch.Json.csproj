@@ -4,6 +4,7 @@
     <TargetFrameworks>net40;net45;net47;net48;netcoreapp1.0;netcoreapp1.1;netcoreapp2.0;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1;netstandard1.0</TargetFrameworks>
     <LangVersion>3</LangVersion>
     <NoWarn>1591</NoWarn>
+    <NoWarn Condition="'$(TargetFramework)'=='netcoreapp1.0' OR '$(TargetFramework)'=='netcoreapp1.1'">1591, 1701</NoWarn>
     <NeutralLanguage>en</NeutralLanguage>
     <RootNamespace>Liersch.Json</RootNamespace>
     <AssemblyName>Liersch.Json</AssemblyName>
