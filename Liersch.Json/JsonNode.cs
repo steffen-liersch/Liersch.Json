@@ -12,7 +12,7 @@ namespace Liersch.Json
 {
   public sealed partial class JsonNode
   {
-    public static JsonNode Parse(string jsonExpression) { return JsonParser.Parse(jsonExpression, true); }
+    public static JsonNode Parse(string json) { return JsonParser.Parse(json, true); }
 
 
     public int Count

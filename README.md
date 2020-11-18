@@ -2,7 +2,7 @@
 
 # Liersch.Json - JSON Support for .NET
 
-**Version 2.x is currently being developed on this branch.**
+**Version 2.x is currently being developed on [this branch](https://github.com/steffen-liersch/Liersch.Json/tree/dev).**
 
 Liersch.Json is a small .NET library for parsing and generating JSON documents. The library is written in C# 3.0 supporting the following .NET platforms:
 
@@ -18,9 +18,9 @@ The file size of the compiled library is only ≈25 kB.  All major changes are l
 
 The easiest and the fastest way to integrate the library into a project is to use the [Liersch.Json package published on NuGet](https://www.nuget.org/packages/Liersch.Json). For older projects (before .NET 4.0) the library has to be compiled and integrated manually. In order to compile the project for the outdated .NET Micro Framework, the compiler symbol `NETMF` must be defined in addition.
 
-## Migration from 1.0.x
+## Migration from 1.x
 
-- The type name prefix `SL` used in version 1.0.x has been removed.
+- The type name prefix `SL` used in version 1.x has been removed.
 - Reflection-based classes have been moved to a new library.
 
 ## Parsing
@@ -32,7 +32,7 @@ For less restrictive parsing an instance of `JsonParser` must be created. There 
 ```cs
 public static void RunExample1()
 {
-  string jsonExpression=@"
+  string json=@"
   {
     ""addressBook"": [
       {""lastName"": ""Average"", ""firstName"": ""Joe""},
@@ -41,7 +41,7 @@ public static void RunExample1()
     ]
   }";
 
-  var root=JsonNode.Parse(jsonExpression);
+  var root=JsonNode.Parse(json);
   JsonNode book=root["addressBook"];
   if(book.IsArray)
   {
@@ -64,8 +64,8 @@ The parser result is an instance of `JsonNode`. It can be used to process the pa
 ```cs
 public static void RunExample2()
 {
-  string jsonExpression=RetrieveJsonExample();
-  PrintNode(JsonNode.Parse(jsonExpression), "demo = ", 0);
+  string json=RetrieveJsonExample();
+  PrintNode(JsonNode.Parse(json), "demo = ", 0);
 }
 
 static void PrintNode(JsonNode node, string prefix, int level)

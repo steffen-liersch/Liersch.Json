@@ -17,7 +17,7 @@ namespace Liersch.Json
       Console.WriteLine("=========");
       Console.WriteLine();
 
-      string jsonExpression=@"
+      string json=@"
       {
         ""addressBook"": [
           {""lastName"": ""Average"", ""firstName"": ""Joe""},
@@ -26,7 +26,7 @@ namespace Liersch.Json
         ]
       }";
 
-      var root=JsonNode.Parse(jsonExpression);
+      var root=JsonNode.Parse(json);
       JsonNode book=root["addressBook"];
       if(book.IsArray)
       {
@@ -50,8 +50,8 @@ namespace Liersch.Json
       Console.WriteLine("=========");
       Console.WriteLine();
 
-      string jsonExpression=RetrieveJsonExample();
-      PrintNode(JsonNode.Parse(jsonExpression), "demo = ", 0);
+      string json=RetrieveJsonExample();
+      PrintNode(JsonNode.Parse(json), "demo = ", 0);
       Console.WriteLine();
     }
 

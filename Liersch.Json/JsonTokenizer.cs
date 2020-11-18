@@ -24,13 +24,13 @@ namespace Liersch.Json
     public bool TokenIsString { get; private set; }
 
 
-    public JsonTokenizer(string jsonExpression)
+    public JsonTokenizer(string json)
     {
-      if(jsonExpression==null)
-        throw new ArgumentNullException("jsonExpression");
+      if(json==null)
+        throw new ArgumentNullException("json");
 
-      m_JsonExpression=jsonExpression;
-      m_Length=jsonExpression.Length;
+      m_Json=json;
+      m_Length=json.Length;
     }
 
     public override string ToString() { return m_PosInfo.ToString(); }
@@ -169,7 +169,7 @@ namespace Liersch.Json
           return false; // End
         }
 
-        c=m_JsonExpression[m_Index++];
+        c=m_Json[m_Index++];
 
         if(!IsWhiteSpace(c))
         {
@@ -203,15 +203,15 @@ namespace Liersch.Json
       {
         if(m_Index>=m_Length)
         {
-          Token=m_JsonExpression.Substring(startIndex);
+          Token=m_Json.Substring(startIndex);
           return; // End
         }
 
-        char c=m_JsonExpression[m_Index];
+        char c=m_Json[m_Index];
 
         if(IsWhiteSpace(c) || c_SpecialChars.IndexOf(c)>=0)
         {
-          Token=m_JsonExpression.Substring(startIndex, m_Index-startIndex);
+          Token=m_Json.Substring(startIndex, m_Index-startIndex);
           return;
         }
 
@@ -229,7 +229,7 @@ namespace Liersch.Json
         if(m_Index>=m_Length)
           throw new JsonException("Unterminated string expression");
 
-        char c=m_JsonExpression[m_Index++];
+        char c=m_Json[m_Index++];
         m_PosWork.Update(c);
 
         if(c==quotation)
@@ -242,7 +242,7 @@ namespace Liersch.Json
           else
           {
             int len=m_Index-startIndex-1;
-            Token=len!=0 ? m_JsonExpression.Substring(startIndex, len) : string.Empty;
+            Token=len!=0 ? m_Json.Substring(startIndex, len) : string.Empty;
           }
           TokenIsString=true;
           return;
@@ -262,7 +262,7 @@ namespace Liersch.Json
             if(sb==null)
             {
               sb=m_Sb;
-              sb.Append(m_JsonExpression, startIndex, m_Index-startIndex-1);
+              sb.Append(m_Json, startIndex, m_Index-startIndex-1);
             }
 
             AppendEscapeSequence();
@@ -273,7 +273,7 @@ namespace Liersch.Json
 
     void AppendEscapeSequence()
     {
-      char c=m_JsonExpression[m_Index];
+      char c=m_Json[m_Index];
 
       if(IsOctalDigit(c))
       {
@@ -318,7 +318,7 @@ namespace Liersch.Json
       int len=1;
       while(m_Index+len<m_Length && len<3)
       {
-        char c=m_JsonExpression[m_Index+len];
+        char c=m_Json[m_Index+len];
         if(!IsOctalDigit(c))
           break;
         len++;
@@ -340,12 +340,12 @@ namespace Liersch.Json
 
     void AppendFromAny(int numericBase, int length, int startIndex)
     {
-      // Convert.ToInt32(m_JsonExpression.Substring(m_Index, length), numericBase) can't
+      // Convert.ToInt32(m_Json.Substring(m_Index, length), numericBase) can't
       // be used here due to a ArgumentException is thrown in .NET MF if numericBase is 8.
       int z=0;
       for(int i = length; i>0; i--)
       {
-        char c=m_JsonExpression[m_Index++];
+        char c=m_Json[m_Index++];
 
         int v;
         if(c>='0' && c<='9')
@@ -359,7 +359,7 @@ namespace Liersch.Json
         if(v<0 || v>=numericBase)
         {
           m_PosInfo=m_PosWork;
-          throw new JsonException("Invalid escape sequence: "+m_JsonExpression.Substring(startIndex, m_Index-startIndex));
+          throw new JsonException("Invalid escape sequence: "+m_Json.Substring(startIndex, m_Index-startIndex));
         }
 
         m_PosWork.Update(c);
@@ -423,7 +423,7 @@ namespace Liersch.Json
 
 
     const string c_SpecialChars="{}[]:,";
-    readonly string m_JsonExpression;
+    readonly string m_Json;
     readonly int m_Length;
 
     int m_Index;

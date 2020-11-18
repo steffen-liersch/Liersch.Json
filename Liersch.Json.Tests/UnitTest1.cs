@@ -19,7 +19,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestReadOnly()
     {
-      string s=RetrieveJsonExpression();
+      string s=RetrieveJsonExample();
       JsonNode n=ParseAny(s);
 
       Assert.AreEqual("Jane", n["person"]["firstName"].AsString);
@@ -91,7 +91,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestReadWrite()
     {
-      string s=RetrieveJsonExpression();
+      string s=RetrieveJsonExample();
       JsonNode n=ParseAny(s);
       JsonMonitor m=n.CreateMonitor();
 
@@ -368,7 +368,7 @@ namespace Liersch.Json.Tests
     [TestMethod]
     public void TestSerialization()
     {
-      string s=RetrieveJsonExpression();
+      string s=RetrieveJsonExample();
       JsonNode n=ParseAny(s);
 
       n["newProperty"]["value"].AsInt32=27;
@@ -487,19 +487,19 @@ namespace Liersch.Json.Tests
     static void TestAsJsonCompact(string expected, JsonNode node) { Assert.AreEqual(expected, node.AsJsonCompact); }
 
 
-    static JsonNode ParseAny(string jsonExpression)
+    static JsonNode ParseAny(string json)
     {
       var parser=new JsonParser();
       parser.AreSingleQuotesAllowed=true;
       parser.AreUnquotedNamesAllowed=true;
-      return parser.ParseAny(jsonExpression);
+      return parser.ParseAny(json);
     }
 
-    void ParseInvalid(string jsonExpression, string expectedErrorMessage)
+    void ParseInvalid(string json, string expectedErrorMessage)
     {
       try
       {
-        ParseAny(jsonExpression);
+        ParseAny(json);
         Assert.Fail();
       }
       catch(JsonException e)
@@ -508,23 +508,23 @@ namespace Liersch.Json.Tests
       }
     }
 
-    void ParseAndSerialize(string jsonExpression, JsonNodeType nodeType)
+    void ParseAndSerialize(string json, JsonNodeType nodeType)
     {
       if(nodeType!=JsonNodeType.Object)
-        ParseAndSerialize(jsonExpression, true, nodeType);
+        ParseAndSerialize(json, true, nodeType);
       else
       {
-        ParseAndSerialize(jsonExpression, false, nodeType);
-        ParseAndSerialize(jsonExpression, true, nodeType);
+        ParseAndSerialize(json, false, nodeType);
+        ParseAndSerialize(json, true, nodeType);
       }
     }
 
-    void ParseAndSerialize(string jsonExpression, bool allowArraysAndValues, JsonNodeType nodeType)
+    void ParseAndSerialize(string json, bool allowArraysAndValues, JsonNodeType nodeType)
     {
-      JsonNode n=JsonParser.Parse(jsonExpression, allowArraysAndValues);
+      JsonNode n=JsonParser.Parse(json, allowArraysAndValues);
       Assert.AreEqual(nodeType, n.NodeType);
 
-      string s=RemoveWhitespace(jsonExpression);
+      string s=RemoveWhitespace(json);
       Assert.AreEqual(s, n.AsJsonCompact);
     }
 
@@ -545,7 +545,7 @@ namespace Liersch.Json.Tests
       return sb.ToString();
     }
 
-    static string RetrieveJsonExpression()
+    static string RetrieveJsonExample()
     {
       return @"
       {

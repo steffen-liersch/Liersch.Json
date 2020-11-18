@@ -16,25 +16,25 @@ namespace Liersch.Json
     public bool IsNumericCheckDisabled { get; set; }
 
 
-    public static JsonNode Parse(string jsonExpression)
+    public static JsonNode Parse(string json)
     {
-      return m_Parser.ParseObject(jsonExpression);
+      return m_Parser.ParseObject(json);
     }
 
-    public static JsonNode Parse(string jsonExpression, bool allowArraysAndValues)
+    public static JsonNode Parse(string json, bool allowArraysAndValues)
     {
-      return allowArraysAndValues ? m_Parser.ParseAny(jsonExpression) : m_Parser.ParseObject(jsonExpression);
+      return allowArraysAndValues ? m_Parser.ParseAny(json) : m_Parser.ParseObject(json);
     }
 
 
-    public JsonNode ParseAny(string jsonExpression) { return ParseRoot(jsonExpression, true); }
+    public JsonNode ParseAny(string json) { return ParseRoot(json, true); }
 
-    public JsonNode ParseObject(string jsonExpression) { return ParseRoot(jsonExpression, false); }
+    public JsonNode ParseObject(string json) { return ParseRoot(json, false); }
 
 
-    JsonNode ParseRoot(string jsonExpression, bool allowArraysAndValues)
+    JsonNode ParseRoot(string json, bool allowArraysAndValues)
     {
-      var tokenizer=new JsonTokenizer(jsonExpression);
+      var tokenizer=new JsonTokenizer(json);
       tokenizer.AreSingleQuotesEnabled=AreSingleQuotesAllowed;
       try
       {

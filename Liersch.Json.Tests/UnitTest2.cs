@@ -146,12 +146,12 @@ namespace Liersch.Json.Tests
       Assert.AreEqual(valueString, n.AsString);
     }
 
-    static JsonNode ParseObject(string jsonExpression)
+    static JsonNode ParseObject(string json)
     {
       var parser=new JsonParser();
       parser.AreSingleQuotesAllowed=true;
       parser.AreUnquotedNamesAllowed=true;
-      return parser.ParseObject(jsonExpression);
+      return parser.ParseObject(json);
     }
   }
 }
