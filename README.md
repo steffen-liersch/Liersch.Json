@@ -4,30 +4,30 @@
 
 **Version 2.x is currently being developed on [this branch](https://github.com/steffen-liersch/Liersch.Json/tree/dev).**
 
-Liersch.Json is a small .NET library for parsing and generating JSON documents. The library is written in C# 3.0 supporting the following .NET platforms:
+`Liersch.Json` is a small .NET library for parsing and generating JSON documents. The library is written in C# 3.0 supporting the following .NET platforms:
 
 - from .NET Framework 2.0
 - from .NET Core 1.0
 - from .NET Standard 1.0
-- .NET Micro Framework 4.4
 - Mono
+- .NET Micro Framework 4.4
 
 The file size of the compiled library is only ≈25 kB.  All major changes are logged in the [CHANGELOG.md](https://github.com/steffen-liersch/Liersch.Json/blob/dev/CHANGELOG.md) file.
 
 ## Getting Started
 
-The easiest and the fastest way to integrate the library into a project is to use the [Liersch.Json package published on NuGet](https://www.nuget.org/packages/Liersch.Json). For older projects (before .NET 4.0) the library has to be compiled and integrated manually. In order to compile the project for the outdated .NET Micro Framework, the compiler symbol `NETMF` must be defined in addition.
+The easiest and the fastest way to integrate the library into a project is to use the [Liersch.Json package published on NuGet](https://www.nuget.org/packages/Liersch.Json). For older projects (before .NET Framework 4.0) the library has to be compiled and integrated manually. In order to compile the project for the outdated .NET Micro Framework, the compiler symbol `NETMF` must be defined in addition.
 
-## Migration from 1.x
+## Migration from Version 1.x
 
-- The type name prefix `SL` used in version 1.x has been removed.
+- The type name prefix `SL` used in version 1.x has been removed in version 2.x.
 - Reflection-based classes have been moved to a new library.
 
-## Parsing
+## Parsing JSON Documents
 
 The static function `JsonNode.Parse` should be used to parse JSON document in restrictive mode. The input document should be formatted correctly. Otherwise a `JsonException` is thrown.
 
-For less restrictive parsing an instance of `JsonParser` must be created. There are different properties to configure the parsing mode. In JSON strings must be delimited by double-quotation marks. The parser also accepts single-quotation marks if property AreSingleQuotesAllowed is true.
+For less restrictive parsing an instance of `JsonParser` must be created. There are different properties to configure the parsing mode. In JSON documents, strings must be delimited by double-quotation marks. The parser also accepts single-quotation marks if property `AreSingleQuotesAllowed` is `true`.
 
 ```cs
 public static void RunExample1()
@@ -57,7 +57,7 @@ public static void RunExample1()
 }
 ```
 
-## JsonNode
+## JsonNode Class
 
 The parser result is an instance of `JsonNode`. It can be used to process the parsed JSON document. `JsonNode` implements `IEnumerable` to enumerate all sub nodes for arrays and objects. In addition there is the property `Names` that can be used for objects to enumerate all property names.
 
@@ -130,15 +130,13 @@ static JsonNode CreateAddressBook()
 }
 ```
 
-## JsonMonitor
+## JsonMonitor Class
 
 The `JsonNode.CreateMonitor` function can be used to create an instance of class `JsonMonitor`. It's only allowed for root nodes and it must not be called several times.
 
-`JsonMonitor.IsModified` is set to true on any change. `JsonMonitor.IsReadOnly` can be used to disallow changing any node.
+`JsonMonitor.IsModified` is set to `true` on any change. `JsonMonitor.IsReadOnly` can be used to disallow changing any node. If passing root nodes to external code, this property can be used to avoid unexpected side effects.
 
-If passing root nodes to external code, `CreateMonitor` should be used before. Otherwise the external code could cause unexpected side effects.
-
-## JsonWriter
+## JsonWriter Class
 
 The writer class `JsonWriter` has a very small footprint. It has a good performance, but no checks for incorrect use.
 
