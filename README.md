@@ -21,7 +21,7 @@ The easiest and the fastest way to integrate the library into a project is to us
 ## Migration from Version 1.x
 
 - The type name prefix `SL` used in version 1.x has been removed in version 2.x.
-- The reflection-based classes have been moved to a new [Liersch.JsonSerialization](https://github.com/steffen-liersch/Liersch.JsonSerialization) library.
+- The reflection-based classes have been moved to the new [Liersch.JsonSerialization](https://github.com/steffen-liersch/Liersch.JsonSerialization) library.
 
 ## Parsing JSON Documents
 
