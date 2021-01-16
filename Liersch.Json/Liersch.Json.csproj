@@ -19,7 +19,7 @@
     <Product>Liersch.Json</Product>
     <Description>.NET library for parsing and generating JSON documents</Description>
     <VersionPrefix>2.0.0</VersionPrefix>
-    <VersionSuffix>beta</VersionSuffix>
+    <VersionSuffix></VersionSuffix>
     <PackageTags>c# json iot mqtt netmf parser formatter serialization serializer</PackageTags>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

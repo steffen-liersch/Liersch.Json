@@ -2,8 +2,6 @@
 
 # Liersch.Json - JSON Support for .NET
 
-**Version 2.x is currently being developed on [this branch](https://github.com/steffen-liersch/Liersch.Json/tree/dev).**
-
 `Liersch.Json` is a small .NET library for parsing and generating JSON documents. The library is written in C# 3.0 supporting the following .NET platforms:
 
 - from .NET Framework 2.0
