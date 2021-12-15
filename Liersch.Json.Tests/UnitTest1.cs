@@ -1,6 +1,6 @@
 ﻿/*--------------------------------------------------------------------------*\
 ::
-::  Copyright © 2013-2020 Steffen Liersch
+::  Copyright © 2013-2021 Steffen Liersch
 ::  https://www.steffen-liersch.de/
 ::
 \*--------------------------------------------------------------------------*/
@@ -462,13 +462,15 @@ namespace Liersch.Json.Tests
 
     [TestMethod]
     [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
-    public void TestWriter()
+    public void AsJsonCompact()
     {
       TestAsJsonCompact("null", new JsonNode());
       TestAsJsonCompact("false", false);
       TestAsJsonCompact("true", true);
       TestAsJsonCompact("123", 123);
       TestAsJsonCompact("123.456", 123.456);
+      TestAsJsonCompact(int.MaxValue.ToString(CultureInfo.InvariantCulture), int.MaxValue);
+      TestAsJsonCompact(int.MinValue.ToString(CultureInfo.InvariantCulture), int.MinValue);
 
       TestAsJsonCompact("\"ABC\"", "ABC");
       TestAsJsonCompact("\"A\"", "A");
@@ -485,6 +487,23 @@ namespace Liersch.Json.Tests
     }
 
     static void TestAsJsonCompact(string expected, JsonNode node) { Assert.AreEqual(expected, node.AsJsonCompact); }
+
+
+    [TestMethod]
+    public void TestJsonWriter()
+    {
+      var wr=new JsonWriter();
+      wr.WriteValue(-7);
+      Assert.AreEqual("-7", wr.ToString());
+
+      wr=new JsonWriter();
+      wr.WriteValue(int.MaxValue);
+      Assert.AreEqual(int.MaxValue.ToString(CultureInfo.InvariantCulture), wr.ToString());
+
+      wr=new JsonWriter();
+      wr.WriteValue(int.MinValue);
+      Assert.AreEqual(int.MinValue.ToString(CultureInfo.InvariantCulture), wr.ToString());
+    }
 
 
     static JsonNode ParseAny(string json)

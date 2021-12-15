@@ -1,6 +1,6 @@
 ﻿/*--------------------------------------------------------------------------*\
 ::
-::  Copyright © 2013-2020 Steffen Liersch
+::  Copyright © 2013-2021 Steffen Liersch
 ::  https://www.steffen-liersch.de/
 ::
 \*--------------------------------------------------------------------------*/
@@ -82,12 +82,6 @@ namespace Liersch.Json
     public void WriteValue(int value)
     {
       CheckVS();
-
-      if(value<0)
-      {
-        m_Target.Append('-');
-        value=-value;
-      }
 
       if(value>=0 && value<=9)
         m_Target.Append((char)('0'+value));

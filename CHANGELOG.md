@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Fixed
+- Fix overflow exception in JsonWriter.WriteValue(int) in the case of int.MinValue
+
 ## [2.0.0] - 2021-01-16
 ### Added
 - Additional constructor for JsonWriter
