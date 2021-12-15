@@ -392,7 +392,6 @@ namespace Liersch.Json.Tests
     }
 
     [TestMethod]
-    [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
     public void TestParseInvalid()
     {
       ParseInvalid("\n'abc def", "Syntax error in JSON expression at row 2 in column 1: Unterminated string expression");
@@ -417,7 +416,6 @@ namespace Liersch.Json.Tests
     }
 
     [TestMethod]
-    [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
     public void TestParseAndSerialize()
     {
       ParseAndSerialize("{\"a\": 1, \"b\": 2}", JsonNodeType.Object);
@@ -461,7 +459,6 @@ namespace Liersch.Json.Tests
 
 
     [TestMethod]
-    [SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Called function has assertions")]
     public void AsJsonCompact()
     {
       TestAsJsonCompact("null", new JsonNode());
