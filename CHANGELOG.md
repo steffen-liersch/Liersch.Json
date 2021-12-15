@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [2.0.1] - 2021-12-15
 ### Fixed
-- Fix overflow exception in JsonWriter.WriteValue(int) in the case of int.MinValue
+- Overflow exception in JsonWriter.WriteValue(int) in the case of int.MinValue
 
 ## [2.0.0] - 2021-01-16
 ### Added
@@ -69,7 +69,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - NullReferenceException in SLJsonDeserializer and SLJsonSerializer on missing getter or setter
 - NullReferenceException in implicit type conversion on null value
 
-[Unreleased]: https://github.com/steffen-liersch/Liersch.Json/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/steffen-liersch/Liersch.Json/compare/v2.0.1...HEAD
+[2.0.1]:      https://github.com/steffen-liersch/Liersch.Json/compare/v2.0.0...v2.0.1
 [2.0.0]:      https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.2...v2.0.0
 [1.0.2]:      https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.1...v1.0.2
 [1.0.1]:      https://github.com/steffen-liersch/Liersch.Json/compare/v1.0.0...v1.0.1
