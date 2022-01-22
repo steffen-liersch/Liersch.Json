@@ -10,7 +10,7 @@
 - Mono
 - .NET Micro Framework 4.4
 
-The file size of the compiled library is only ≈25 kB.  All major changes are logged in the [CHANGELOG.md](https://github.com/steffen-liersch/Liersch.Json/blob/dev/CHANGELOG.md) file.
+The file size of the compiled library is only ≈25 kB.  All major changes are logged in the [CHANGELOG.md](https://github.com/steffen-liersch/Liersch.Json/blob/master/CHANGELOG.md) file.
 
 ## Getting Started
 
