@@ -1,6 +1,6 @@
 ﻿/*--------------------------------------------------------------------------*\
 ::
-::  Copyright © 2013-2021 Steffen Liersch
+::  Copyright © 2013-2023 Steffen Liersch
 ::  https://www.steffen-liersch.de/
 ::
 \*--------------------------------------------------------------------------*/
@@ -231,6 +231,15 @@ namespace Liersch.Json
 
     static string[] CreateEscapeMap()
     {
+      /*
+        A string is a sequence of Unicode code points wrapped with quotation marks (U+0022).
+        All code points may be placed within the quotation marks except for the code points
+        that must be escaped: quotation mark (U+0022), reverse solidus (U+005C),
+        and the control characters U+0000 to U+001F.
+
+        https://www.ecma-international.org/wp-content/uploads/ECMA-404_2nd_edition_december_2017.pdf
+      */
+
       string[] res=new string['\\'+1];
 
       for(char c = '\0'; c<' '; c++)
@@ -242,7 +251,7 @@ namespace Liersch.Json
       res['\f']="\\f"; // Form feed      : \u000C
       res['\r']="\\r"; // Carriage return: \u000D
       res['"']="\\\"";
-      res['/']="\\/";
+      //res['/']="\\/";
       res['\\']="\\\\";
 
       return res;

@@ -1,12 +1,11 @@
 ﻿/*--------------------------------------------------------------------------*\
 ::
-::  Copyright © 2013-2021 Steffen Liersch
+::  Copyright © 2013-2023 Steffen Liersch
 ::  https://www.steffen-liersch.de/
 ::
 \*--------------------------------------------------------------------------*/
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -479,7 +478,7 @@ namespace Liersch.Json.Tests
       TestAsJsonCompact("\"\\f\"", "\f");
       TestAsJsonCompact("\"\\r\"", "\r");
       TestAsJsonCompact("\"\\\"\"", "\"");
-      TestAsJsonCompact("\"\\/\"", "/");
+      TestAsJsonCompact("\"/\"", "/");
       TestAsJsonCompact("\"\\\\\"", "\\");
     }
 

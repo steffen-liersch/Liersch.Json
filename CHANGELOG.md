@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Fixed
+- JsonWriter: Remove unnecessary escape sequence for slash
+
 ## [2.0.1] - 2021-12-15
 ### Fixed
 - Overflow exception in JsonWriter.WriteValue(int) in the case of int.MinValue
